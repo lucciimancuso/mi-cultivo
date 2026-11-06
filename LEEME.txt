@@ -1,0 +1,79 @@
+MI CULTIVO - app de escritorio
+
+Instalar (recomendado): doble clic en Instalar.bat. Arma el instalador y lo abre.
+Queda un acceso directo en el escritorio y en el menu Inicio.
+Probar sin instalar: doble clic en "Abrir sin instalar.bat".
+
+Windows puede mostrar un aviso azul ("Windows protegio su PC") porque la app
+no esta firmada digitalmente. Es normal en apps propias: toca "Mas informacion"
+y despues "Ejecutar de todas formas".
+
+Tus datos (plantas, riegos, fotos) se guardan en tu compu:
+  %APPDATA%\Mi Cultivo
+Al desinstalar NO se borran. Para pasarlos a otra compu usa
+Ajustes > Copia de seguridad (incluye las fotos).
+
+Copia automatica: una vez por dia se guarda como estaba tu informacion en
+  %APPDATA%\Mi Cultivo\copias
+y quedan las ultimas 7. No incluye las fotos, que estan en la carpeta "fotos".
+Para volver a una copia: Ajustes > Restaurar copia.
+
+PIN (opcional): Ajustes > Bloqueo con PIN. Es un candado simple para que nadie
+abra la app por curiosidad. NO cifra los archivos: quien use tu usuario de
+Windows puede verlos en la carpeta de datos. Si te olvidas el PIN, borra el
+archivo config.json de la carpeta de datos (%APPDATA%\Mi Cultivo).
+
+Atajos: Ctrl+K abre el buscador (secciones, plantas, acciones). Los numeros 1 a 9 saltan entre secciones. F11 pantalla completa. En el visor de fotos: flechas y Esc.
+
+Invernadero: es una nave de cultivo rectangular como las de produccion reales: 3 hileras largas de mesas blancas con 3 macetas cada una (9 estaciones), redes amarillas, barras de luz violeta y techo de vidrio. Cada planta tiene su estacion numerada y su maceta. Click en una maceta o en el panel para ver la ficha completa (agua que tiene y que necesita, riego, fechas, genetica, sustrato, fertilizante, bitacora). Para borrar una planta: ficha > Acciones > Eliminar planta.
+
+Buscar en internet: en Nueva planta, si tu semilla, fertilizante o sustrato no esta en la lista, escribi el nombre y apreta "Buscar en internet". Usa la IA gratis (Gemini) del grupo: hace falta entrar con tu cuenta (ver LEEME-CELU-Y-AMIGOS.md). Lo que se encuentra se guarda en la app. Sin cuenta podes abrir la busqueda en Google.
+
+Varios invernaderos: en Invernadero, arriba a la izquierda, estan los numeros de cada uno y el boton + para sumar otro. Cada invernadero tiene 9 estaciones (macetas). "Agregar maceta" te lleva a Nueva planta con ese invernadero elegido. Un invernadero vacio se puede quitar.
+
+Invernadero (actualizado): al entrar ves los invernaderos de afuera, centrados, con su numero arriba y el boton "+ Agregar invernadero" al lado. Toca uno (o el numero arriba a la izquierda) para meterte; adentro estan las 9 estaciones. "Salir" (o Esc) vuelve a la vista de afuera y los numeros del panel te dejan pasar a otro invernadero.
+
+Diseno nuevo (afuera): dia pleno con sol, cielo con nubes, pasto y colinas. Alrededor hay plantaciones de cannabis al aire libre (parcelas con hileras, tuneles de plastico), un granero rojo, una torre de agua, una camioneta, un contenedor, tambores, palets y fardos. Cada invernadero es de vidrio con marco oscuro, base de ladrillo, ventanas laterales y de techo abiertas, marquesina, canteros con flores, extractor y tanque. Todos son iguales y traen 2 patovas de seguridad (uno a cada lado de la puerta, decorativos) y un dealer fumando un porro apoyado en la pared de atras con una bolsita ziploc. Arriba de cada uno hay un cartel con su numero y cuantas macetas tiene: tocalo (o el lapiz del panel, o el cartel de la pared de adentro) para ponerle el nombre o numero que quieras (hasta 14 letras). El boton + de la derecha (fijo) suma un invernadero nuevo.
+
+Recorrido (adentro): al entrar al invernadero ves solo el interior, parado en la puerta sobre el eje de la hilera del medio, mirando hacia el fondo con las 3 filas de plantas. Las flechas de los costados (o las teclas flecha / A y D) van planta por planta desde los pasillos y cada una se ve de frente; despues de la ultima vuelve a la vista de la entrada. Arrastra con el mouse para mirar alrededor y la rueda acerca. El boton "Ver desde afuera" (barra de abajo) muestra el invernadero entero desde afuera, con el entorno, los patovas y el dealer, con "Girar solo" y "Centrar"; esa vista solo aparece si la activas, y "Volver adentro" te devuelve a la puerta. La ficha de arriba a la derecha y la barra de abajo se pueden minimizar con la flechita.
+
+Animaciones: las pestanas del costado tienen un indicador elastico y los iconos se mueven al pasar el mouse y al hacer click; las pantallas aparecen con un difuminado suave y los botones responden al tocarlos. Si preferis menos movimiento: Ajustes > Movimiento.
+
+
+MODELOS 3D (Sketchfab, licencia CC BY 4.0, optimizados para la app)
+- "Mercedes G-class 2018" por Burak Ozkan - https://sketchfab.com/3d-models/mercedes-g-class-2018-d3ae2fdd64d143ecb0b6e92b5be682e6
+- "BMW M4csl" por Mpgs Studios - https://sketchfab.com/3d-models/bmw-m4csl-b53782a00cc240a191d5d7d005af1423
+- "2021 Cadillac escalade premium luxury" por Es-star kings - https://sketchfab.com/3d-models/2021-cadillac-escalade-premium-luxury-3a63c01d768840aaacbd22cfc5885583
+- "Gangster Dealer Musculo" por EntropyNine - https://sketchfab.com/3d-models/gangster-dealer-musculo-1eed0758ec3d45a7ae5613db8b59eb7b
+- "Weed Table" por streetpharmacy - https://sketchfab.com/3d-models/weed-table-cda64fb5166044259396001ee1ea9a33
+- "Cannabis Plant" por streetpharmacy - https://sketchfab.com/3d-models/cannabis-plant-79fe78fd6c6a426b8584115e772a5818
+- "Cannabis Joint - Pre Rolled" por woddson - https://sketchfab.com/3d-models/cannabis-joint-pre-rolled-fc5daec8fc7f4fbf9424736fd4bcbdf0
+- "Grass Patches - Circle" por brandon_grey - https://sketchfab.com/3d-models/grass-patches-circle-662f27b14f994054bfdf841317dee7f8
+Licencia: https://creativecommons.org/licenses/by/4.0/
+
+NOVEDADES: autos, dealer, mesa, porros, pasto y plantas usan estos modelos 3D reales.
+En cada invernadero hay 2 patovas en la puerta y 1 dealer atras.
+RENDIMIENTO: las sombras se recalculan solo cuando cambia algo; las luces son fijas
+y las geometrias compartidas (antes, agregar un invernadero recompilaba todos los
+shaders y creaba ~200 objetos nuevos, por eso se trababa); los objetos repetidos se
+dibujan en una sola pasada; los modelos 3D se cargan de a uno al abrir; y la
+resolucion interna baja sola si la PC va justa (se puede forzar en Ajustes >
+Calidad grafica).
+La ventana recuerda el tamano y la posicion en que la dejaste.
+
+NUEVO EN ESTA VERSION
+- Costos: cargas los precios (luz, agua, fertilizante, sustrato, semillas, macetas,
+  gastos fijos) y te muestra cuanto llevas gastado, cuanto va a salir el ciclo
+  completo, cuanto por planta y cuanto por gramo.
+- Rinde esperado: cada planta estima sus gramos secos segun genetica, maceta,
+  tus mediciones de altura y su estado. Se calibra solo con tus cosechas anteriores.
+- Calendario: mes por mes, lo que hiciste (riegos, fotos, podas, cosechas) y lo que
+  viene (riegos previstos, inicio de floracion, cosecha estimada).
+- Esquejes: desde la ficha de una planta, "Hacer esqueje" crea una planta nueva con
+  la misma genetica. No suma costo de semilla.
+- Comparar ciclos: en Cosechas, barras con lo cosechado y lo que falta por ciclo.
+- Avisos de riego: notificacion de Windows a la hora que elijas (Ajustes).
+- El invernadero 3D ahora usa los mismos colores y la misma luz que el resto de la
+  app, y el fondo de las pantallas tiene un movimiento muy lento.
+
+CUENTA, GRUPO Y CELU: mira LEEME-CELU-Y-AMIGOS.md. Para que esta app de Windows tambien entre al grupo, hay que cargar la URL y la clave publica de Supabase y rearmar el .exe.

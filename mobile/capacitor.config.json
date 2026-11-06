@@ -1,0 +1,11 @@
+{
+  "appId": "com.lucci.micultivo",
+  "appName": "Mi Cultivo",
+  "webDir": "www",
+  "server": { "androidScheme": "https" },
+  "android": {
+    "allowMixedContent": false,
+    "webContentsDebuggingEnabled": false,
+    "loggingBehavior": "none"
+  }
+}

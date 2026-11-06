@@ -1,0 +1,317 @@
+<div id="fondo" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i></div>
+<aside class="rail" id="rail" aria-label="Secciones">
+<span class="rail-ind" id="railInd" aria-hidden="true"></span>
+<div class="rail-brand">
+<svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><g transform="translate(16 29)" fill="currentColor"><ellipse cx="0" cy="-12" rx="2.3" ry="10"/><ellipse cx="0" cy="-11" rx="2" ry="8.5" transform="rotate(-42)"/><ellipse cx="0" cy="-11" rx="2" ry="8.5" transform="rotate(42)"/><ellipse cx="0" cy="-9" rx="1.8" ry="6.5" transform="rotate(-76)"/><ellipse cx="0" cy="-9" rx="1.8" ry="6.5" transform="rotate(76)"/></g></svg>
+<div class="brand-txt"><b>Mi Cultivo</b><span id="brandMeta">Cuaderno de campo</span></div><span id="syncDot" class="syncdot" hidden></span><span id="syncTxt" class="sr" aria-live="polite"></span>
+</div>
+<nav class="rail-scroll" aria-label="Secciones">
+<div class="rail-grp"><span class="rail-h">Hoy</span><button class="tab" data-go="inicio" title="Inicio" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/><path d="M10 19.5v-5h4v5"/></svg><span>Inicio</span></button><button class="tab" data-go="calendario" title="Calendario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/><circle cx="8.5" cy="14.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="12" cy="14.5" r="1.1" fill="currentColor" stroke="none"/></svg><span>Calendario</span></button></div>
+<div class="rail-grp"><span class="rail-h">Cultivo</span><button class="tab" data-go="stage" title="Invernadero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20V10l9-6 9 6v10z"/><path d="M3 10h18M12 4v16"/></svg><span>Invernadero</span></button><button class="tab" data-go="nueva" title="Nueva planta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20v-8"/><path d="M12 12c0-3-2-5-6-5 0 3 2 5 6 5z"/><path d="M12 14c0-3 2-5 6-5 0 3-2 5-6 5z"/></svg><span>Nueva planta</span></button><button class="tab" data-go="foto" title="Fotos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.5-2.5h7L17 8h3v11H4z"/><circle cx="12" cy="13.5" r="3.5"/></svg><span>Fotos</span></button></div>
+<div class="rail-grp"><span class="rail-h">Cuidar</span><button class="tab" data-go="cuidados" title="Cuidados"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5s6 6.2 6 10.5a6 6 0 0 1-12 0c0-4.3 6-10.5 6-10.5z"/></svg><span>Cuidados</span></button></div>
+<div class="rail-grp"><span class="rail-h">Historial</span><button class="tab" data-go="informes" title="Informes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V11M10 20V4M16 20v-6M3 20h18"/></svg><span>Informes</span></button><button class="tab" data-go="cosechas" title="Cosechas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h16v12H4z"/><path d="M3 4h18v4H3zM10 12h4"/></svg><span>Cosechas</span></button><button class="tab" data-go="costos" title="Costos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 7h8M8 11h2M12 11h4M8 15h2M12 15h4"/></svg><span>Costos</span></button></div>
+<div class="rail-grp"><span class="rail-h">Saber</span><button class="tab" data-go="biblio" title="Biblioteca"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h10a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h10"/></svg><span>Biblioteca</span></button></div>
+</nav>
+<div class="rail-foot">
+<button class="tab" data-go="ajustes" title="Ajustes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg><span>Ajustes</span></button>
+<button class="tab" id="tema" aria-pressed="false" aria-label="Cambiar a modo oscuro" title="Cambiar tema"><svg id="temaIco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg><span id="temaTxt">Modo oscuro</span></button>
+<button class="tab" id="cmdkBtn" type="button" title="Buscar (Ctrl K)" aria-label="Buscar o ir a…"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4-4"/></svg><span>Buscar</span><small>Ctrl K</small></button>
+</div>
+</aside>
+
+<canvas id="gl" role="img" aria-label="Invernadero en 3D con tus plantas. Arrastrá para girar."></canvas>
+<div id="roomLoader" aria-hidden="true"><div class="loader-in"><svg class="loader-leaf" viewBox="0 0 32 32" fill="currentColor"><ellipse cx="16" cy="4" rx="2.3" ry="10" transform="rotate(0 16 16)"/><ellipse cx="16" cy="4" rx="2.3" ry="10" transform="rotate(72 16 16)"/><ellipse cx="16" cy="4" rx="2.3" ry="10" transform="rotate(144 16 16)"/><ellipse cx="16" cy="4" rx="2.3" ry="10" transform="rotate(216 16 16)"/><ellipse cx="16" cy="4" rx="2.3" ry="10" transform="rotate(288 16 16)"/><circle cx="16" cy="16" r="3"/></svg><div class="loader-txt">Preparando el invernadero…</div><div class="loader-sub">Cargando las plantas y la escena 3D</div></div></div>
+<div id="glveil" aria-hidden="true"></div>
+<div id="tags" aria-label="Plantas del invernadero"></div>
+
+<main>
+<section class="view" id="v-inicio" data-view="inicio"><div class="home" id="home"></div>
+</section>
+
+<section class="view" id="v-stage" data-view="stage" hidden>
+<div class="campusview" id="campusview" hidden>
+<div class="vhead" style="padding:0 0 8px"><h1 style="font-size:28px;margin:0;letter-spacing:-.02em">Mis invernaderos</h1><p class="lead" style="margin:4px 0 0" id="campSub">Tocá uno para entrar.</p></div>
+<div class="campgrid" id="campgrid"></div>
+</div>
+<div class="room2d" id="room2d"></div>
+<div class="stagegrid">
+<aside class="hud card today" aria-labelledby="hoyT">
+<div class="hd"><h2 id="hoyT">Plantas</h2><span class="muted" id="hoyDate"></span></div>
+<div id="simTag" class="advice warn" hidden><b>Simulación activa</b><span>Estás viendo el futuro. Los registros están bloqueados hasta que salgas.</span></div>
+<div class="rooms" id="roomsel"></div>
+<ul class="plist" id="plist"></ul>
+<div class="field" id="roomAct"></div>
+<div class="field"><button class="btn" id="simBtn" type="button">Simular crecimiento</button><p class="hint">Mirá cómo seguirían tus plantas en las próximas semanas. No registra nada.</p></div>
+</aside>
+<div class="spacer" aria-hidden="true"></div>
+<aside class="hud card plantcard" id="plantcard" aria-live="polite"></aside>
+<div id="sheetBg" aria-hidden="true"></div><button type="button" id="sheetX" aria-label="Cerrar la ficha">×</button>
+</div>
+<div class="fade" id="fade" aria-hidden="true"></div>
+<p class="camphint roomhint" id="roomHint">Arrastrá para girar · Shift o click derecho para mover · Rueda para acercar</p>
+<p class="camphint" id="campHint">Tocá un invernadero para entrar</p>
+<button class="campadd" id="campAdd" type="button" hidden aria-label="Agregar invernadero" data-tip="Agregar invernadero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+<button class="sidearrow l" id="sideL" type="button" aria-label="Planta anterior" title="Anterior (flecha izquierda)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
+<button class="sidearrow r" id="sideR" type="button" aria-label="Planta siguiente" title="Siguiente (flecha derecha)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+<form class="nameedit hud" id="nameEdit" hidden autocomplete="off"><label class="sr" for="neIn">Nombre o número del invernadero</label><input id="neIn" type="text" maxlength="14" placeholder="Nombre o número" spellcheck="false"><button class="btn primary sm" type="submit">Listo</button></form>
+<div class="walkbar hud" id="walkbar" role="group" aria-label="Recorrido del invernadero">
+<span class="walklbl" id="walkLbl" aria-live="polite"></span>
+<span class="wsep" aria-hidden="true"></span>
+<button class="btn sm tg nospin" id="camOut" type="button" aria-pressed="false" title="Ver el invernadero desde afuera"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg><span id="camOutTxt">Ver desde afuera</span></button>
+<button class="btn sm" id="camReset" type="button" title="Volver a la entrada"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg><span id="camResetTxt">Entrada</span></button>
+<button class="btn sm tg" id="camAuto" type="button" aria-pressed="false" title="Girar la vista sola" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg><span>Girar solo</span></button>
+<button class="btn sm ghost" id="barMin" type="button" aria-expanded="true" aria-label="Minimizar la barra" title="Minimizar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+</div>
+<div class="timebar hud" id="timebar" role="group" aria-label="Simulación del crecimiento" hidden>
+<button class="play" id="play" aria-label="Reproducir el crecimiento"><svg id="playIco" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
+<div class="tl">
+<div class="tlhd"><b id="tlLabel">Hoy</b><span class="muted" id="tlDate"></span></div>
+<input type="range" id="off" min="0" max="70" step="0.1" value="0" aria-label="Días hacia adelante">
+<div class="ticks" aria-hidden="true"><span>Hoy</span><span>2 sem</span><span>4 sem</span><span>6 sem</span><span>8 sem</span><span>10 sem</span></div>
+</div>
+<button class="btn ghost" id="viewAll" type="button">Entrada</button><button class="btn primary" id="simClose" type="button">Salir</button>
+</div>
+</section>
+
+<section class="view" id="v-nueva" data-view="nueva" hidden>
+<div class="vhead"><h1>Nueva planta</h1><p class="lead">Contale al asistente todo lo que sepas. Al guardar, la planta ocupa una estación libre del invernadero y empieza a crecer. Si tu semilla, fertilizante o sustrato no está en la lista, escribí el nombre y buscalo en internet.</p></div>
+<div class="two">
+<form class="glass card" id="np" autocomplete="off">
+<div class="field"><label for="npName">Nombre o etiqueta</label><input type="text" id="npName" placeholder="Planta 5"></div>
+<div class="field"><span class="lbl" id="npSeedL">Semilla que compraste</span>
+<div class="seedtools"><input type="search" id="npQ" placeholder="Buscar genética (por ejemplo: kush, haze, auto)" aria-label="Buscar genética" autocomplete="off">
+<div class="seg" id="npF" role="group" aria-label="Filtrar genéticas"><button type="button" data-f="todas" aria-pressed="true">Todas</button><button type="button" data-f="foto" aria-pressed="false">Fotoperíodo</button><button type="button" data-f="auto" aria-pressed="false">Auto</button><button type="button" data-f="indica" aria-pressed="false">Índica</button><button type="button" data-f="hibrida" aria-pressed="false">Híbrida</button><button type="button" data-f="sativa" aria-pressed="false">Sativa</button></div></div>
+<p class="hint" id="npCount" aria-live="polite"></p>
+<div class="seedpick" id="npSeeds" role="radiogroup" aria-labelledby="npSeedL"></div>
+<div class="webfind" id="npWeb" aria-live="polite"></div>
+<button type="button" class="btn" id="npCustomBtn" aria-expanded="false" aria-controls="npCustom">Otra genética (cargar a mano)</button>
+<div class="customseed" id="npCustom" hidden>
+<div class="grid2"><div class="field"><label for="cName">Nombre</label><input type="text" id="cName" placeholder="Nombre de la genética"></div>
+<div class="field"><label for="cKind">Tipo</label><select id="cKind"><option value="foto">Fotoperíodo</option><option value="auto">Autofloreciente</option></select></div></div>
+<div class="grid2"><div class="field"><label for="cCm">Altura final (cm)</label><input type="number" id="cCm" min="20" max="400" value="100" inputmode="numeric"></div>
+<div class="field"><label for="cFw">Semanas de floración</label><input type="number" id="cFw" min="4" max="16" value="9" inputmode="numeric"></div></div>
+<div class="row"><button type="button" class="btn primary" id="cAdd">Usar esta genética</button></div>
+<p class="hint">Mirá estos datos en el sobre o en la web del banco de semillas.</p></div>
+</div>
+<div class="grid2">
+<div class="field"><label for="npDate">Fecha de siembra</label><input type="date" id="npDate"></div>
+<div class="field"><label for="npTime">Hora</label><input type="time" id="npTime"></div>
+</div>
+<div class="field"><label for="npWater">Último riego</label><select id="npWater"><option value="0">Hoy</option><option value="1">Ayer</option><option value="2">Hace 2 días</option><option value="3">Hace 3 días</option><option value="4">Hace 4 días</option><option value="-1">No me acuerdo</option></select></div>
+<div class="field"><span class="lbl" id="npPotL">Tamaño de la maceta</span><div class="pots" id="npPots" role="group" aria-labelledby="npPotL"></div></div>
+<div class="grid2">
+<div class="field"><label for="npRoom">Invernadero</label><select id="npRoom"></select></div>
+<div class="field"><label for="npSub">Sustrato</label><select id="npSub"><option>Tierra universal con perlita</option><option>Fibra de coco</option><option>Tierra viva (súper soil)</option><option>Mezcla de coco y perlita</option><option>Hidroponía</option><option value="__otro">Otro (buscarlo en internet)</option></select><input type="text" id="npSubName" placeholder="Nombre del sustrato que compraste" hidden><div class="webfind" id="npSubWeb" aria-live="polite"></div></div>
+<div class="field"><label for="npLoc">Dónde la ponés</label><select id="npLoc"><option>Interior, carpa con luz LED</option><option>Interior, ventana</option><option>Balcón</option><option>Exterior, jardín</option></select></div>
+</div>
+<div class="field"><span class="lbl" id="npCycL">Ciclo de luz</span><div class="seg" id="npCyc" role="group" aria-labelledby="npCycL"><button type="button" data-cyc="18/6" aria-pressed="true">18/6 crecimiento</button><button type="button" data-cyc="12/12" aria-pressed="false">12/12 floración</button></div><p class="hint">Las autoflorecientes ignoran esto: florecen solas.</p></div>
+<div class="field"><span class="lbl" id="npFmL">Fertilizante</span>
+<div class="seg" id="npFm" role="group" aria-labelledby="npFmL"><button type="button" data-fm="ya" aria-pressed="false">Ya tengo uno</button><button type="button" data-fm="rec" aria-pressed="true">Recomendame uno</button></div>
+<input type="text" id="npFertName" placeholder="Nombre del fertilizante que compraste" hidden>
+<div class="webfind" id="npFertWeb" aria-live="polite"></div>
+</div>
+<div class="field"><label for="npNotes">Notas</label><textarea id="npNotes" placeholder="Por ejemplo: germinada en papel húmedo dos días"></textarea></div>
+<div class="row"><button class="btn primary" type="submit">Plantar en el invernadero</button><button class="btn" type="reset" id="npReset">Limpiar</button></div>
+</form>
+<div class="stack">
+<div class="glass card" id="npPreview"></div>
+<div class="glass card" id="npFert"></div>
+</div>
+</div>
+</section>
+
+<section class="view" id="v-foto" data-view="foto" hidden>
+<div class="vhead"><h1>Foto-IA</h1><p class="lead">Subí una foto de tu planta y el asistente te dice cómo la ve. Cuantos más datos le des, más confiable es el diagnóstico.</p><p class="hint" id="keyHint"></p></div>
+<div class="two">
+<div class="glass card">
+<div class="field"><label for="fPlant">Planta</label><select id="fPlant"></select></div>
+<div class="shot" id="shot">
+<img id="shotImg" alt="Foto de la planta elegida" hidden>
+<div class="empty" id="shotEmpty"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.5-2.5h7L17 8h3v11H4z"/><circle cx="12" cy="13.5" r="3.5"/></svg><span>Elegí o sacá una foto</span></div>
+<div class="scan" id="scan"></div>
+<div id="marks"></div>
+</div>
+<div class="row">
+<label class="btn" for="file">Elegir foto</label><input type="file" id="file" accept="image/*" class="sr">
+<button class="btn primary" id="analyze" type="button" disabled>Analizar</button>
+</div>
+<div class="strip" id="strip" aria-label="Fotos guardadas"></div>
+</div>
+<div class="stack">
+<div class="glass card" id="result" aria-live="polite"></div>
+<div class="glass card">
+<h2>Contale más</h2>
+<p class="hint">Con una foto sola a veces no se distingue el exceso de agua de la falta de nutrientes. Cada dato suma confianza.</p>
+<div class="grid2">
+<div class="field"><label for="dPeso">Peso de la maceta</label><select id="dPeso"><option value="">Sin dato</option><option>Liviana</option><option>Normal</option><option>Pesada</option></select></div>
+<div class="field"><label for="dPh">pH del agua</label><input type="text" id="dPh" inputmode="decimal" autocomplete="off" placeholder="6,2"></div>
+<div class="field"><label for="dTemp">Temperatura (°C)</label><input type="text" id="dTemp" inputmode="decimal" autocomplete="off" placeholder="24"></div>
+<div class="field"><label for="dHum">Humedad ambiente (%)</label><input type="text" id="dHum" inputmode="decimal" autocomplete="off" placeholder="55"></div>
+</div>
+<div class="field"><span class="lbl">Datos que aportaste</span><div class="meter" aria-hidden="true"><i id="confBar" style="width:0%"></i></div><span class="hint" id="confTxt"></span></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="view" id="v-cuidados" data-view="cuidados" hidden>
+<div class="vhead"><h1>Cuidados</h1><p class="lead">El plan de nutrición de cada planta, el ambiente de tu carpa y las podas que le hacés.</p></div>
+<div class="seg" id="cTabs" role="tablist" aria-label="Cuidados" style="margin-bottom:16px;max-width:520px"><button role="tab" data-c="nutri" aria-selected="true">Nutrición</button><button role="tab" data-c="amb" aria-selected="false">Ambiente</button><button role="tab" data-c="poda" aria-selected="false">Podas y atado</button><button role="tab" data-c="guia" aria-selected="false">Guía e IA</button></div>
+<div id="cBody"></div>
+</section>
+
+<section class="view" id="v-cosechas" data-view="cosechas" hidden>
+<div class="vhead"><h1>Cosechas</h1><p class="lead">El historial de lo que cosechaste, ciclo por ciclo, con pesos y días de cultivo.</p></div>
+<div class="glass card" style="margin-bottom:16px"><div class="grid2"><div class="field"><label for="gSel">Ciclo de cultivo</label><select id="gSel"></select></div><div class="field"><label for="gName">Nombre del ciclo</label><input type="text" id="gName" maxlength="40"></div></div>
+<div class="row"><button class="btn" id="gNew" type="button">Cerrar este ciclo y empezar otro</button></div><p class="hint" id="gHint"></p></div>
+<div id="cosBody"></div>
+</section>
+
+<section class="view" id="v-informes" data-view="informes" hidden>
+<div class="vhead"><h1>Informe semanal</h1><p class="lead" id="repLead"></p><p class="hint" id="repSummary"></p>
+<div class="wknav" id="repNav"><button class="btn sm" id="wkPrev" type="button">‹ Semana anterior</button><button class="btn sm" id="wkNow" type="button">Esta semana</button><button class="btn sm" id="wkNext" type="button">Semana siguiente ›</button></div></div>
+<div class="glass card empty-card" id="repEmpty" hidden><h2>Todavía no hay datos</h2><p class="muted">Cuando cargues una planta y empieces a registrar riegos y fotos, acá aparece el informe de cada semana.</p></div>
+<div id="repBody">
+<div class="glass card kpis" id="kpis"></div>
+<div class="glass card" style="margin-bottom:16px" id="repInteractive">
+<div class="hd"><div class="seg" id="repTabs" role="tablist" aria-label="Tipo de gráfico"><button role="tab" data-rep="altura" aria-selected="true">Altura</button><button role="tab" data-rep="riegos" aria-selected="false">Riegos</button><button role="tab" data-rep="estado" aria-selected="false">Estado</button></div><div class="legend" id="repLegend"></div></div>
+<div class="chartbox" id="repChart"></div>
+<p class="hint" id="repNote"></p>
+</div>
+<div class="two">
+<div class="glass card"><h2>Detalle por planta</h2><div class="tblwrap" id="repTable"></div></div>
+<div class="glass card" id="repOpts">
+<h2>Qué incluye el informe</h2>
+<label class="sw"><input type="checkbox" id="repFotos" checked><span class="knob"></span><span class="t">Fotos de la semana</span></label>
+<label class="sw"><input type="checkbox" id="repEnv" checked><span class="knob"></span><span class="t">Ambiente: pH, EC, temperatura y humedad</span></label>
+<label class="sw"><input type="checkbox" id="repBit" checked><span class="knob"></span><span class="t">Bitácora: notas y mediciones</span></label>
+<label class="sw"><input type="checkbox" id="repRec" checked><span class="knob"></span><span class="t">Recomendaciones para la semana siguiente</span></label>
+<div class="row"><button class="btn primary" id="repPdf" type="button">Guardar como PDF</button></div>
+<p class="hint">El PDF incluye los tres gráficos y todo lo que tengas tildado.</p>
+</div>
+</div>
+<div id="repExtra" class="stack" style="margin-top:16px"></div>
+</div>
+<div class="printonly" id="repPrint"></div>
+</section>
+
+<section class="view" id="v-biblio" data-view="biblio" hidden>
+<div class="vhead"><h1>Biblioteca</h1><p class="lead">Fichas de semillas y fertilizantes. Los datos son orientativos: si el banco de tu semilla indica otra cosa, mandan sus indicaciones.</p></div>
+<div class="row" style="margin-bottom:14px">
+<div class="seg" id="bTabs" role="tablist" aria-label="Biblioteca"><button role="tab" data-b="semillas" aria-selected="true">Semillas</button><button role="tab" data-b="stock" aria-selected="false">Mis semillas</button><button role="tab" data-b="ferts" aria-selected="false">Fertilizantes</button></div>
+<div class="field" style="flex:1 1 220px;min-width:180px"><label class="sr" for="bQ">Buscar</label><input type="text" id="bQ" placeholder="Buscar por nombre"></div>
+<div class="field" id="bSortBox" style="flex:0 1 200px;min-width:170px"><label class="sr" for="bSort">Ordenar</label><select id="bSort"><option value="facil">Más fáciles primero</option><option value="az">Orden A a Z</option><option value="alta">Más altas primero</option><option value="corta">Floración más corta</option></select></div>
+</div>
+<div class="seg" id="bFilters" style="margin-bottom:16px" role="group" aria-label="Filtros"></div>
+<div class="cards" id="bList"></div>
+</section>
+
+<section class="view" id="v-calendario" data-view="calendario" hidden>
+<div class="vhead"><h1>Calendario</h1><p class="lead">Lo que hiciste y lo que viene: riegos, cambios de etapa y cosechas, mes por mes.</p></div>
+<div class="glass card" style="margin-bottom:16px"><div class="row" style="justify-content:space-between;align-items:center;gap:10px">
+<div class="row tight"><button class="btn sm" id="calPrev" type="button">‹ Mes anterior</button><button class="btn sm" id="calNow" type="button">Este mes</button><button class="btn sm" id="calNext" type="button">Mes siguiente ›</button></div>
+<b id="calTitle" style="font-size:17px"></b></div></div>
+<div class="glass card"><div class="cal" id="calGrid" role="grid" aria-label="Calendario del mes"></div>
+<div class="callg" id="calLeg"></div></div>
+<div id="calDet"></div>
+</section>
+
+<section class="view" id="v-costos" data-view="costos" hidden>
+<div class="vhead"><h1>Costos</h1><p class="lead">Poné lo que te cuesta cada cosa y te digo cómo viene el ciclo, cuánto te sale por planta y por gramo.</p></div>
+<div class="glass card" style="margin-bottom:16px"><h2>Precios</h2><p class="hint">Llená lo que sepas. Lo que dejes vacío cuenta como cero.</p>
+<div class="pricegrid" id="costForm"></div>
+<div class="row" style="margin-top:12px"><button class="btn sm" id="costReset" type="button">Borrar los precios</button></div></div>
+<div class="glass card" style="margin-bottom:16px"><div class="grid2"><div class="field"><label for="costSel">Ciclo</label><select id="costSel"></select></div>
+<div class="field"><label for="costMod">Mostrar</label><select id="costMod"><option value="hoy">Gastado hasta hoy</option><option value="fin">Proyectado al final del ciclo</option></select></div></div></div>
+<div id="costBody"></div>
+</section>
+
+<section class="view" id="v-ajustes" data-view="ajustes" hidden>
+<div class="vhead"><h1>Ajustes</h1><p class="lead">Cómo se ve el invernadero, cómo te ayuda el asistente y qué hacés con tus datos.</p></div>
+<div class="two">
+<div class="stack">
+<div class="glass card"><h2>Asistente</h2>
+<div class="field"><span class="lbl" id="sDetL">Nivel de detalle de los consejos</span><div class="seg" id="sDet" role="group" aria-labelledby="sDetL"><button type="button" data-det="breve" aria-pressed="false">Breve</button><button type="button" data-det="normal" aria-pressed="true">Normal</button><button type="button" data-det="largo" aria-pressed="false">Con explicación</button></div></div>
+<label class="sw"><input type="checkbox" id="sFotoDia"><span class="knob"></span><span class="t">Sumar la foto del día a las tareas<small>Aparece en "Hoy" mientras no hayas guardado la foto de esa planta</small></span></label>
+<label class="sw"><input type="checkbox" id="sPh"><span class="knob"></span><span class="t">Recordarme medir el pH antes de regar<small>Aparece en "Hoy" cuando hay plantas para regar</small></span></label>
+<p class="hint">La app no manda notificaciones: los avisos se ven cuando la abrís.</p>
+</div>
+<div class="glass card"><h2>Lámpara y fotoperíodo</h2>
+<label class="sw"><input type="checkbox" id="sAvisos"><span class="knob"></span><span class="t">Avisos de riego<small>Te aviso con una notificación de Windows cuando alguna planta llega al punto de riego</small></span></label>
+<div class="grid2"><div class="field"><label for="sAvisoHora">Hora del aviso</label><input type="time" id="sAvisoHora" value="09:00"></div>
+<div class="field"><label>&nbsp;</label><button class="btn" id="sAvisoTest" type="button">Probar el aviso</button></div></div>
+<div class="field"><label for="sLuzOn">Hora en que se enciende la lámpara</label><input type="time" id="sLuzOn" value="06:00"><p class="hint">Con esto se dibuja el Reloj de luz en Inicio. La duración sale del ciclo de cada planta: 18/6 en crecimiento, 12/12 en floración.</p></div>
+</div>
+<div class="glass card" id="cloudCard"><h2>Cuenta y grupo</h2><div id="cloudBody"></div></div>
+<div class="glass card"><h2>IA gratis: fotos, búsquedas y tu guía</h2>
+<p class="hint" id="keyState"></p>
+<p class="hint">Usa Gemini de Google (plan gratis) desde el servidor del grupo, así tu celu nunca guarda ninguna clave. La foto solo se envía cuando apretás Analizar, el nombre cuando apretás Buscar en internet, y tu guía en PDF cuando la subís. Hay un tope diario por persona para no pasarse del plan gratis. Sin sesión, el análisis es básico (tus datos y reglas simples) y la búsqueda te abre Google.</p>
+</div>
+</div>
+</div>
+<div class="stack">
+<div class="glass card"><h2>Apariencia</h2>
+<div class="field"><span class="lbl" id="sTemaL">Tema de la pantalla</span><div class="seg" id="sTema" role="group" aria-labelledby="sTemaL"><button type="button" data-tema="auto" aria-pressed="true">Automático</button><button type="button" data-tema="claro" aria-pressed="false">Claro</button><button type="button" data-tema="oscuro" aria-pressed="false">Oscuro</button></div><p class="hint">Automático sigue el tema de tu compu. La lámpara del invernadero se prende y se apaga en la sección de abajo.</p></div>
+</div>
+<div class="glass card"><h2>Invernadero 3D</h2>
+<div class="field"><span class="lbl" id="sQL">Calidad gráfica</span><div class="seg" id="sQ" role="group" aria-labelledby="sQL"><button type="button" data-q="baja" aria-pressed="false">Baja</button><button type="button" data-q="media" aria-pressed="false">Media</button><button type="button" data-q="alta" aria-pressed="true">Alta</button></div></div>
+<label class="sw"><input type="checkbox" id="sLuz" checked><span class="knob"></span><span class="t">Lámpara del invernadero encendida<small>Apagala para ver la escena de noche</small></span></label>
+<label class="sw"><input type="checkbox" id="sTags" checked><span class="knob"></span><span class="t">Mostrar etiquetas sobre las plantas</span></label>
+<label class="sw"><input type="checkbox" id="sPaisaje"><span class="knob"></span><span class="t">Paisaje alrededor del invernadero<small>El campo, los autos, los patovas y el dealer. Apagado, el invernadero se ve como un render limpio sobre fondo neutro</small></span></label>
+<label class="sw"><input type="checkbox" id="sRot" checked><span class="knob"></span><span class="t">Girar la sala sola al entrar</span></label>
+<label class="sw"><input type="checkbox" id="sMot" checked><span class="knob"></span><span class="t">Movimiento<small>Hojas que se mueven con el viento y partículas flotando</small></span></label>
+<label class="sw"><input type="checkbox" id="sFondo" checked><span class="knob"></span><span class="t">Fondo animado<small>Manchas de color que se mueven despacio detrás de las pantallas</small></span></label>
+</div>
+<div class="glass card" id="privCard"><h2>Bloqueo con PIN</h2>
+<p class="hint" id="pinState"></p>
+<div class="grid2"><div class="field"><label for="pinCur">PIN actual</label><input type="password" id="pinCur" inputmode="numeric" autocomplete="off" maxlength="12"></div><div class="field"><label for="pinNew">PIN nuevo (4 a 12 números)</label><input type="password" id="pinNew" inputmode="numeric" autocomplete="off" maxlength="12"></div></div>
+<div class="row"><button class="btn primary" id="pinSet" type="button">Guardar PIN</button><button class="btn" id="pinClear" type="button">Quitar PIN</button><button class="btn" id="pinLock" type="button">Bloquear ahora</button></div>
+<p class="hint">Es un candado simple para que nadie abra la app por curiosidad. No cifra los datos: en la compu, quien tenga acceso a tu usuario de Windows puede verlos en la carpeta de datos; en el celu quedan dentro de la app.</p></div>
+<div class="glass card"><h2>Tus datos</h2>
+<p class="hint" id="dataWhere"></p>
+<div class="row"><button class="btn" id="sExp" type="button">Exportar bitácora (CSV)</button><button class="btn" id="sBackup" type="button">Copia de seguridad</button><button class="btn" id="sRestore" type="button">Restaurar copia</button><button class="btn" id="sOpen" type="button">Abrir carpeta de datos</button></div>
+<label class="sw"><input type="checkbox" id="sAuto"><span class="knob"></span><span class="t">Copia automática una vez por día<small id="sAutoHint">Cada día guarda una copia de cómo estaba todo y deja las últimas 7. Las fotos no se copian: quedan en la carpeta de datos.</small></span></label>
+<div class="row"><button class="btn" id="sDemo" type="button">Cargar plantas de ejemplo</button><button class="btn danger" id="sWipe" type="button">Borrar todo</button></div>
+<p class="hint" id="wipeHint" hidden>Se borran todas las plantas, fotos e historial. Apretá otra vez para confirmar.</p>
+<details class="hint" style="margin:18px 4px 4px"><summary style="cursor:pointer">Créditos de los modelos 3D</summary><p class="hint" style="margin-top:8px">Modelos de Sketchfab con licencia <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>: "Mercedes G-class 2018" (Burak Ozkan), "BMW M4csl" (Mpgs Studios), "2021 Cadillac escalade premium luxury" (Es-star kings), "Gangster Dealer Musculo" (EntropyNine), "Weed Table" y "Cannabis Plant" (streetpharmacy), "Cannabis Joint - Pre Rolled" (woddson), "Grass Patches - Circle" (brandon_grey). Se optimizaron para la app.</p></details>
+</div>
+</div>
+</div>
+</section>
+</main>
+<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-labelledby="vwTitle" hidden>
+<div class="vw glass">
+<div class="vwtop"><div><b id="vwTitle"></b><div class="muted" id="vwSub"></div></div><button class="btn sm" id="vwClose" type="button">Cerrar</button></div>
+<div class="vwimgs" id="vwImgs"></div>
+<input type="range" id="vwRange" min="0" max="0" step="1" value="0" aria-label="Foto de la línea de tiempo">
+<div class="row tight" id="vwCtl"><button class="btn sm" id="vwPrev" type="button" aria-label="Foto anterior">‹</button><button class="btn sm" id="vwPlay" type="button">Reproducir</button><button class="btn sm" id="vwNext" type="button" aria-label="Foto siguiente">›</button><button class="btn sm" id="vwCmp" type="button" aria-pressed="false">Comparar con la primera</button><button class="btn sm" id="vwRe" type="button">Volver a analizar</button><button class="btn sm danger" id="vwDel" type="button">Eliminar foto</button></div>
+<p class="hint" id="vwMsg" role="status"></p>
+</div>
+</div>
+<div class="authgate" id="authGate" hidden role="dialog" aria-modal="true" aria-labelledby="agT">
+<div class="agbox glass">
+<svg class="aglogo" viewBox="0 0 32 32" aria-hidden="true"><g transform="translate(16 29)" fill="currentColor"><ellipse cx="0" cy="-12" rx="2.3" ry="10"/><ellipse cx="0" cy="-11" rx="2" ry="8.5" transform="rotate(-38)"/><ellipse cx="0" cy="-11" rx="2" ry="8.5" transform="rotate(38)"/><ellipse cx="0" cy="-9" rx="1.7" ry="6.5" transform="rotate(-68)"/><ellipse cx="0" cy="-9" rx="1.7" ry="6.5" transform="rotate(68)"/></g></svg>
+<h1 id="agT">Mi Cultivo</h1>
+<p class="aghint" id="agSub"></p>
+<div id="agS1">
+<div class="seg" id="agTabs" role="group" aria-label="Entrar o crear cuenta"><button type="button" data-m="in" aria-pressed="true">Entrar</button><button type="button" data-m="up" aria-pressed="false">Crear cuenta</button></div>
+<form id="agAuth" autocomplete="on" novalidate>
+<div class="field"><label for="agMail">Email</label><input id="agMail" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="120"></div>
+<div class="field"><label for="agPw">Contraseña</label><div class="pwrow"><input id="agPw" type="password" autocomplete="current-password" maxlength="72" minlength="8"><button type="button" class="btn sm" id="agPwEye">Ver</button></div></div>
+<button class="btn primary agbtn" id="agGo" type="submit">Entrar</button>
+</form></div>
+<div id="agS2" hidden>
+<div class="seg" id="agGTabs" role="group" aria-label="Crear o unirse a un grupo"><button type="button" data-g="new" aria-pressed="true">Crear grupo</button><button type="button" data-g="join" aria-pressed="false">Unirme con código</button></div>
+<form id="agGrowF" autocomplete="off" novalidate>
+<div class="field"><label for="agName">Tu nombre</label><input id="agName" type="text" maxlength="30" autocomplete="nickname" placeholder="Cómo te ven tus amigos"></div>
+<div class="field" id="agGroupF"><label for="agGroup">Nombre del grupo</label><input id="agGroup" type="text" maxlength="40" placeholder="Por ejemplo: La carpa de los pibes"></div>
+<div class="field" id="agCodeF" hidden><label for="agCode">Código del grupo</label><input id="agCode" type="text" maxlength="14" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="XXXXX-XXXXX"></div>
+<button class="btn primary agbtn" id="agGo2" type="submit">Crear grupo</button>
+</form>
+<button class="agsoft" id="agOut" type="button">Usar otra cuenta</button></div>
+<p class="agmsg" id="agMsg" role="status" aria-live="polite"></p>
+<button class="agsoft" id="agSkip" type="button" hidden>Seguir sin cuenta (solo en esta compu)</button>
+</div></div>
+<div class="lock" id="lock" hidden><form class="glass card" id="lockForm"><h1>Mi Cultivo</h1><p class="muted">Ingresá tu PIN para abrir la app.</p><label class="sr" for="lockPin">PIN</label><input type="password" id="lockPin" inputmode="numeric" autocomplete="off" maxlength="12" placeholder="PIN"><button class="btn primary" type="submit">Entrar</button><p class="hint" id="lockMsg" role="alert"></p></form></div>
+<div class="cmdk" id="cmdk" role="dialog" aria-modal="true" aria-label="Buscar o ir a…" hidden><div class="cmdk-box"><input type="text" id="cmdkIn" placeholder="Ir a una sección o buscar una planta" autocomplete="off" role="combobox" aria-expanded="true" aria-controls="cmdkList" aria-autocomplete="list"><ul class="cmdk-list" id="cmdkList" role="listbox"></ul><div class="cmdk-foot">↑ ↓ moverse · Enter elegir · Esc cerrar</div></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>

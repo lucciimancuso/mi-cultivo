@@ -1,0 +1,8 @@
+node_modules/
+dist/
+web/
+mobile/www/
+mobile/android/
+mobile/node_modules/
+*.jks
+*.keystore
