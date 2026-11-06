@@ -1,7 +1,9 @@
 /* ---------- costos: calculadora de precios y rinde esperado ---------- */
 const CAMPOS=[
  ['kwh','Precio del kWh','$','Lo sacás de la boleta: total dividido los kWh del período.'],
- ['watts','Consumo de la lámpara','W','Lo que dice la lámpara o el equipo LED.'],
+ ['watts','Consumo de la lámpara','W','Lo que gasta de la pared. Un panel de "300 W" puede gastar menos que lo que dice la caja: si tenés un vatímetro, medilo.'],
+ ['equipo','Equipo: carpa, lámpara, timer, etc.','$','Lo que pagaste por el equipo. Se reparte entre los ciclos de abajo para no inflar un solo cultivo.'],
+ ['equipoCiclos','Ciclos para repartir el equipo','u','Si lo querés contar entero en este ciclo, poné 1.'],
  ['hVeg','Horas de luz en crecimiento','h','Normalmente 18.'],
  ['hFlo','Horas de luz en floración','h','Normalmente 12.'],
  ['coolers','Cantidad de coolers','u','Ventiladores de la carpa o el invernadero. Consumen energía todo el ciclo.'],
@@ -32,7 +34,7 @@ function costBody(){
   [gramosN(gr),proy?'Gramos esperados':'Gramos (real + esperado)'],
   [isFinite(porG)?money(porG)+'/g':'—','Costo por gramo'],
   [Math.round(c.dias)+' días','Duración del ciclo']];
- const vacio=CAMPOS.every(f=>['watts','hVeg','hFlo','fertMl','sustL','fertDosis','coolW','coolH'].includes(f[0])||S.cost[f[0]]==null);
+ const vacio=CAMPOS.every(f=>['watts','hVeg','hFlo','fertMl','sustL','fertDosis','coolW','coolH','equipoCiclos'].includes(f[0])||S.cost[f[0]]==null);
  const tabla='<div class="glass card"><h2>De dónde sale</h2><div class="tblwrap"><table class="tbl"><thead><tr><th>Concepto</th><th>Detalle</th><th class="ar">Costo</th></tr></thead><tbody>'+
   c.items.map(it=>'<tr><td><b>'+esc(it[0])+'</b></td><td class="hint">'+esc(it[2])+'</td><td class="ar">'+money(it[1])+'</td></tr>').join('')+
   '<tr class="tot"><td colspan="2"><b>Total</b></td><td class="ar"><b>'+money(c.total)+'</b></td></tr></tbody></table></div>'+

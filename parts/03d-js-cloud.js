@@ -143,7 +143,7 @@ cloud.rotate=async()=>{await rpc('rotate_code',{p_grow:cloud.grow.id});cloud.gro
 cloud.kick=async uid=>{await rpc('remove_member',{p_grow:cloud.grow.id,p_user:uid});cloud.grow=await myGrow()};
 cloud.leave=async()=>{await rpc('leave_grow')};
 cloud.deleteGrow=async()=>{await rpc('delete_grow',{p_grow:cloud.grow.id})};
-cloud.signOut=async()=>{try{await cloud.sb.auth.signOut()}catch(e){}
+cloud.signOut=async()=>{try{await avisosAlSalir()}catch(e){}try{await cloud.sb.auth.signOut()}catch(e){}
  if(!store.isDesktop){try{Object.keys(localStorage).filter(k=>/^micultivo/.test(k)).forEach(k=>localStorage.removeItem(k))}catch(e){}}
  else{lsDel('micultivo-growid')}
  location.reload()};

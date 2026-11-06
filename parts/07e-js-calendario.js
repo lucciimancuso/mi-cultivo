@@ -1,7 +1,7 @@
 /* ---------- calendario: lo hecho y lo que viene ---------- */
 let calMes=null,calSel=null;
 const dKey=t=>dayKey(t);
-const TIPOS={riego:['Riego','ri'],fert:['Fertilizante','fe'],poda:['Poda o atado','po'],foto:['Foto','fo'],medida:['Medición','me'],cosecha:['Cosecha','co'],nota:['Nota','no'],flor:['Empieza a florecer','fl'],lista:['Lista para cosechar','li'],plan:['Riego previsto','pl'],siembra:['Siembra','si']};
+const TIPOS={riego:['Riego','ri'],fert:['Fertilizante','fe'],poda:['Poda o atado','po'],foto:['Foto','fo'],medida:['Medición','me'],cosecha:['Cosecha','co'],nota:['Nota','no'],flor:['Empieza a florecer','fl'],lista:['Lista para cosechar','li'],plan:['Riego previsto','pl'],siembra:['Siembra','si'],cura:['Secado y curado','cu']};
 /* junta lo registrado y lo proyectado en un mapa por día */
 function calData(){
  const M={},add=(t,tipo,txt,pid)=>{const k=dKey(t);(M[k]=M[k]||[]).push({tipo:tipo,txt:txt,pid:pid,t:t})};
@@ -11,6 +11,9 @@ function calData(){
   p.photos.forEach(f=>add(f.t,'foto',p.name+': foto',p.id));
   if(p.harvest&&p.harvest.t)add(p.harvest.t,'cosecha',p.name+': cosechada'+(p.harvest.dry!=null?' ('+fmtN(p.harvest.dry)+' g secos)':''),p.id)});
  const hoy=Date.now();
+ S.archive.forEach(p=>{const s=curState(p);if(!s)return;
+  if(s.fase==='secando'){const t=p.harvest.t+10*DAY;if(t>hoy)add(t,'cura',p.name+': probar el tallo (estimado)',p.id)}
+  if(s.fase==='frascos'){const t=s.jar+CUR_DONE*DAY;if(t>hoy)add(t,'cura',p.name+': cumple 4 semanas de curado (estimado)',p.id)}});
  S.plants.forEach(p=>{
   const s=seedOf(p),fs=flowerStart(p);
   if(fs!=null){const tf=p.sownAt+fs*DAY;if(tf>hoy)add(tf,'flor',p.name+': arranca la floración',p.id);
@@ -35,7 +38,7 @@ function renderCalendario(){
    (ev.length>1?'<small>'+ev.length+'</small>':'')+'</button>'}
  html+='</div>';
  $('#calGrid').innerHTML=html;
- $('#calLeg').innerHTML=['riego','plan','fert','flor','lista','cosecha','foto'].map(t=>'<span class="lg"><i class="pt '+TIPOS[t][1]+'"></i>'+TIPOS[t][0]+'</span>').join('');
+ $('#calLeg').innerHTML=['riego','plan','fert','flor','lista','cosecha','cura','foto'].map(t=>'<span class="lg"><i class="pt '+TIPOS[t][1]+'"></i>'+TIPOS[t][0]+'</span>').join('');
  const k=calSel||dKey(Date.now()),ev=(M[k]||[]).slice().sort((a,b)=>a.t-b.t);
  const fecha=new Date(k+'T12:00:00').toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long'});
  $('#calDet').innerHTML='<div class="glass card" style="margin-top:16px"><h2>'+esc(fecha[0].toUpperCase()+fecha.slice(1))+'</h2>'+
@@ -49,18 +52,14 @@ renderers.calendario=renderCalendario;
 
 /* ---------- avisos de riego ---------- */
 function plantasQueRiegan(){return S.plants.filter(p=>{const t=at0(()=>statusOf(p)).tone;return t==='water'||(t==='warn'&&at0(()=>hum(p))<=.2)})}
-function textoAviso(L){
- if(!L.length)return null;
- if(L.length===1)return{t:L[0].name+' necesita agua',b:'Está en punto de riego. Abrí Mi Cultivo y registrá el riego cuando la riegues.'};
- return{t:L.length+' plantas necesitan agua',b:L.slice(0,4).map(p=>p.name).join(', ')+(L.length>4?' y '+(L.length-4)+' más.':'.')}}
 function chequearAvisos(forzar){
  if(!store.isDesktop||!S.set.avisos)return;
  const hoy=dayKey(),hora=String(S.set.avisoHora||'09:00'),n=new Date();
  const hm=pad(n.getHours())+':'+pad(n.getMinutes());
  if(!forzar&&(hm<hora||S.set.avisoDia===hoy))return;
- const L=plantasQueRiegan(),msg=textoAviso(L);
+ const c=curPend(),msg=avisosTextos({agua:plantasQueRiegan().map(p=>p.name),abrir:c.abrir.map(p=>p.name),tallo:c.probar.map(p=>p.name),curada:c.listas.map(p=>p.name)});
  if(!forzar)S.set.avisoDia=hoy;
- if(!msg){if(forzar)toast('Ninguna planta necesita agua ahora mismo');return}
- store.notify(msg.t,msg.b);if(forzar)toast('Te mandé un aviso de prueba')}
+ if(!msg){if(forzar)toast('No hay nada para avisarte ahora mismo');return}
+ store.notify(msg.title,msg.body);if(forzar)toast('Te mandé un aviso de prueba')}
 setInterval(()=>chequearAvisos(false),6e4*5);
 setTimeout(()=>chequearAvisos(false),8000);

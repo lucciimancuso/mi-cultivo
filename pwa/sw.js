@@ -9,3 +9,13 @@ self.addEventListener('fetch',e=>{
  e.respondWith(caches.match(r,{ignoreSearch:true}).then(hit=>{
   const net=fetch(r,{cache:'no-cache'}).then(res=>{if(res&&res.ok){const cp=res.clone();caches.open(V).then(c=>c.put(r,cp))}return res}).catch(()=>hit);
   return hit&&!/config\.js$/.test(u.pathname)?hit:net}))});
+
+/* avisos push: el servidor manda {title,body,tag}; se muestra siempre (iPhone lo exige) */
+self.addEventListener('push',e=>{
+ let d={};try{d=e.data?e.data.json():{}}catch(x){d={title:'Mi Cultivo',body:e.data?e.data.text():''}}
+ e.waitUntil(self.registration.showNotification(String(d.title||'Mi Cultivo').slice(0,80),{body:String(d.body||'').slice(0,200),tag:String(d.tag||'mi-cultivo'),icon:'icon-192.png',badge:'favicon-32.png',data:{url:'./'}}))});
+self.addEventListener('notificationclick',e=>{
+ e.notification.close();
+ e.waitUntil(self.clients.matchAll({type:'window',includeUncontrolled:true}).then(L=>{
+  for(const c of L){if('focus' in c)return c.focus()}
+  return self.clients.openWindow('./')}))});

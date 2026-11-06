@@ -9,9 +9,9 @@ $('#sRot').addEventListener('change',e=>{S.set.rot=e.target.checked;walkSync()})
 $('#sPaisaje').addEventListener('change',e=>{S.set.paisaje=e.target.checked;if(sceneOk)G.setPaisaje(e.target.checked);toast(e.target.checked?'Paisaje encendido':'Invernadero en modo limpio')});
 $('#sMot').addEventListener('change',e=>{S.set.mot=e.target.checked;document.body.dataset.motion=e.target.checked?'on':'off'});
 $('#sFondo').addEventListener('change',e=>{S.set.fondo=e.target.checked;document.body.dataset.fondo=e.target.checked?'on':'off'});
-$('#sAvisos').addEventListener('change',e=>{S.set.avisos=e.target.checked;toast(e.target.checked?'Listo: te aviso cuando alguna planta pida agua':'Avisos de riego apagados')});
-$('#sAvisoHora').addEventListener('change',e=>{S.set.avisoHora=e.target.value||'09:00'});
-$('#sAvisoTest').addEventListener('click',()=>chequearAvisos(true));
+$('#sAvisos').addEventListener('change',e=>{if(e.target.checked)avisosActivar();else{if(AV.mode==='desktop'){S.set.avisos=false;AV.on=false;toast('Avisos apagados')}else avisosApagar()}});
+$('#sAvisoHora').addEventListener('change',e=>{S.set.avisoHora=/^\d{2}:\d{2}$/.test(e.target.value)?e.target.value:'09:00';avisosSync(true)});
+$('#sAvisoTest').addEventListener('click',()=>avisosProbar());
 $('#sFotoDia').addEventListener('change',e=>{S.set.fotoDia=e.target.checked;renderToday()});
 $('#sLuzOn').addEventListener('change',e=>{if(/^\d{2}:\d{2}$/.test(e.target.value)){S.set.luzOn=e.target.value;toast('La lámpara se enciende a las '+e.target.value)}else e.target.value=S.set.luzOn||'06:00'});
 $('#sPh').addEventListener('change',e=>{S.set.ph=e.target.checked;renderToday()});
@@ -60,8 +60,7 @@ renderers.ajustes=()=>{refreshAI();refreshPriv();renderCloudCard();$('#dataWhere
  if(cloud.on)await cloud.initialSync();
  const sceneOk=initScene();
  if(!sceneOk&&!NOD){const sp=$('.spacer');sp.setAttribute('aria-hidden','false');sp.innerHTML='<p class="muted glass card">No pude iniciar el 3D en este equipo. El resto de la app funciona igual.</p>'}
- $('#sMot').checked=S.set.mot;$('#sFondo').checked=S.set.fondo!==false;document.body.dataset.fondo=S.set.fondo===false?'off':'on';$('#sAvisos').checked=!!S.set.avisos;$('#sAvisoHora').value=S.set.avisoHora||'09:00';
- $('#sAvisos').closest('.sw').hidden=!store.isDesktop;$('#sAvisoHora').closest('.grid2').hidden=!store.isDesktop;$('#sTags').checked=S.set.tags;$('#sRot').checked=S.set.rot;$('#sFotoDia').checked=S.set.fotoDia;$('#sLuzOn').value=S.set.luzOn||'06:00';$('#sPh').checked=S.set.ph;
+ $('#sMot').checked=S.set.mot;$('#sFondo').checked=S.set.fondo!==false;document.body.dataset.fondo=S.set.fondo===false?'off':'on';avisosPintar();setTimeout(avisosInit,1500);$('#sTags').checked=S.set.tags;$('#sRot').checked=S.set.rot;$('#sFotoDia').checked=S.set.fotoDia;$('#sLuzOn').value=S.set.luzOn||'06:00';$('#sPh').checked=S.set.ph;
  document.body.dataset.motion=S.set.mot?'on':'off';document.body.dataset.tags=S.set.tags?'on':'off';
  pressed('#sQ','q',S.set.q);pressed('#sDet','det',S.set.det);if(sceneOk)G.setQuality(S.set.q);
  $('#sPaisaje').checked=!!S.set.paisaje;if(sceneOk)G.setPaisaje(!!S.set.paisaje);

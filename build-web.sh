@@ -1,7 +1,7 @@
 #!/bin/bash
 # Arma web/ (celular: PWA y base del APK). Sin 3D, con CSP estricta.
 cd "$(dirname "$0")"
-PARTS="parts/03-js-data.js parts/03b-js-store.js parts/03c-js-merge.js parts/03d-js-cloud.js parts/04-js-scene.web.js parts/05-js-stage.js parts/05b-js-inicio.js parts/05c-js-room2d.js parts/06-js-nueva-foto.js parts/07-js-informes.js parts/07b-js-cuidados.js parts/07c-js-visor.js parts/07d-js-costos.js parts/07e-js-calendario.js parts/07f-js-cuenta.js parts/08-js-init.js"
+PARTS="parts/03-js-data.js parts/03b-js-store.js parts/03c-js-merge.js parts/03d-js-cloud.js parts/04-js-scene.web.js parts/05-js-stage.js parts/05b-js-inicio.js parts/05c-js-room2d.js parts/06-js-nueva-foto.js parts/07-js-informes.js parts/07b-js-cuidados.js parts/07c-js-visor.js parts/07d-js-costos.js parts/07e-js-calendario.js parts/07f-js-cuenta.js parts/07g-js-curado.js parts/07h-js-avisos.js parts/08-js-init.js"
 # escena 3D reemplazada por un esqueleto vacío (sin three.js ni modelos)
 { head -3 parts/04-js-scene.js; echo 'function initScene(){return false}'; } > parts/04-js-scene.web.js
 BUILD=$(cat $PARTS parts/01-head.html parts/02-body.html pwa/sw.js | md5sum | cut -c1-10)

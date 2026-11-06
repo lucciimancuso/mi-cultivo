@@ -234,12 +234,14 @@
 <div class="field"><span class="lbl" id="sDetL">Nivel de detalle de los consejos</span><div class="seg" id="sDet" role="group" aria-labelledby="sDetL"><button type="button" data-det="breve" aria-pressed="false">Breve</button><button type="button" data-det="normal" aria-pressed="true">Normal</button><button type="button" data-det="largo" aria-pressed="false">Con explicación</button></div></div>
 <label class="sw"><input type="checkbox" id="sFotoDia"><span class="knob"></span><span class="t">Sumar la foto del día a las tareas<small>Aparece en "Hoy" mientras no hayas guardado la foto de esa planta</small></span></label>
 <label class="sw"><input type="checkbox" id="sPh"><span class="knob"></span><span class="t">Recordarme medir el pH antes de regar<small>Aparece en "Hoy" cuando hay plantas para regar</small></span></label>
-<p class="hint">La app no manda notificaciones: los avisos se ven cuando la abrís.</p>
+</div>
+<div class="glass card" id="avisosCard"><h2>Avisos</h2>
+<label class="sw"><input type="checkbox" id="sAvisos"><span class="knob"></span><span class="t">Avisarme del riego y el curado<small id="sAvisosT"></small></span></label>
+<div class="grid2" id="sAvisoGrid"><div class="field"><label for="sAvisoHora">Hora del aviso</label><input type="time" id="sAvisoHora" value="09:00"></div>
+<div class="field"><label>&nbsp;</label><button class="btn" id="sAvisoTest" type="button">Probar el aviso</button></div></div>
+<p class="hint" id="sAvisoEst" role="status"></p>
 </div>
 <div class="glass card"><h2>Lámpara y fotoperíodo</h2>
-<label class="sw"><input type="checkbox" id="sAvisos"><span class="knob"></span><span class="t">Avisos de riego<small>Te aviso con una notificación de Windows cuando alguna planta llega al punto de riego</small></span></label>
-<div class="grid2"><div class="field"><label for="sAvisoHora">Hora del aviso</label><input type="time" id="sAvisoHora" value="09:00"></div>
-<div class="field"><label>&nbsp;</label><button class="btn" id="sAvisoTest" type="button">Probar el aviso</button></div></div>
 <div class="field"><label for="sLuzOn">Hora en que se enciende la lámpara</label><input type="time" id="sLuzOn" value="06:00"><p class="hint">Con esto se dibuja el Reloj de luz en Inicio. La duración sale del ciclo de cada planta: 18/6 en crecimiento, 12/12 en floración.</p></div>
 </div>
 <div class="glass card" id="cloudCard"><h2>Cuenta y grupo</h2><div id="cloudBody"></div></div>
@@ -251,9 +253,9 @@
 </div>
 <div class="stack">
 <div class="glass card"><h2>Apariencia</h2>
-<div class="field"><span class="lbl" id="sTemaL">Tema de la pantalla</span><div class="seg" id="sTema" role="group" aria-labelledby="sTemaL"><button type="button" data-tema="auto" aria-pressed="true">Automático</button><button type="button" data-tema="claro" aria-pressed="false">Claro</button><button type="button" data-tema="oscuro" aria-pressed="false">Oscuro</button></div><p class="hint">Automático sigue el tema de tu compu. La lámpara del invernadero se prende y se apaga en la sección de abajo.</p></div>
+<div class="field"><span class="lbl" id="sTemaL">Tema de la pantalla</span><div class="seg" id="sTema" role="group" aria-labelledby="sTemaL"><button type="button" data-tema="auto" aria-pressed="true">Automático</button><button type="button" data-tema="claro" aria-pressed="false">Claro</button><button type="button" data-tema="oscuro" aria-pressed="false">Oscuro</button></div><p class="hint"><span class="desk-only">Automático sigue el tema de tu compu. La lámpara del invernadero se prende y se apaga en la sección de abajo.</span><span class="web-only">Automático sigue el tema de tu celu.</span></p></div>
 </div>
-<div class="glass card"><h2>Invernadero 3D</h2>
+<div class="glass card desk-only"><h2>Invernadero 3D</h2>
 <div class="field"><span class="lbl" id="sQL">Calidad gráfica</span><div class="seg" id="sQ" role="group" aria-labelledby="sQL"><button type="button" data-q="baja" aria-pressed="false">Baja</button><button type="button" data-q="media" aria-pressed="false">Media</button><button type="button" data-q="alta" aria-pressed="true">Alta</button></div></div>
 <label class="sw"><input type="checkbox" id="sLuz" checked><span class="knob"></span><span class="t">Lámpara del invernadero encendida<small>Apagala para ver la escena de noche</small></span></label>
 <label class="sw"><input type="checkbox" id="sTags" checked><span class="knob"></span><span class="t">Mostrar etiquetas sobre las plantas</span></label>
@@ -269,11 +271,11 @@
 <p class="hint">Es un candado simple para que nadie abra la app por curiosidad. No cifra los datos: en la compu, quien tenga acceso a tu usuario de Windows puede verlos en la carpeta de datos; en el celu quedan dentro de la app.</p></div>
 <div class="glass card"><h2>Tus datos</h2>
 <p class="hint" id="dataWhere"></p>
-<div class="row"><button class="btn" id="sExp" type="button">Exportar bitácora (CSV)</button><button class="btn" id="sBackup" type="button">Copia de seguridad</button><button class="btn" id="sRestore" type="button">Restaurar copia</button><button class="btn" id="sOpen" type="button">Abrir carpeta de datos</button></div>
-<label class="sw"><input type="checkbox" id="sAuto"><span class="knob"></span><span class="t">Copia automática una vez por día<small id="sAutoHint">Cada día guarda una copia de cómo estaba todo y deja las últimas 7. Las fotos no se copian: quedan en la carpeta de datos.</small></span></label>
+<div class="row"><button class="btn" id="sExp" type="button">Exportar bitácora (CSV)</button><button class="btn" id="sBackup" type="button">Copia de seguridad</button><button class="btn" id="sRestore" type="button">Restaurar copia</button><button class="btn desk-only" id="sOpen" type="button">Abrir carpeta de datos</button></div>
+<label class="sw desk-only"><input type="checkbox" id="sAuto"><span class="knob"></span><span class="t">Copia automática una vez por día<small id="sAutoHint">Cada día guarda una copia de cómo estaba todo y deja las últimas 7. Las fotos no se copian: quedan en la carpeta de datos.</small></span></label>
 <div class="row"><button class="btn" id="sDemo" type="button">Cargar plantas de ejemplo</button><button class="btn danger" id="sWipe" type="button">Borrar todo</button></div>
 <p class="hint" id="wipeHint" hidden>Se borran todas las plantas, fotos e historial. Apretá otra vez para confirmar.</p>
-<details class="hint" style="margin:18px 4px 4px"><summary style="cursor:pointer">Créditos de los modelos 3D</summary><p class="hint" style="margin-top:8px">Modelos de Sketchfab con licencia <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>: "Mercedes G-class 2018" (Burak Ozkan), "BMW M4csl" (Mpgs Studios), "2021 Cadillac escalade premium luxury" (Es-star kings), "Gangster Dealer Musculo" (EntropyNine), "Weed Table" y "Cannabis Plant" (streetpharmacy), "Cannabis Joint - Pre Rolled" (woddson), "Grass Patches - Circle" (brandon_grey). Se optimizaron para la app.</p></details>
+<details class="hint desk-only" style="margin:18px 4px 4px"><summary style="cursor:pointer">Créditos de los modelos 3D</summary><p class="hint" style="margin-top:8px">Modelos de Sketchfab con licencia <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>: "Mercedes G-class 2018" (Burak Ozkan), "BMW M4csl" (Mpgs Studios), "2021 Cadillac escalade premium luxury" (Es-star kings), "Gangster Dealer Musculo" (EntropyNine), "Weed Table" y "Cannabis Plant" (streetpharmacy), "Cannabis Joint - Pre Rolled" (woddson), "Grass Patches - Circle" (brandon_grey). Se optimizaron para la app.</p></details>
 </div>
 </div>
 </div>

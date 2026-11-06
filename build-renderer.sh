@@ -1,7 +1,7 @@
 #!/bin/bash
 # Arma src/index.html (ESCRITORIO) a partir de las partes
 cd "$(dirname "$0")"
-PARTS="parts/03-js-data.js parts/03b-js-store.js parts/03c-js-merge.js parts/03d-js-cloud.js parts/04-js-scene.js parts/05-js-stage.js parts/05b-js-inicio.js parts/05c-js-room2d.js parts/06-js-nueva-foto.js parts/07-js-informes.js parts/07b-js-cuidados.js parts/07c-js-visor.js parts/07d-js-costos.js parts/07e-js-calendario.js parts/07f-js-cuenta.js parts/08-js-init.js"
+PARTS="parts/03-js-data.js parts/03b-js-store.js parts/03c-js-merge.js parts/03d-js-cloud.js parts/04-js-scene.js parts/05-js-stage.js parts/05b-js-inicio.js parts/05c-js-room2d.js parts/06-js-nueva-foto.js parts/07-js-informes.js parts/07b-js-cuidados.js parts/07c-js-visor.js parts/07d-js-costos.js parts/07e-js-calendario.js parts/07f-js-cuenta.js parts/07g-js-curado.js parts/07h-js-avisos.js parts/08-js-init.js"
 node -e "const c=require('./cloud.config.json');require('fs').writeFileSync('src/config.js','window.CLOUD_CFG='+JSON.stringify({url:c.url||'',anonKey:c.anonKey||''})+';\n')"
 {
 cat <<'HEAD'

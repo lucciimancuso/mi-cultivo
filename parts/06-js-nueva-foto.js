@@ -1,6 +1,6 @@
 
 /* ---------- nueva planta ---------- */
-const np={room:null,slot:null,seed:'ww',pot:11,fm:'rec',q:'',f:'todas',cyc:'18/6'},POTS=[1,3,5,7,11,15,20,30];let idc=100;
+const np={room:null,slot:null,seed:'ww',pot:11,fm:'rec',q:'',f:'todas',cyc:'18/6'},POTS=[1,3,5,7,10,11,12,15,20,25,30];let idc=100;
 const stockOf=id=>S.stock.filter(x=>x.seed===id).reduce((a,x)=>a+(+x.qty||0),0);
 const norm=t=>String(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 function seedMatch(s){const f=np.f,q=norm(np.q.trim());

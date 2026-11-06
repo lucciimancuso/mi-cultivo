@@ -182,7 +182,7 @@ function advise(p){const h=hum(p),st=stageOf(p),s=seedOf(p),det=S.set.det;
  if(h<=.2)return{tone:'warn',title:'Regá ya',text:ex('El sustrato está seco y las hojas empiezan a caer.','Dale agua despacio hasta que salga un poco por abajo y revisá el pH.')};
  if(h<=.3)return{tone:'water',title:'Hoy toca regar',text:ex('El sustrato llegó al punto de riego.','Usá agua a temperatura ambiente con pH entre 6,0 y 6,5 y repartila alrededor del tallo.')};
  if(st==='Germinación'||st==='Plántula')return{tone:'ok',title:'Todo en orden',text:ex('Riego en '+waterDays(p)+' días.','Con una plántula conviene regar poco y cerca del tallo, y evitar el fertilizante fuerte.')};
- if(p.pot<s.pot&&st==='Vegetativo')return{tone:'ok',title:'Pensá en trasplantar',text:ex('La maceta de '+p.pot+' L queda chica para '+s.name+'.','Esta genética rinde mejor en '+s.pot+' L o más. Trasplantá a la tarde y regá suave.')};
+ if(p.pot<s.pot*.85&&st==='Vegetativo')return{tone:'ok',title:'Pensá en trasplantar',text:ex('La maceta de '+p.pot+' L queda chica para '+s.name+'.','Esta genética rinde mejor en '+s.pot+' L o más. Trasplantá a la tarde y regá suave.')};
  if(st==='Pre-floración'||st==='Floración')return{tone:'ok',title:'Cambiá a fertilizante de floración',text:ex('Riego en '+waterDays(p)+' días.','Bajá el nitrógeno y subí fósforo y potasio. Revisá humedad ambiente para evitar hongos.')};
  if(st==='Lista para cosechar')return{tone:'ok',title:'Mirá los tricomas',text:ex('Está cerca de la cosecha.','Con una lupa, cuando la mayoría pasan de transparentes a lechosos, es el momento.')};
  return{tone:'ok',title:'Todo en orden',text:ex('Riego en '+waterDays(p)+' días.','Seguí con foto diaria y 18 horas de luz. Es buen momento para entrenar las ramas.')}}
@@ -191,7 +191,7 @@ let toastT;
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2800)}
 
 /* ---------- plata: precios, costo del ciclo y rinde esperado ---------- */
-const COST0={kwh:null,watts:250,hVeg:18,hFlo:12,coolers:null,coolW:6,coolH:24,coolPrecio:null,aguaM3:null,fertPrecio:null,fertMl:1000,fertDosis:2,sustPrecio:null,sustL:50,semilla:null,maceta:null,fijo:null};
+const COST0={kwh:null,watts:250,equipo:null,equipoCiclos:4,hVeg:18,hFlo:12,coolers:null,coolW:6,coolH:24,coolPrecio:null,aguaM3:null,fertPrecio:null,fertMl:1000,fertDosis:2,sustPrecio:null,sustL:50,semilla:null,maceta:null,fijo:null};
 S.cost=Object.assign({},COST0);
 const money=n=>!isFinite(n)?'—':'$'+Math.round(n).toLocaleString('es-AR');
 const gramosN=n=>!isFinite(n)?'—':fmtN(n)+' g';
@@ -221,6 +221,16 @@ function cycleYield(gid){const L=S.plants.filter(p=>p.grow===gid),H=S.archive.fi
  const real=H.reduce((a,p)=>a+(p.harvest&&p.harvest.dry||0),0);
  const esp=L.reduce((a,p)=>a+yieldEst(p).mid,0);
  return{real:real,esp:esp,total:real+esp,vivas:L.length,cosechadas:H.length}}
+/* agua que toma una planta por día (ml): poquita de plántula, sube en vegetativo y llega al pico en plena floración */
+function waterDayMl(p,a,fsEff){
+ const s=seedOf(p),auto=s.kind==='auto',pot=Math.pow(Math.max(1,p.pot)/10,.6);let ml;
+ if(a<=7)ml=20;
+ else if(a<=21)ml=20+(a-7)/14*80;
+ else if(fsEff==null||a<fsEff)ml=100+Math.min(1,(a-21)/21)*300;
+ else{const w=(a-fsEff)/7,pk=s.fw*.55;ml=w<=pk?450+350*(w/pk):800-200*Math.min(1,(w-pk)/(s.fw*.45))}
+ return ml*pot*(auto?.65:1)}
+/* total de la vida de la planta hasta el día "d", sumando un 15 % que sale por abajo de la maceta */
+function waterUseMl(p,d,proy){const fs=flowerStart(p),fsEff=fs==null?(proy?35:null):fs;let t=0;for(let a=0;a<d;a++)t+=waterDayMl(p,a+.5,fsEff);return t*1.15}
 /* costo del ciclo: luz, agua, fertilizante, sustrato, semillas, macetas y gastos fijos */
 function cycleCost(gid,proy){
  const c=S.cost,L=S.plants.filter(p=>p.grow===gid),H=S.archive.filter(p=>p.grow===gid),P=L.concat(H);
@@ -243,9 +253,11 @@ function cycleCost(gid,proy){
  let litros=0;P.forEach(p=>{
   const fin2=p.harvest&&p.harvest.t?p.harvest.t:(proy?p.sownAt+((flowerStart(p)==null?35:flowerStart(p))+seedOf(p).fw*7)*DAY:Date.now());
   const d=Math.max(1,(fin2-p.sownAt)/DAY);
-  litros+=at0(()=>waterInfo(p).dayMl)/1000*d});
+  litros+=waterUseMl(p,d,proy)/1000});
+ const eqCic=Math.max(1,Math.round(c.equipoCiclos||1)),eq=(c.equipo||0)/eqCic;
  const items=[
   ['Luz',(c.kwh||0)*kwh,Math.round(kwh)+' kWh · '+(c.watts||0)+' W'],
+  ['Equipo (carpa, lámpara, etc.)',eq,c.equipo?money(c.equipo)+' repartido en '+eqCic+(eqCic===1?' ciclo':' ciclos'):'Sin equipo cargado'],
   ['Coolers (energía)',(c.kwh||0)*kwhC,nC?nC+' × '+(c.coolW||0)+' W · '+(c.coolH==null?24:c.coolH)+' h/día · '+Math.round(kwhC)+' kWh':'Sin coolers cargados'],
   ['Coolers (compra)',(c.coolPrecio||0)*nC,nC+' coolers'],
   ['Agua',(c.aguaM3||0)*litros/1000,Math.round(litros)+' L'],

@@ -70,6 +70,20 @@ Desde **Ajustes → Cuenta y grupo** podés: cambiar el código (si se filtró),
 
 ---
 
+## Avisos al celu (riego, frascos, cosecha lista)
+Cada celu calcula qué toca en los próximos días y lo manda a la hora que elijas en **Ajustes > Avisos**.
+- **iPhone** (iOS 16.4 o más): instalá la web con *Compartir > Agregar a inicio*, abrila desde el ícono y activá el aviso. Va por push, aunque la app esté cerrada.
+- **Android**: en el **APK** son notificaciones del propio celu (pide permiso la primera vez). Si usás la web instalada desde Chrome, va por push igual que en iPhone.
+- **Windows**: notificación de siempre, mientras la app está abierta.
+
+Para que el push funcione hay que preparar el servidor **una sola vez** (el APK y Windows no lo necesitan):
+1. En Supabase > SQL Editor corré `cloud/push.sql`.
+2. En Edge Functions creá una función llamada `notify`, pegá `cloud/functions/notify/index.ts` y **apagá "Verify JWT"** (la protege una clave propia, no el login).
+3. Cargá los 4 secretos (`VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`, `CRON_SECRET`). Los valores te los pasan aparte y **no se suben nunca al repo**.
+4. Corré el SQL del "reloj" (pg_cron) que viene con esas claves: llama a la función cada 5 minutos.
+
+El servidor solo guarda, por celu, la dirección de push y los próximos avisos (título y texto). Los celus que salen de la cuenta se dan de baja solos.
+
 ## Qué cambia en el celu
 - **Sin 3D**: en *Invernadero* ves tus tarjetas; al entrar, los **9 casilleros**; tocás una planta y se abre su ficha desde abajo. Liviano, sin animaciones pesadas (pensado para iPhone 14/15 y Android de gama alta).
 - **Barra de abajo**: Inicio · Invernadero · Nueva planta · Cuidados · Más (el resto de las secciones).

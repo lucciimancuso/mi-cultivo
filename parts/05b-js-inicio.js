@@ -14,7 +14,7 @@ const IC={
 
 /* tareas del día (las mismas que antes aparecían en el panel del invernadero) */
 function computeTasks(){
- const out=[];if(!S.plants.length)return out;
+ const out=[];
  S.plants.forEach(p=>{const st=statusOf(p),h=Math.round(hum(p)*100);
   if(st.label==='Regar hoy')out.push({t:'Regar '+p.name,sub:'Humedad estimada '+h+' %',btn:'Regar',tone:'water',run:()=>riego(p.id)});
   if(st.label==='Con sed')out.push({t:'Regar ya '+p.name,sub:'Con sed · humedad estimada '+h+' %',btn:'Regar',tone:'water',run:()=>riego(p.id)});
@@ -23,6 +23,7 @@ function computeTasks(){
  if(S.set.fotoDia&&S.off<.5&&sinFoto.length)out.push({t:sinFoto.length===1?'Foto de hoy de '+sinFoto[0].name:'Foto de hoy de las plantas',sub:sinFoto.length===1?'Todavía no la sacaste':sinFoto.length+' sin foto',btn:'Sacar foto',tone:'',run:()=>{S.sel=sinFoto[0].id;go('foto')}});
  const wat=S.plants.filter(p=>statusOf(p).tone==='water').length;
  if(S.set.ph&&S.off<.5&&wat)out.push({t:'Medir el pH del agua antes de regar',sub:'Rango recomendado 5,8 a 6,5',btn:'Anotar',tone:'',run:()=>toast('Anotá el pH en la bitácora de cada planta con el botón Nota')});
+ curTareas(out);
  return out}
 
 /* Reloj de luz: anillo de 24 h con la ventana de la lámpara */
@@ -80,9 +81,9 @@ function ambHtml(){
  const items=Object.keys(ENVM).map(m=>{const M=ENVM[m],e=L.find(x=>envVal(x,m)!=null),span=M.r[1]-M.r[0],lo=M.r[0]-span,hi=M.r[1]+span,pc=x=>(clamp((x-lo)/(hi-lo),0,1)*100).toFixed(1);
   const band='<i style="left:'+pc(M.r[0])+'%;width:'+(pc(M.r[1])-pc(M.r[0])).toFixed(1)+'%"></i>',rg=fmtN(M.r[0])+' a '+fmtN(M.r[1]);
   if(!e)return'<div class="amb-i"><span class="k">'+M.n+'</span><span class="v" aria-label="sin dato">—</span><div class="rng" aria-hidden="true">'+band+'</div><span class="w">Sin mediciones · rango '+rg+'</span></div>';
-  const v=e[m],out=v<M.r[0]||v>M.r[1];
+  const v=envVal(e,m),out=v<M.r[0]||v>M.r[1];
   return'<div class="amb-i'+(out?' out':'')+'"><span class="k">'+M.n+'</span><span class="v num">'+v.toFixed(M.d).replace('.',',')+(M.u?'<small>'+esc(M.u.trim())+'</small>':'')+'</span><div class="rng" aria-hidden="true">'+band+'<b style="left:'+pc(v)+'%"></b></div><span class="w">'+(out?(v<M.r[0]?'Bajo':'Alto')+' · ':'')+'Rango '+rg+' · '+agoText(e.t)+'</span></div>'}).join('');
- return'<div class="amb">'+items+'</div>'+(L.length?'':'<p class="hint" style="padding-top:12px">Todavía no anotaste el ambiente de la carpa. Medir seguido ayuda a entender qué le pasa a las plantas.</p>')}
+ return'<div class="amb">'+items+'</div>'+(S.plants.length?'<p class="hint" style="padding-top:8px">Rangos para la etapa de tu carpa: <b>'+esc(envStage())+'</b>.</p>':'')+(L.length?'':'<p class="hint" style="padding-top:12px">Todavía no anotaste el ambiente de la carpa. Medir seguido ayuda a entender qué le pasa a las plantas.</p>')}
 
 function weekHtml(){
  const dk=d=>d.getFullYear()*10000+d.getMonth()*100+d.getDate(),now=new Date(),cols=[];
@@ -131,7 +132,7 @@ function homeHtml(){
  const hero='<header class="hero" data-rise style="--i:0"><div><h1 class="sr">Inicio</h1><div class="dateblock"><div class="bigday num" aria-hidden="true">'+now.getDate()+'</div><div class="datemeta"><b>'+DOW[now.getDay()]+'</b><span>'+MESES[now.getMonth()]+' de '+now.getFullYear()+'</span></div></div>'+
   '<p class="verdict">'+verdict+'</p>'+(lead?'<p class="lead" style="margin-top:10px">'+esc(lead)+'</p>':'')+'</div>'+relojHtml()+'</header>';
  const todo=tasks.length?'<ul class="todos">'+tasks.map((k,i)=>'<li class="todo'+(k.tone==='warn'?' warn':'')+'" data-i="'+i+'"><div class="todo-in"><div class="todo-row"><button class="tick" type="button" data-tick="'+i+'" data-k="t'+i+'" aria-label="Marcar como hecho: '+esc(k.t)+'"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg></button><div class="todo-t"><b>'+esc(k.t)+'</b><span>'+esc(k.sub)+'</span></div><button class="btn sm'+(k.tone==='water'?' water':'')+'" type="button" data-tick="'+i+'" data-k="b'+i+'">'+esc(k.btn)+'</button></div></div></li>').join('')+'</ul>'
-  :'<div class="todo-ok">'+IC.check+'<span>'+(P.length?'Nada pendiente por hoy.':'Sin plantas activas, no hay tareas.')+'</span></div>';
+  :'<div class="todo-ok">'+IC.check+'<span>'+(P.length||S.archive.length?'Nada pendiente por hoy.':'Sin plantas activas, no hay tareas.')+'</span></div>';
  const secTodo='<section data-rise style="--i:1" aria-labelledby="hTar"><div class="sec-h"><h2 id="hTar">Para hoy</h2>'+(tasks.length?'<span class="hint">'+pl(tasks.length,'tarea','tareas')+'</span>':'')+'</div>'+todo+'</section>';
  const cms=P.map(p=>heightCm(p)),mx=Math.max.apply(null,cms.concat([20])),top=[30,50,75,100,150,200,250,300].find(v=>v>=mx*1.04)||Math.ceil(mx/50)*50,k=140/top;
  const lams=P.map((p,i)=>lamHtml(p,i,top,k)).join('')+(!P.length?'<button class="lam nueva" type="button" data-goto="nueva" data-k="nn" style="--i:0">'+IC.plus+'<b>Nueva planta</b><span class="hint">Plantá una semilla</span></button>':'');

@@ -2,10 +2,18 @@
   "appId": "com.lucci.micultivo",
   "appName": "Mi Cultivo",
   "webDir": "www",
-  "server": { "androidScheme": "https" },
+  "server": {
+    "androidScheme": "https"
+  },
   "android": {
     "allowMixedContent": false,
     "webContentsDebuggingEnabled": false,
     "loggingBehavior": "none"
+  },
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_icon",
+      "iconColor": "#1E5B3A"
+    }
   }
 }

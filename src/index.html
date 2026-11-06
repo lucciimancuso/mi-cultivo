@@ -670,7 +670,7 @@ body[data-view="stage"][data-in="room"][data-cam="fp"]:not([data-sim]) .sidearro
 .pt.ri,.pt.pl{background:var(--agua)}.pt.pl{opacity:.45}
 .pt.fe{background:var(--luz)}.pt.po{background:var(--tierra)}
 .pt.fo{background:var(--tinta3)}.pt.me{background:var(--tinta2)}
-.pt.co{background:var(--hoja)}.pt.fl{background:#a24fd0}.pt.li{background:var(--lima)}
+.pt.cu{background:#b8861b}.pt.co{background:var(--hoja)}.pt.fl{background:#a24fd0}.pt.li{background:var(--lima)}
 .pt.si{background:var(--tierra)}.pt.no{background:var(--trazo)}
 .callg{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;padding-top:12px;border-top:1px solid var(--trazo2)}
 .lg{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--tinta3)}
@@ -680,6 +680,14 @@ body[data-view="stage"][data-in="room"][data-cam="fp"]:not([data-sim]) .sidearro
 .evlist li span{flex:1;min-width:0}
 .evlist li small{color:var(--tinta3);font-size:12.5px;white-space:nowrap}
 /* comparación de cosechas */
+.cura{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:12px}
+.cura-i{border:1px solid var(--trazo);border-radius:var(--r2);padding:14px 16px;display:grid;gap:10px;background:var(--papel2)}
+.cura-i.ok{padding:10px 16px}
+.cura-h{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;justify-content:space-between}
+.cura-ok{margin-top:12px}
+.cura-p{height:6px;border-radius:99px;background:var(--trazo2);overflow:hidden}
+.cura-p>i{display:block;height:100%;border-radius:inherit;background:var(--hoja);transition:width var(--d2,.4s) var(--ease-out)}
+.cura-p.w>i{background:var(--tierra)}
 .bars{display:flex;align-items:flex-end;gap:14px;height:150px;margin:14px 0 6px;padding:0 2px}
 .bars .bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px;min-width:0;height:100%}
 .bars .bar i{display:block;width:100%;max-width:64px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,var(--hoja),rgba(30,91,58,.72));min-height:3px;transition:height var(--d2) var(--ease-out)}
@@ -994,6 +1002,9 @@ body[data-motion="off"] .pop,body[data-motion="off"] .modal>div{animation:none}
 @media (prefers-reduced-motion:reduce){.authgate *,.authgate *::before,.authgate *::after{animation:none!important;transition:none!important}}
 body[data-motion="off"] .authgate *,body[data-motion="off"] .authgate *::before{animation:none!important}
 body[data-gate="1"] .rail,body[data-gate="1"] main,body[data-gate="1"] #gl,body[data-gate="1"] #tags,body[data-gate="1"] #tabbar{visibility:hidden}
+html[data-platform="web"] .desk-only{display:none!important}
+.web-only{display:none}html[data-platform="web"] .web-only{display:inline}
+.amb-i:last-child:nth-child(odd){grid-column:1/-1}
 .syncdot{position:absolute;top:14px;right:12px;width:9px;height:9px;border-radius:50%;background:var(--hoja);box-shadow:0 0 0 3px var(--hoja-suave);transition:background .3s}
 body[data-sync="sync"] .syncdot{background:var(--agua);animation:syncPulse 1s ease-in-out infinite}
 body[data-sync="offline"] .syncdot,body[data-sync="err"] .syncdot{background:var(--luz)}
@@ -1004,7 +1015,6 @@ body[data-sync="offline"] .syncdot,body[data-sync="err"] .syncdot{background:var
 .cd-mem li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--trazo2)}
 .cd-code{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
 .cd-code code{font:700 22px var(--font-d);letter-spacing:.12em;padding:8px 12px;border-radius:10px;background:var(--campo)}
-.btn.danger{color:var(--tierra);border-color:var(--tierra)}
 .gdet{margin-top:12px}.gdet summary{cursor:pointer;font-weight:600;padding:6px 0}
 .gtext{max-height:340px;overflow:auto;padding:4px 12px;border-radius:12px;background:var(--campo);font-size:14px;line-height:1.5}
 .gtext h4{margin:12px 0 4px;font-size:15px}.gtext p{margin:4px 0}.gtext ul{margin:4px 0;padding-left:20px}
@@ -1347,12 +1357,14 @@ html[data-nod] .sw:has(#sLuz),html[data-nod] .sw:has(#sTags),html[data-nod] .sw:
 <div class="field"><span class="lbl" id="sDetL">Nivel de detalle de los consejos</span><div class="seg" id="sDet" role="group" aria-labelledby="sDetL"><button type="button" data-det="breve" aria-pressed="false">Breve</button><button type="button" data-det="normal" aria-pressed="true">Normal</button><button type="button" data-det="largo" aria-pressed="false">Con explicación</button></div></div>
 <label class="sw"><input type="checkbox" id="sFotoDia"><span class="knob"></span><span class="t">Sumar la foto del día a las tareas<small>Aparece en "Hoy" mientras no hayas guardado la foto de esa planta</small></span></label>
 <label class="sw"><input type="checkbox" id="sPh"><span class="knob"></span><span class="t">Recordarme medir el pH antes de regar<small>Aparece en "Hoy" cuando hay plantas para regar</small></span></label>
-<p class="hint">La app no manda notificaciones: los avisos se ven cuando la abrís.</p>
+</div>
+<div class="glass card" id="avisosCard"><h2>Avisos</h2>
+<label class="sw"><input type="checkbox" id="sAvisos"><span class="knob"></span><span class="t">Avisarme del riego y el curado<small id="sAvisosT"></small></span></label>
+<div class="grid2" id="sAvisoGrid"><div class="field"><label for="sAvisoHora">Hora del aviso</label><input type="time" id="sAvisoHora" value="09:00"></div>
+<div class="field"><label>&nbsp;</label><button class="btn" id="sAvisoTest" type="button">Probar el aviso</button></div></div>
+<p class="hint" id="sAvisoEst" role="status"></p>
 </div>
 <div class="glass card"><h2>Lámpara y fotoperíodo</h2>
-<label class="sw"><input type="checkbox" id="sAvisos"><span class="knob"></span><span class="t">Avisos de riego<small>Te aviso con una notificación de Windows cuando alguna planta llega al punto de riego</small></span></label>
-<div class="grid2"><div class="field"><label for="sAvisoHora">Hora del aviso</label><input type="time" id="sAvisoHora" value="09:00"></div>
-<div class="field"><label>&nbsp;</label><button class="btn" id="sAvisoTest" type="button">Probar el aviso</button></div></div>
 <div class="field"><label for="sLuzOn">Hora en que se enciende la lámpara</label><input type="time" id="sLuzOn" value="06:00"><p class="hint">Con esto se dibuja el Reloj de luz en Inicio. La duración sale del ciclo de cada planta: 18/6 en crecimiento, 12/12 en floración.</p></div>
 </div>
 <div class="glass card" id="cloudCard"><h2>Cuenta y grupo</h2><div id="cloudBody"></div></div>
@@ -1364,9 +1376,9 @@ html[data-nod] .sw:has(#sLuz),html[data-nod] .sw:has(#sTags),html[data-nod] .sw:
 </div>
 <div class="stack">
 <div class="glass card"><h2>Apariencia</h2>
-<div class="field"><span class="lbl" id="sTemaL">Tema de la pantalla</span><div class="seg" id="sTema" role="group" aria-labelledby="sTemaL"><button type="button" data-tema="auto" aria-pressed="true">Automático</button><button type="button" data-tema="claro" aria-pressed="false">Claro</button><button type="button" data-tema="oscuro" aria-pressed="false">Oscuro</button></div><p class="hint">Automático sigue el tema de tu compu. La lámpara del invernadero se prende y se apaga en la sección de abajo.</p></div>
+<div class="field"><span class="lbl" id="sTemaL">Tema de la pantalla</span><div class="seg" id="sTema" role="group" aria-labelledby="sTemaL"><button type="button" data-tema="auto" aria-pressed="true">Automático</button><button type="button" data-tema="claro" aria-pressed="false">Claro</button><button type="button" data-tema="oscuro" aria-pressed="false">Oscuro</button></div><p class="hint"><span class="desk-only">Automático sigue el tema de tu compu. La lámpara del invernadero se prende y se apaga en la sección de abajo.</span><span class="web-only">Automático sigue el tema de tu celu.</span></p></div>
 </div>
-<div class="glass card"><h2>Invernadero 3D</h2>
+<div class="glass card desk-only"><h2>Invernadero 3D</h2>
 <div class="field"><span class="lbl" id="sQL">Calidad gráfica</span><div class="seg" id="sQ" role="group" aria-labelledby="sQL"><button type="button" data-q="baja" aria-pressed="false">Baja</button><button type="button" data-q="media" aria-pressed="false">Media</button><button type="button" data-q="alta" aria-pressed="true">Alta</button></div></div>
 <label class="sw"><input type="checkbox" id="sLuz" checked><span class="knob"></span><span class="t">Lámpara del invernadero encendida<small>Apagala para ver la escena de noche</small></span></label>
 <label class="sw"><input type="checkbox" id="sTags" checked><span class="knob"></span><span class="t">Mostrar etiquetas sobre las plantas</span></label>
@@ -1382,11 +1394,11 @@ html[data-nod] .sw:has(#sLuz),html[data-nod] .sw:has(#sTags),html[data-nod] .sw:
 <p class="hint">Es un candado simple para que nadie abra la app por curiosidad. No cifra los datos: en la compu, quien tenga acceso a tu usuario de Windows puede verlos en la carpeta de datos; en el celu quedan dentro de la app.</p></div>
 <div class="glass card"><h2>Tus datos</h2>
 <p class="hint" id="dataWhere"></p>
-<div class="row"><button class="btn" id="sExp" type="button">Exportar bitácora (CSV)</button><button class="btn" id="sBackup" type="button">Copia de seguridad</button><button class="btn" id="sRestore" type="button">Restaurar copia</button><button class="btn" id="sOpen" type="button">Abrir carpeta de datos</button></div>
-<label class="sw"><input type="checkbox" id="sAuto"><span class="knob"></span><span class="t">Copia automática una vez por día<small id="sAutoHint">Cada día guarda una copia de cómo estaba todo y deja las últimas 7. Las fotos no se copian: quedan en la carpeta de datos.</small></span></label>
+<div class="row"><button class="btn" id="sExp" type="button">Exportar bitácora (CSV)</button><button class="btn" id="sBackup" type="button">Copia de seguridad</button><button class="btn" id="sRestore" type="button">Restaurar copia</button><button class="btn desk-only" id="sOpen" type="button">Abrir carpeta de datos</button></div>
+<label class="sw desk-only"><input type="checkbox" id="sAuto"><span class="knob"></span><span class="t">Copia automática una vez por día<small id="sAutoHint">Cada día guarda una copia de cómo estaba todo y deja las últimas 7. Las fotos no se copian: quedan en la carpeta de datos.</small></span></label>
 <div class="row"><button class="btn" id="sDemo" type="button">Cargar plantas de ejemplo</button><button class="btn danger" id="sWipe" type="button">Borrar todo</button></div>
 <p class="hint" id="wipeHint" hidden>Se borran todas las plantas, fotos e historial. Apretá otra vez para confirmar.</p>
-<details class="hint" style="margin:18px 4px 4px"><summary style="cursor:pointer">Créditos de los modelos 3D</summary><p class="hint" style="margin-top:8px">Modelos de Sketchfab con licencia <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>: "Mercedes G-class 2018" (Burak Ozkan), "BMW M4csl" (Mpgs Studios), "2021 Cadillac escalade premium luxury" (Es-star kings), "Gangster Dealer Musculo" (EntropyNine), "Weed Table" y "Cannabis Plant" (streetpharmacy), "Cannabis Joint - Pre Rolled" (woddson), "Grass Patches - Circle" (brandon_grey). Se optimizaron para la app.</p></details>
+<details class="hint desk-only" style="margin:18px 4px 4px"><summary style="cursor:pointer">Créditos de los modelos 3D</summary><p class="hint" style="margin-top:8px">Modelos de Sketchfab con licencia <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>: "Mercedes G-class 2018" (Burak Ozkan), "BMW M4csl" (Mpgs Studios), "2021 Cadillac escalade premium luxury" (Es-star kings), "Gangster Dealer Musculo" (EntropyNine), "Weed Table" y "Cannabis Plant" (streetpharmacy), "Cannabis Joint - Pre Rolled" (woddson), "Grass Patches - Circle" (brandon_grey). Se optimizaron para la app.</p></details>
 </div>
 </div>
 </div>
@@ -1649,7 +1661,7 @@ function advise(p){const h=hum(p),st=stageOf(p),s=seedOf(p),det=S.set.det;
  if(h<=.2)return{tone:'warn',title:'Regá ya',text:ex('El sustrato está seco y las hojas empiezan a caer.','Dale agua despacio hasta que salga un poco por abajo y revisá el pH.')};
  if(h<=.3)return{tone:'water',title:'Hoy toca regar',text:ex('El sustrato llegó al punto de riego.','Usá agua a temperatura ambiente con pH entre 6,0 y 6,5 y repartila alrededor del tallo.')};
  if(st==='Germinación'||st==='Plántula')return{tone:'ok',title:'Todo en orden',text:ex('Riego en '+waterDays(p)+' días.','Con una plántula conviene regar poco y cerca del tallo, y evitar el fertilizante fuerte.')};
- if(p.pot<s.pot&&st==='Vegetativo')return{tone:'ok',title:'Pensá en trasplantar',text:ex('La maceta de '+p.pot+' L queda chica para '+s.name+'.','Esta genética rinde mejor en '+s.pot+' L o más. Trasplantá a la tarde y regá suave.')};
+ if(p.pot<s.pot*.85&&st==='Vegetativo')return{tone:'ok',title:'Pensá en trasplantar',text:ex('La maceta de '+p.pot+' L queda chica para '+s.name+'.','Esta genética rinde mejor en '+s.pot+' L o más. Trasplantá a la tarde y regá suave.')};
  if(st==='Pre-floración'||st==='Floración')return{tone:'ok',title:'Cambiá a fertilizante de floración',text:ex('Riego en '+waterDays(p)+' días.','Bajá el nitrógeno y subí fósforo y potasio. Revisá humedad ambiente para evitar hongos.')};
  if(st==='Lista para cosechar')return{tone:'ok',title:'Mirá los tricomas',text:ex('Está cerca de la cosecha.','Con una lupa, cuando la mayoría pasan de transparentes a lechosos, es el momento.')};
  return{tone:'ok',title:'Todo en orden',text:ex('Riego en '+waterDays(p)+' días.','Seguí con foto diaria y 18 horas de luz. Es buen momento para entrenar las ramas.')}}
@@ -1658,7 +1670,7 @@ let toastT;
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2800)}
 
 /* ---------- plata: precios, costo del ciclo y rinde esperado ---------- */
-const COST0={kwh:null,watts:250,hVeg:18,hFlo:12,coolers:null,coolW:6,coolH:24,coolPrecio:null,aguaM3:null,fertPrecio:null,fertMl:1000,fertDosis:2,sustPrecio:null,sustL:50,semilla:null,maceta:null,fijo:null};
+const COST0={kwh:null,watts:250,equipo:null,equipoCiclos:4,hVeg:18,hFlo:12,coolers:null,coolW:6,coolH:24,coolPrecio:null,aguaM3:null,fertPrecio:null,fertMl:1000,fertDosis:2,sustPrecio:null,sustL:50,semilla:null,maceta:null,fijo:null};
 S.cost=Object.assign({},COST0);
 const money=n=>!isFinite(n)?'—':'$'+Math.round(n).toLocaleString('es-AR');
 const gramosN=n=>!isFinite(n)?'—':fmtN(n)+' g';
@@ -1688,6 +1700,16 @@ function cycleYield(gid){const L=S.plants.filter(p=>p.grow===gid),H=S.archive.fi
  const real=H.reduce((a,p)=>a+(p.harvest&&p.harvest.dry||0),0);
  const esp=L.reduce((a,p)=>a+yieldEst(p).mid,0);
  return{real:real,esp:esp,total:real+esp,vivas:L.length,cosechadas:H.length}}
+/* agua que toma una planta por día (ml): poquita de plántula, sube en vegetativo y llega al pico en plena floración */
+function waterDayMl(p,a,fsEff){
+ const s=seedOf(p),auto=s.kind==='auto',pot=Math.pow(Math.max(1,p.pot)/10,.6);let ml;
+ if(a<=7)ml=20;
+ else if(a<=21)ml=20+(a-7)/14*80;
+ else if(fsEff==null||a<fsEff)ml=100+Math.min(1,(a-21)/21)*300;
+ else{const w=(a-fsEff)/7,pk=s.fw*.55;ml=w<=pk?450+350*(w/pk):800-200*Math.min(1,(w-pk)/(s.fw*.45))}
+ return ml*pot*(auto?.65:1)}
+/* total de la vida de la planta hasta el día "d", sumando un 15 % que sale por abajo de la maceta */
+function waterUseMl(p,d,proy){const fs=flowerStart(p),fsEff=fs==null?(proy?35:null):fs;let t=0;for(let a=0;a<d;a++)t+=waterDayMl(p,a+.5,fsEff);return t*1.15}
 /* costo del ciclo: luz, agua, fertilizante, sustrato, semillas, macetas y gastos fijos */
 function cycleCost(gid,proy){
  const c=S.cost,L=S.plants.filter(p=>p.grow===gid),H=S.archive.filter(p=>p.grow===gid),P=L.concat(H);
@@ -1710,9 +1732,11 @@ function cycleCost(gid,proy){
  let litros=0;P.forEach(p=>{
   const fin2=p.harvest&&p.harvest.t?p.harvest.t:(proy?p.sownAt+((flowerStart(p)==null?35:flowerStart(p))+seedOf(p).fw*7)*DAY:Date.now());
   const d=Math.max(1,(fin2-p.sownAt)/DAY);
-  litros+=at0(()=>waterInfo(p).dayMl)/1000*d});
+  litros+=waterUseMl(p,d,proy)/1000});
+ const eqCic=Math.max(1,Math.round(c.equipoCiclos||1)),eq=(c.equipo||0)/eqCic;
  const items=[
   ['Luz',(c.kwh||0)*kwh,Math.round(kwh)+' kWh · '+(c.watts||0)+' W'],
+  ['Equipo (carpa, lámpara, etc.)',eq,c.equipo?money(c.equipo)+' repartido en '+eqCic+(eqCic===1?' ciclo':' ciclos'):'Sin equipo cargado'],
   ['Coolers (energía)',(c.kwh||0)*kwhC,nC?nC+' × '+(c.coolW||0)+' W · '+(c.coolH==null?24:c.coolH)+' h/día · '+Math.round(kwhC)+' kWh':'Sin coolers cargados'],
   ['Coolers (compra)',(c.coolPrecio||0)*nC,nC+' coolers'],
   ['Agua',(c.aguaM3||0)*litros/1000,Math.round(litros)+' L'],
@@ -2044,7 +2068,7 @@ cloud.rotate=async()=>{await rpc('rotate_code',{p_grow:cloud.grow.id});cloud.gro
 cloud.kick=async uid=>{await rpc('remove_member',{p_grow:cloud.grow.id,p_user:uid});cloud.grow=await myGrow()};
 cloud.leave=async()=>{await rpc('leave_grow')};
 cloud.deleteGrow=async()=>{await rpc('delete_grow',{p_grow:cloud.grow.id})};
-cloud.signOut=async()=>{try{await cloud.sb.auth.signOut()}catch(e){}
+cloud.signOut=async()=>{try{await avisosAlSalir()}catch(e){}try{await cloud.sb.auth.signOut()}catch(e){}
  if(!store.isDesktop){try{Object.keys(localStorage).filter(k=>/^micultivo/.test(k)).forEach(k=>localStorage.removeItem(k))}catch(e){}}
  else{lsDel('micultivo-growid')}
  location.reload()};
@@ -3405,7 +3429,7 @@ const IC={
 
 /* tareas del día (las mismas que antes aparecían en el panel del invernadero) */
 function computeTasks(){
- const out=[];if(!S.plants.length)return out;
+ const out=[];
  S.plants.forEach(p=>{const st=statusOf(p),h=Math.round(hum(p)*100);
   if(st.label==='Regar hoy')out.push({t:'Regar '+p.name,sub:'Humedad estimada '+h+' %',btn:'Regar',tone:'water',run:()=>riego(p.id)});
   if(st.label==='Con sed')out.push({t:'Regar ya '+p.name,sub:'Con sed · humedad estimada '+h+' %',btn:'Regar',tone:'water',run:()=>riego(p.id)});
@@ -3414,6 +3438,7 @@ function computeTasks(){
  if(S.set.fotoDia&&S.off<.5&&sinFoto.length)out.push({t:sinFoto.length===1?'Foto de hoy de '+sinFoto[0].name:'Foto de hoy de las plantas',sub:sinFoto.length===1?'Todavía no la sacaste':sinFoto.length+' sin foto',btn:'Sacar foto',tone:'',run:()=>{S.sel=sinFoto[0].id;go('foto')}});
  const wat=S.plants.filter(p=>statusOf(p).tone==='water').length;
  if(S.set.ph&&S.off<.5&&wat)out.push({t:'Medir el pH del agua antes de regar',sub:'Rango recomendado 5,8 a 6,5',btn:'Anotar',tone:'',run:()=>toast('Anotá el pH en la bitácora de cada planta con el botón Nota')});
+ curTareas(out);
  return out}
 
 /* Reloj de luz: anillo de 24 h con la ventana de la lámpara */
@@ -3471,9 +3496,9 @@ function ambHtml(){
  const items=Object.keys(ENVM).map(m=>{const M=ENVM[m],e=L.find(x=>envVal(x,m)!=null),span=M.r[1]-M.r[0],lo=M.r[0]-span,hi=M.r[1]+span,pc=x=>(clamp((x-lo)/(hi-lo),0,1)*100).toFixed(1);
   const band='<i style="left:'+pc(M.r[0])+'%;width:'+(pc(M.r[1])-pc(M.r[0])).toFixed(1)+'%"></i>',rg=fmtN(M.r[0])+' a '+fmtN(M.r[1]);
   if(!e)return'<div class="amb-i"><span class="k">'+M.n+'</span><span class="v" aria-label="sin dato">—</span><div class="rng" aria-hidden="true">'+band+'</div><span class="w">Sin mediciones · rango '+rg+'</span></div>';
-  const v=e[m],out=v<M.r[0]||v>M.r[1];
+  const v=envVal(e,m),out=v<M.r[0]||v>M.r[1];
   return'<div class="amb-i'+(out?' out':'')+'"><span class="k">'+M.n+'</span><span class="v num">'+v.toFixed(M.d).replace('.',',')+(M.u?'<small>'+esc(M.u.trim())+'</small>':'')+'</span><div class="rng" aria-hidden="true">'+band+'<b style="left:'+pc(v)+'%"></b></div><span class="w">'+(out?(v<M.r[0]?'Bajo':'Alto')+' · ':'')+'Rango '+rg+' · '+agoText(e.t)+'</span></div>'}).join('');
- return'<div class="amb">'+items+'</div>'+(L.length?'':'<p class="hint" style="padding-top:12px">Todavía no anotaste el ambiente de la carpa. Medir seguido ayuda a entender qué le pasa a las plantas.</p>')}
+ return'<div class="amb">'+items+'</div>'+(S.plants.length?'<p class="hint" style="padding-top:8px">Rangos para la etapa de tu carpa: <b>'+esc(envStage())+'</b>.</p>':'')+(L.length?'':'<p class="hint" style="padding-top:12px">Todavía no anotaste el ambiente de la carpa. Medir seguido ayuda a entender qué le pasa a las plantas.</p>')}
 
 function weekHtml(){
  const dk=d=>d.getFullYear()*10000+d.getMonth()*100+d.getDate(),now=new Date(),cols=[];
@@ -3522,7 +3547,7 @@ function homeHtml(){
  const hero='<header class="hero" data-rise style="--i:0"><div><h1 class="sr">Inicio</h1><div class="dateblock"><div class="bigday num" aria-hidden="true">'+now.getDate()+'</div><div class="datemeta"><b>'+DOW[now.getDay()]+'</b><span>'+MESES[now.getMonth()]+' de '+now.getFullYear()+'</span></div></div>'+
   '<p class="verdict">'+verdict+'</p>'+(lead?'<p class="lead" style="margin-top:10px">'+esc(lead)+'</p>':'')+'</div>'+relojHtml()+'</header>';
  const todo=tasks.length?'<ul class="todos">'+tasks.map((k,i)=>'<li class="todo'+(k.tone==='warn'?' warn':'')+'" data-i="'+i+'"><div class="todo-in"><div class="todo-row"><button class="tick" type="button" data-tick="'+i+'" data-k="t'+i+'" aria-label="Marcar como hecho: '+esc(k.t)+'"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg></button><div class="todo-t"><b>'+esc(k.t)+'</b><span>'+esc(k.sub)+'</span></div><button class="btn sm'+(k.tone==='water'?' water':'')+'" type="button" data-tick="'+i+'" data-k="b'+i+'">'+esc(k.btn)+'</button></div></div></li>').join('')+'</ul>'
-  :'<div class="todo-ok">'+IC.check+'<span>'+(P.length?'Nada pendiente por hoy.':'Sin plantas activas, no hay tareas.')+'</span></div>';
+  :'<div class="todo-ok">'+IC.check+'<span>'+(P.length||S.archive.length?'Nada pendiente por hoy.':'Sin plantas activas, no hay tareas.')+'</span></div>';
  const secTodo='<section data-rise style="--i:1" aria-labelledby="hTar"><div class="sec-h"><h2 id="hTar">Para hoy</h2>'+(tasks.length?'<span class="hint">'+pl(tasks.length,'tarea','tareas')+'</span>':'')+'</div>'+todo+'</section>';
  const cms=P.map(p=>heightCm(p)),mx=Math.max.apply(null,cms.concat([20])),top=[30,50,75,100,150,200,250,300].find(v=>v>=mx*1.04)||Math.ceil(mx/50)*50,k=140/top;
  const lams=P.map((p,i)=>lamHtml(p,i,top,k)).join('')+(!P.length?'<button class="lam nueva" type="button" data-goto="nueva" data-k="nn" style="--i:0">'+IC.plus+'<b>Nueva planta</b><span class="hint">Plantá una semilla</span></button>':'');
@@ -3695,7 +3720,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.body.datas
  r.addEventListener('click',e=>{if(e.target.closest('.tab[data-go]'))close()})})();
 
 /* ---------- nueva planta ---------- */
-const np={room:null,slot:null,seed:'ww',pot:11,fm:'rec',q:'',f:'todas',cyc:'18/6'},POTS=[1,3,5,7,11,15,20,30];let idc=100;
+const np={room:null,slot:null,seed:'ww',pot:11,fm:'rec',q:'',f:'todas',cyc:'18/6'},POTS=[1,3,5,7,10,11,12,15,20,25,30];let idc=100;
 const stockOf=id=>S.stock.filter(x=>x.seed===id).reduce((a,x)=>a+(+x.qty||0),0);
 const norm=t=>String(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 function seedMatch(s){const f=np.f,q=norm(np.q.trim());
@@ -4142,8 +4167,8 @@ function renderCosechas(){
  if(!H.length){$('#cosBody').innerHTML='<div class="glass card empty-card"><h2>Todavía no hay cosechas en este ciclo</h2><p class="muted">Cuando una planta esté lista, abrí su ficha en el invernadero y apretá "Cosechar". Se guarda acá con su peso, los días de cultivo y sus fotos.</p></div>';return}
  const st=harvestStats(H);
  const K=[[st.n,'Plantas cosechadas'],[st.nd?gramos(st.td):'—','Peso seco total'],[st.avg!=null?gramos(st.avg):'—','Seco por planta'],[st.gl!=null?fmtN(st.gl)+' g/L':'—','Seco por litro de maceta'],[Math.round(st.days)+' días','Promedio de cultivo']];
- $('#cosBody').innerHTML='<div class="glass card kpis">'+K.map(k=>'<div class="kpi"><b style="font-size:30px">'+k[0]+'</b><span>'+k[1]+'</span></div>').join('')+'</div>'+compararCiclos()+
- '<div class="glass card"><h2>Plantas cosechadas</h2><div class="tblwrap"><table class="tbl"><thead><tr><th>Planta</th><th>Cultivo</th><th>Húmedo</th><th>Seco</th><th>Notas</th><th></th></tr></thead><tbody>'+
+ $('#cosBody').innerHTML='<div class="glass card kpis">'+K.map(k=>'<div class="kpi"><b style="font-size:30px">'+k[0]+'</b><span>'+k[1]+'</span></div>').join('')+'</div>'+compararCiclos()+curadoHtml(H)+
+ '<div class="glass card" style="margin-top:16px"><h2>Plantas cosechadas</h2><div class="tblwrap"><table class="tbl"><thead><tr><th>Planta</th><th>Cultivo</th><th>Húmedo</th><th>Seco</th><th>Notas</th><th></th></tr></thead><tbody>'+
  H.map(p=>{const s=seedOf(p);return'<tr><td><b>'+esc(p.name)+'</b><br><span class="hint">'+esc(s.name)+' · '+p.pot+' L</span></td><td>'+Math.round(p.age)+' días<br><span class="hint">'+esc(fmtD(p.harvest.t,{day:'numeric',month:'short',year:'numeric'}))+'</span></td><td>'+gramos(p.harvest.wet)+'</td><td>'+gramos(p.harvest.dry)+'</td><td>'+esc(p.harvest.note||'')+'</td>'+
   '<td><div class="row tight">'+(p.photos.length?'<button class="btn sm" data-vw="'+p.id+'">Fotos ('+p.photos.length+')</button>':'')+'<button class="btn sm" data-hedit="'+p.id+'">Editar</button><button class="btn sm" data-hback="'+p.id+'">Volver al invernadero</button><button class="btn sm danger" data-hdel="'+p.id+'">'+(cosDel===p.id?'Sí, eliminar':'Eliminar')+'</button></div></td></tr>'}).join('')+'</tbody></table></div></div>'+
  (cosEdit&&H.some(p=>p.id===cosEdit)?(()=>{const p=plantAny(cosEdit);return'<form class="glass card actform" id="hForm" style="margin-top:16px"><h2 style="flex:1 1 100%">Datos de la cosecha de '+esc(p.name)+'</h2><div class="field" style="flex:1 1 140px"><label for="eWet">Peso húmedo (g)</label><input id="eWet" type="text" inputmode="decimal" value="'+(p.harvest.wet!=null?fmtN(p.harvest.wet):'')+'"></div><div class="field" style="flex:1 1 140px"><label for="eDry">Peso seco (g)</label><input id="eDry" type="text" inputmode="decimal" value="'+(p.harvest.dry!=null?fmtN(p.harvest.dry):'')+'"></div><div class="field" style="flex:2 1 260px"><label for="eNote">Cómo salió</label><input id="eNote" type="text" maxlength="200" value="'+esc(p.harvest.note||'')+'"></div><button class="btn primary" type="submit">Guardar</button><button class="btn" type="button" data-hcancel="1">Cancelar</button></form>'})():'')}
@@ -4196,22 +4221,28 @@ function tabNutri(){
   '<div class="glass card"><h2>Próximas semanas</h2><div class="tblwrap"><table class="tbl"><thead><tr><th>Semana</th><th>Etapa</th><th>Qué darle</th><th>Dosis</th></tr></thead><tbody>'+
   W.map(x=>'<tr'+(x.i===0?' style="font-weight:700"':'')+'><td>'+(x.wk+1)+'<br><span class="hint">'+esc(fmtD(p.sownAt+x.wk*7*DAY))+'</span></td><td>'+esc(x.r.stage)+'</td><td>'+esc(x.r.what)+'</td><td>'+x.r.dose+'</td></tr>').join('')+'</tbody></table></div><p class="hint">Plan orientativo según la etapa, el sustrato y la genética. Si el banco de tu semilla o el fertilizante indican otra cosa, mandan ellos.</p></div></div>'}
 /* ambiente */
-const ENVM={ph:{n:'pH',u:'',r:[5.8,6.5],d:1},ec:{n:'EC',u:' mS/cm',r:[.6,2.2],d:2},temp:{n:'Temperatura',u:' °C',r:[20,28],d:1},hum:{n:'Humedad',u:' %',r:[40,70],d:0}};
-const envVal=(e,m)=>e[m]==null?null:e[m];
+const ETAPAS=['Germinación','Plántula','Vegetativo','Pre-floración','Floración','Lista para cosechar'];
+/* etapa de la carpa: la que tienen más plantas (si empatan, la más avanzada) */
+function envStage(){const L=S.plants;if(!L.length)return'Vegetativo';const c={};L.forEach(p=>{const t=stageOf(p);c[t]=(c[t]||0)+1});let best=null;ETAPAS.forEach(t=>{if(c[t]&&(best==null||c[t]>=c[best]))best=t});return best||'Vegetativo'}
+function envRange(m){const r=(RANGOS[envStage()]||RANGOS['Vegetativo'])[m];return r||[0,1]}
+const ENVM={ph:{n:'pH',u:'',d:1,get r(){return envRange('ph')}},ec:{n:'EC',u:' mS/cm',d:2,get r(){return envRange('ec')}},temp:{n:'Temperatura',u:' °C',d:1,get r(){return envRange('temp')}},hum:{n:'Humedad',u:' %',d:0,get r(){return envRange('hum')}},vpd:{n:'VPD',u:' kPa',d:2,get r(){return envRange('vpd')}}};
+/* el VPD no se carga: sale de la temperatura y la humedad de la misma medición */
+const envFmt=(m,v)=>m==='vpd'?v.toFixed(2).replace('.',','):fmtN(+v.toFixed(ENVM[m].d));
+const envVal=(e,m)=>m==='vpd'?((typeof e.temp==='number'&&typeof e.hum==='number')?vpd(e.temp,e.hum):null):(e[m]==null?null:e[m]);
 function envChart(m){
  const M=ENVM[m],L=S.env.filter(e=>envVal(e,m)!=null).sort((a,b)=>a.t-b.t).slice(-30);
  if(L.length<2)return'<p class="hint">'+(L.length?'Con una medición más ya se puede dibujar el gráfico.':'Todavía no cargaste mediciones de '+M.n.toLowerCase()+'.')+'</p>';
- const W=760,H=260,mg={l:46,r:16,t:16,b:34},pw=W-mg.l-mg.r,ph=H-mg.t-mg.b,vs=L.map(e=>e[m]);
+ const W=760,H=260,mg={l:46,r:16,t:16,b:34},pw=W-mg.l-mg.r,ph=H-mg.t-mg.b,vs=L.map(e=>envVal(e,m));
  let lo=Math.min(M.r[0],Math.min.apply(null,vs)),hi=Math.max(M.r[1],Math.max.apply(null,vs));const pad_=(hi-lo)*.12||1;lo-=pad_;hi+=pad_;
  const t0=L[0].t,t1=L[L.length-1].t,X=t=>mg.l+(t-t0)/Math.max(1,t1-t0)*pw,Y=v=>mg.t+ph-(v-lo)/(hi-lo)*ph;
  let s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+M.n+' en el tiempo, con la zona ideal sombreada">';
  s+='<rect x="'+mg.l+'" y="'+Y(M.r[1])+'" width="'+pw+'" height="'+(Y(M.r[0])-Y(M.r[1]))+'" fill="var(--leaf-soft)"/>';
- for(let i=0;i<=4;i++){const v=lo+(hi-lo)*i/4;s+='<line x1="'+mg.l+'" x2="'+(W-mg.r)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="currentColor" stroke-opacity=".12"/><text x="'+(mg.l-8)+'" y="'+(Y(v)+4)+'" text-anchor="end">'+fmtN(+v.toFixed(M.d))+'</text>'}
+ for(let i=0;i<=4;i++){const v=lo+(hi-lo)*i/4;s+='<line x1="'+mg.l+'" x2="'+(W-mg.r)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="currentColor" stroke-opacity=".12"/><text x="'+(mg.l-8)+'" y="'+(Y(v)+4)+'" text-anchor="end">'+envFmt(m,v)+'</text>'}
  s+='<text x="'+mg.l+'" y="'+(H-8)+'">'+esc(fmtD(t0))+'</text><text x="'+(W-mg.r)+'" y="'+(H-8)+'" text-anchor="end">'+esc(fmtD(t1))+'</text>';
- s+='<path d="'+L.map((e,i)=>(i?'L':'M')+X(e.t).toFixed(1)+' '+Y(e[m]).toFixed(1)).join(' ')+'" fill="none" stroke="var(--leaf)" stroke-width="3" stroke-linejoin="round"/>';
- L.forEach(e=>{const out=e[m]<M.r[0]||e[m]>M.r[1];s+='<circle cx="'+X(e.t).toFixed(1)+'" cy="'+Y(e[m]).toFixed(1)+'" r="5" style="fill:'+(out?'var(--warn)':'var(--leaf)')+'" stroke="#fff" stroke-width="2"/>'});
+ s+='<path d="'+L.map((e,i)=>(i?'L':'M')+X(e.t).toFixed(1)+' '+Y(envVal(e,m)).toFixed(1)).join(' ')+'" fill="none" stroke="var(--leaf)" stroke-width="3" stroke-linejoin="round"/>';
+ L.forEach(e=>{const v=envVal(e,m),out=v<M.r[0]||v>M.r[1];s+='<circle cx="'+X(e.t).toFixed(1)+'" cy="'+Y(envVal(e,m)).toFixed(1)+'" r="5" style="fill:'+(out?'var(--warn)':'var(--leaf)')+'" stroke="#fff" stroke-width="2"/>'});
  return s+'</svg>'}
-function envChips(e){return Object.keys(ENVM).filter(m=>e[m]!=null).map(m=>{const M=ENVM[m],out=e[m]<M.r[0]||e[m]>M.r[1];return'<span class="chip'+(out?' warn':'')+'">'+M.n+' '+fmtN(e[m])+M.u+'</span>'}).join(' ')}
+function envChips(e){return Object.keys(ENVM).filter(m=>envVal(e,m)!=null).map(m=>{const M=ENVM[m],v=envVal(e,m),out=v<M.r[0]||v>M.r[1];return'<span class="chip'+(out?' warn':'')+'">'+M.n+' '+envFmt(m,v)+M.u+'</span>'}).join(' ')}
 function tabAmb(){
  const rec=S.env.slice().sort((a,b)=>b.t-a.t),last=rec[0];
  return'<div class="two"><div class="stack"><form class="glass card" id="envForm" autocomplete="off"><h2>Anotar una medición</h2><p class="hint">Cargá solo lo que mediste hoy. Usá coma o punto para los decimales.</p>'+
@@ -4220,7 +4251,7 @@ function tabAmb(){
   '<div class="row"><button class="btn primary" type="submit">Guardar medición</button></div></form>'+
   '<div class="glass card"><h2>Últimas mediciones</h2>'+(rec.length?'<ul class="log">'+rec.slice(0,8).map(e=>'<li><span>'+esc(fmtDT(e.t))+'</span><span>'+envChips(e)+' <button class="btn sm" data-edel="'+e.id+'" aria-label="Borrar medición">Borrar</button></span></li>').join('')+'</ul>':'<p class="hint">Todavía no hay mediciones.</p>')+'</div></div>'+
   '<div class="glass card"><div class="hd"><div class="seg" id="envTabs" role="tablist" aria-label="Qué medir">'+Object.keys(ENVM).map(m=>'<button role="tab" data-em="'+m+'" aria-selected="'+(cc.metric===m)+'">'+ENVM[m].n+'</button>').join('')+'</div></div>'+
-  '<div class="chartbox sm" id="envChart">'+envChart(cc.metric)+'</div><p class="hint">La franja verde es el rango recomendado ('+fmtN(ENVM[cc.metric].r[0])+' a '+fmtN(ENVM[cc.metric].r[1])+ENVM[cc.metric].u+'). Los puntos rojos están afuera. Las mediciones también aparecen en el informe semanal.</p>'+(last?'<div class="sumrow">'+envChips(last)+'</div>':'')+'</div></div>'}
+  '<div class="chartbox sm" id="envChart">'+envChart(cc.metric)+'</div><p class="hint">La franja verde es el rango recomendado para la etapa de tu carpa ('+esc(envStage())+'): '+envFmt(cc.metric,ENVM[cc.metric].r[0])+' a '+envFmt(cc.metric,ENVM[cc.metric].r[1])+ENVM[cc.metric].u+'. Los puntos rojos están afuera. El VPD sale solo de la temperatura y la humedad que cargues juntas. Las mediciones también aparecen en el informe semanal.</p>'+(last?'<div class="sumrow">'+envChips(last)+'</div>':'')+'</div></div>'}
 /* podas */
 function trainAdvice(p){const a=p.age,s=seedOf(p),fs=flowerStart(p),wf=fs!=null&&a>=fs?(a-fs)/7:-1;
  if(a<14)return'Todavía es muy chica: no hace falta tocarla.';
@@ -4260,9 +4291,9 @@ $('#cBody').addEventListener('submit',e=>{e.preventDefault();
 renderers.cuidados=renderCuidados;
 /* ambiente de la semana para el informe */
 function envWeek(w){const L=S.env.filter(e=>e.t>=w.t0&&e.t<w.t1);if(!L.length)return null;
- return Object.keys(ENVM).map(m=>{const v=L.filter(e=>e[m]!=null).map(e=>e[m]);if(!v.length)return null;return{m:m,n:v.length,avg:v.reduce((a,b)=>a+b,0)/v.length,min:Math.min.apply(null,v),max:Math.max.apply(null,v)}}).filter(Boolean)}
+ return Object.keys(ENVM).map(m=>{const v=L.map(e=>envVal(e,m)).filter(x=>x!=null);if(!v.length)return null;return{m:m,n:v.length,avg:v.reduce((a,b)=>a+b,0)/v.length,min:Math.min.apply(null,v),max:Math.max.apply(null,v)}}).filter(Boolean)}
 function envHtml(w){const R=envWeek(w);if(!R||!R.length)return'<p class="hint">No cargaste mediciones de ambiente esta semana.</p>';
- return'<div class="tblwrap"><table class="tbl"><thead><tr><th>Medida</th><th>Promedio</th><th>Mínimo</th><th>Máximo</th><th>Mediciones</th></tr></thead><tbody>'+R.map(r=>{const M=ENVM[r.m],bad=r.avg<M.r[0]||r.avg>M.r[1];return'<tr><td><b>'+M.n+'</b></td><td><span class="chip'+(bad?' warn':'')+'">'+fmtN(r.avg)+M.u+'</span></td><td>'+fmtN(r.min)+M.u+'</td><td>'+fmtN(r.max)+M.u+'</td><td>'+r.n+'</td></tr>'}).join('')+'</tbody></table></div>'}
+ return'<div class="tblwrap"><table class="tbl"><thead><tr><th>Medida</th><th>Promedio</th><th>Mínimo</th><th>Máximo</th><th>Mediciones</th></tr></thead><tbody>'+R.map(r=>{const M=ENVM[r.m],bad=r.avg<M.r[0]||r.avg>M.r[1];return'<tr><td><b>'+M.n+'</b></td><td><span class="chip'+(bad?' warn':'')+'">'+envFmt(r.m,r.avg)+M.u+'</span></td><td>'+envFmt(r.m,r.min)+M.u+'</td><td>'+envFmt(r.m,r.max)+M.u+'</td><td>'+r.n+'</td></tr>'}).join('')+'</tbody></table></div>'}
 
 /* ---------- visor de fotos: línea de tiempo, comparar, borrar, volver a analizar ---------- */
 const vw={pid:null,list:[],i:0,cmp:false,timer:null,del:false,last:null};
@@ -4312,7 +4343,9 @@ document.addEventListener('keydown',e=>{if($('#viewer').hidden)return;
 /* ---------- costos: calculadora de precios y rinde esperado ---------- */
 const CAMPOS=[
  ['kwh','Precio del kWh','$','Lo sacás de la boleta: total dividido los kWh del período.'],
- ['watts','Consumo de la lámpara','W','Lo que dice la lámpara o el equipo LED.'],
+ ['watts','Consumo de la lámpara','W','Lo que gasta de la pared. Un panel de "300 W" puede gastar menos que lo que dice la caja: si tenés un vatímetro, medilo.'],
+ ['equipo','Equipo: carpa, lámpara, timer, etc.','$','Lo que pagaste por el equipo. Se reparte entre los ciclos de abajo para no inflar un solo cultivo.'],
+ ['equipoCiclos','Ciclos para repartir el equipo','u','Si lo querés contar entero en este ciclo, poné 1.'],
  ['hVeg','Horas de luz en crecimiento','h','Normalmente 18.'],
  ['hFlo','Horas de luz en floración','h','Normalmente 12.'],
  ['coolers','Cantidad de coolers','u','Ventiladores de la carpa o el invernadero. Consumen energía todo el ciclo.'],
@@ -4343,7 +4376,7 @@ function costBody(){
   [gramosN(gr),proy?'Gramos esperados':'Gramos (real + esperado)'],
   [isFinite(porG)?money(porG)+'/g':'—','Costo por gramo'],
   [Math.round(c.dias)+' días','Duración del ciclo']];
- const vacio=CAMPOS.every(f=>['watts','hVeg','hFlo','fertMl','sustL','fertDosis','coolW','coolH'].includes(f[0])||S.cost[f[0]]==null);
+ const vacio=CAMPOS.every(f=>['watts','hVeg','hFlo','fertMl','sustL','fertDosis','coolW','coolH','equipoCiclos'].includes(f[0])||S.cost[f[0]]==null);
  const tabla='<div class="glass card"><h2>De dónde sale</h2><div class="tblwrap"><table class="tbl"><thead><tr><th>Concepto</th><th>Detalle</th><th class="ar">Costo</th></tr></thead><tbody>'+
   c.items.map(it=>'<tr><td><b>'+esc(it[0])+'</b></td><td class="hint">'+esc(it[2])+'</td><td class="ar">'+money(it[1])+'</td></tr>').join('')+
   '<tr class="tot"><td colspan="2"><b>Total</b></td><td class="ar"><b>'+money(c.total)+'</b></td></tr></tbody></table></div>'+
@@ -4371,7 +4404,7 @@ renderers.costos=renderCostos;
 /* ---------- calendario: lo hecho y lo que viene ---------- */
 let calMes=null,calSel=null;
 const dKey=t=>dayKey(t);
-const TIPOS={riego:['Riego','ri'],fert:['Fertilizante','fe'],poda:['Poda o atado','po'],foto:['Foto','fo'],medida:['Medición','me'],cosecha:['Cosecha','co'],nota:['Nota','no'],flor:['Empieza a florecer','fl'],lista:['Lista para cosechar','li'],plan:['Riego previsto','pl'],siembra:['Siembra','si']};
+const TIPOS={riego:['Riego','ri'],fert:['Fertilizante','fe'],poda:['Poda o atado','po'],foto:['Foto','fo'],medida:['Medición','me'],cosecha:['Cosecha','co'],nota:['Nota','no'],flor:['Empieza a florecer','fl'],lista:['Lista para cosechar','li'],plan:['Riego previsto','pl'],siembra:['Siembra','si'],cura:['Secado y curado','cu']};
 /* junta lo registrado y lo proyectado en un mapa por día */
 function calData(){
  const M={},add=(t,tipo,txt,pid)=>{const k=dKey(t);(M[k]=M[k]||[]).push({tipo:tipo,txt:txt,pid:pid,t:t})};
@@ -4381,6 +4414,9 @@ function calData(){
   p.photos.forEach(f=>add(f.t,'foto',p.name+': foto',p.id));
   if(p.harvest&&p.harvest.t)add(p.harvest.t,'cosecha',p.name+': cosechada'+(p.harvest.dry!=null?' ('+fmtN(p.harvest.dry)+' g secos)':''),p.id)});
  const hoy=Date.now();
+ S.archive.forEach(p=>{const s=curState(p);if(!s)return;
+  if(s.fase==='secando'){const t=p.harvest.t+10*DAY;if(t>hoy)add(t,'cura',p.name+': probar el tallo (estimado)',p.id)}
+  if(s.fase==='frascos'){const t=s.jar+CUR_DONE*DAY;if(t>hoy)add(t,'cura',p.name+': cumple 4 semanas de curado (estimado)',p.id)}});
  S.plants.forEach(p=>{
   const s=seedOf(p),fs=flowerStart(p);
   if(fs!=null){const tf=p.sownAt+fs*DAY;if(tf>hoy)add(tf,'flor',p.name+': arranca la floración',p.id);
@@ -4405,7 +4441,7 @@ function renderCalendario(){
    (ev.length>1?'<small>'+ev.length+'</small>':'')+'</button>'}
  html+='</div>';
  $('#calGrid').innerHTML=html;
- $('#calLeg').innerHTML=['riego','plan','fert','flor','lista','cosecha','foto'].map(t=>'<span class="lg"><i class="pt '+TIPOS[t][1]+'"></i>'+TIPOS[t][0]+'</span>').join('');
+ $('#calLeg').innerHTML=['riego','plan','fert','flor','lista','cosecha','cura','foto'].map(t=>'<span class="lg"><i class="pt '+TIPOS[t][1]+'"></i>'+TIPOS[t][0]+'</span>').join('');
  const k=calSel||dKey(Date.now()),ev=(M[k]||[]).slice().sort((a,b)=>a.t-b.t);
  const fecha=new Date(k+'T12:00:00').toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long'});
  $('#calDet').innerHTML='<div class="glass card" style="margin-top:16px"><h2>'+esc(fecha[0].toUpperCase()+fecha.slice(1))+'</h2>'+
@@ -4419,19 +4455,15 @@ renderers.calendario=renderCalendario;
 
 /* ---------- avisos de riego ---------- */
 function plantasQueRiegan(){return S.plants.filter(p=>{const t=at0(()=>statusOf(p)).tone;return t==='water'||(t==='warn'&&at0(()=>hum(p))<=.2)})}
-function textoAviso(L){
- if(!L.length)return null;
- if(L.length===1)return{t:L[0].name+' necesita agua',b:'Está en punto de riego. Abrí Mi Cultivo y registrá el riego cuando la riegues.'};
- return{t:L.length+' plantas necesitan agua',b:L.slice(0,4).map(p=>p.name).join(', ')+(L.length>4?' y '+(L.length-4)+' más.':'.')}}
 function chequearAvisos(forzar){
  if(!store.isDesktop||!S.set.avisos)return;
  const hoy=dayKey(),hora=String(S.set.avisoHora||'09:00'),n=new Date();
  const hm=pad(n.getHours())+':'+pad(n.getMinutes());
  if(!forzar&&(hm<hora||S.set.avisoDia===hoy))return;
- const L=plantasQueRiegan(),msg=textoAviso(L);
+ const c=curPend(),msg=avisosTextos({agua:plantasQueRiegan().map(p=>p.name),abrir:c.abrir.map(p=>p.name),tallo:c.probar.map(p=>p.name),curada:c.listas.map(p=>p.name)});
  if(!forzar)S.set.avisoDia=hoy;
- if(!msg){if(forzar)toast('Ninguna planta necesita agua ahora mismo');return}
- store.notify(msg.t,msg.b);if(forzar)toast('Te mandé un aviso de prueba')}
+ if(!msg){if(forzar)toast('No hay nada para avisarte ahora mismo');return}
+ store.notify(msg.title,msg.body);if(forzar)toast('Te mandé un aviso de prueba')}
 setInterval(()=>chequearAvisos(false),6e4*5);
 setTimeout(()=>chequearAvisos(false),8000);
 
@@ -4510,6 +4542,246 @@ $('#cBody').addEventListener('change',async e=>{
   else{m.textContent=(r&&r.msg)||'No pude leer la guía';$('#gPick').disabled=false}
  }catch(err){m.textContent=cerr(err);$('#gPick').disabled=false}});
 
+/* ---------- secado y curado de lo cosechado ----------
+   Se guarda en la planta archivada: p.cur={jar:t,done:t,burps:[{t}]}.
+   El secado arranca el día de la cosecha (p.harvest.t). */
+const CUR_DONE=28;
+const dayDiff=(a,b)=>Math.round((new Date(dayKey(b)+'T12:00:00')-new Date(dayKey(a)+'T12:00:00'))/DAY);
+function curState(p){
+ const h=p.harvest;if(!h||!h.t)return null;
+ const c=p.cur||{},now=Date.now();
+ if(!p.cur&&now-h.t>60*DAY)return null; /* cosechas viejas, de antes de esta función */
+ if(c.done){const j=c.jar||c.done;return{fase:'listo',dias:Math.max(0,dayDiff(j,c.done)),jar:j,done:c.done}}
+ if(c.jar){
+  const dj=dayDiff(c.jar,now)+1,B=(c.burps||[]).map(b=>b.t).filter(t=>t>=c.jar),last=B.length?Math.max.apply(null,B):c.jar;
+  const iv=dj<=7?1:dj<=14?2:7,gap=dayDiff(last,now);
+  return{fase:'frascos',dias:dj,iv:iv,due:gap>=iv,hoy:B.some(t=>dayKey(t)===dayKey(now)),veces:B.length,jar:c.jar,lista:dj>=CUR_DONE}}
+ return{fase:'secando',dias:dayDiff(h.t,now)+1}}
+function curAdvice(p){
+ const s=curState(p);if(!s)return null;
+ if(s.fase==='secando'){
+  if(s.dias<7)return{tone:'ok',chip:'Secando · día '+s.dias,pct:s.dias/10,
+   text:'Colgada boca abajo, a oscuras, entre 18 y 20 °C y 55 a 62 % de humedad. Que el aire circule pero sin pegarle directo. Todavía no toca probarla.'};
+  if(s.dias<=14)return{tone:'ok',chip:'Secando · día '+s.dias+' · probá el tallo',pct:Math.min(1,s.dias/10),
+   text:'Doblá una rama chica: si se quiebra con un chasquido en vez de doblarse, ya está para pasar a frascos. Si todavía se dobla, esperá un día y volvé a probar.'};
+  return{tone:'warn',chip:'Lleva '+s.dias+' días secando',pct:1,
+   text:'Ya pasó de las dos semanas. Revisala hoy: si el tallo quiebra, pasala a frascos. Si se sigue secando pierde aroma.'}}
+ if(s.fase==='frascos'){
+  const base='En frascos · día '+s.dias;
+  if(s.lista)return{tone:'ok',chip:base+' · cumplió 4 semanas',pct:1,
+   text:'Ya está curada. Desde acá mejora más despacio: guardala en frascos cerrados, a oscuras y entre 15 y 20 °C, y abrilos una vez por semana o cada dos. Podés darla por lista cuando quieras.'};
+  if(s.dias<=7)return{tone:s.due?'warn':'ok',chip:base+(s.due?' · abrir hoy':''),pct:s.dias/CUR_DONE,
+   text:'Abrí los frascos unos 10 a 15 minutos una vez por día, para que salga la humedad. Llenalos hasta tres cuartos y, si tenés higrómetro, buscá 58 a 62 %. Si huele a pasto o a amoníaco, abrilos más seguido y dejalos más rato.'};
+  if(s.dias<=14)return{tone:s.due?'warn':'ok',chip:base+(s.due?' · abrir hoy':''),pct:s.dias/CUR_DONE,
+   text:'Ahora alcanza con abrirlos cada 2 o 3 días, unos 10 minutos. Si el aroma está parejo y no hay humedad en las paredes, vas bien.'};
+  return{tone:s.due?'warn':'ok',chip:base+(s.due?' · abrir hoy':''),pct:s.dias/CUR_DONE,
+   text:'Una vez por semana alcanza. El aroma sigue mejorando hasta las 4 semanas o más.'}}
+ return{tone:'ok',chip:'Curada · '+s.dias+(s.dias===1?' día':' días')+' en frascos',pct:1,text:''}}
+
+function curBurp(ids){
+ const t=Date.now();let n=0;
+ ids.forEach(id=>{const p=S.archive.find(x=>x.id===id);if(!p||!p.cur||!p.cur.jar)return;
+  p.cur.burps=(p.cur.burps||[]).concat([{t:t+n}]);n++});
+ if(n){toast(n===1?'Anotado: abriste el frasco':'Anotado: abriste '+n+' frascos');if(S.view==='cosechas')renderCosechas()}}
+function curSet(p,fase){
+ const t=Date.now();p.cur=p.cur||{};
+ if(fase==='frascos'){p.cur.jar=t;p.cur.done=null;logEv(p,'cura','Pasó a frascos')}
+ else if(fase==='listo'){p.cur.jar=p.cur.jar||t;p.cur.done=t;logEv(p,'cura','Curado listo')}
+ else if(fase==='secando'){p.cur.jar=null;p.cur.done=null}}
+
+function curadoHtml(H){
+ const L=H.map(p=>({p:p,s:curState(p)})).filter(x=>x.s);
+ if(!L.length)return'';
+ const en=L.filter(x=>x.s.fase!=='listo'),ok=L.filter(x=>x.s.fase==='listo');
+ const burpAll=en.filter(x=>x.s.fase==='frascos'&&x.s.due).length;
+ const item=x=>{const p=x.p,s=x.s,a=curAdvice(p);
+  const btn=s.fase==='secando'?'<button class="btn sm primary" data-cur="jar" data-id="'+p.id+'">Pasó a frascos</button>'
+   :'<button class="btn sm'+(s.due?' primary':'')+'" data-cur="burp" data-id="'+p.id+'">'+(s.hoy?'Abierto hoy ✓ · otra vez':'Abrí el frasco')+'</button>'+
+    '<button class="btn sm'+(s.lista?' primary':'')+'" data-cur="done" data-id="'+p.id+'">Dar por curada</button>';
+  const back=s.fase==='frascos'?'<button class="btn sm" data-cur="back" data-id="'+p.id+'">Volver a secado</button>':'';
+  return'<li class="cura-i"><div class="cura-h"><b>'+esc(p.name)+'</b><span class="chip'+(a.tone==='warn'?' warn':'')+'">'+esc(a.chip)+'</span></div>'+
+   '<div class="cura-p'+(a.tone==='warn'?' w':'')+'" role="img" aria-label="Avance"><i style="width:'+Math.round(Math.max(.04,Math.min(1,a.pct))*100)+'%"></i></div>'+
+   '<p class="hint" style="margin:0">'+esc(a.text)+'</p>'+
+   '<div class="row tight">'+btn+back+'</div></li>'};
+ const done=ok.length?'<ul class="cura cura-ok">'+ok.map(x=>{const a=curAdvice(x.p);return'<li class="cura-i ok"><div class="cura-h"><b>'+esc(x.p.name)+'</b><span class="chip plain">'+esc(a.chip)+'</span><button class="btn sm" data-cur="reopen" data-id="'+x.p.id+'">Volver a frascos</button></div></li>'}).join('')+'</ul>':'';
+ return'<div class="glass card" id="curaCard"><div class="hd" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between"><h2 style="margin:0">Secado y curado</h2>'+(burpAll>1?'<button class="btn sm primary" data-cur="burpall">Abrí todos los frascos ('+burpAll+')</button>':'')+'</div>'+
+  '<p class="hint">El secado lleva de 7 a 14 días; el curado en frascos, 2 semanas como mínimo y 4 o más para que salga lo mejor. Si ves moho (pelusa gris o blanca) o huele a amoníaco, no la guardes: sacala y revisá el resto.</p>'+
+  (en.length?'<ul class="cura">'+en.map(item).join('')+'</ul>':'<p class="hint">No hay nada secándose ahora.</p>')+done+'</div>'}
+
+$('#cosBody').addEventListener('click',e=>{
+ const b=e.target.closest('[data-cur]');if(!b)return;
+ const k=b.dataset.cur;
+ if(k==='burpall'){const ids=S.archive.filter(p=>{const s=p.grow===cosSel&&curState(p);return s&&s.fase==='frascos'&&s.due}).map(p=>p.id);curBurp(ids);return}
+ const p=S.archive.find(x=>x.id===b.dataset.id);if(!p)return;
+ if(k==='burp'){curBurp([p.id]);return}
+ if(k==='jar'){curSet(p,'frascos');toast(p.name+' pasó a frascos. Abrilos una vez por día la primera semana');renderCosechas();return}
+ if(k==='done'){curSet(p,'listo');toast(p.name+' curada. Buen trabajo');renderCosechas();return}
+ if(k==='back'){curSet(p,'secando');toast(p.name+' volvió a secado');renderCosechas();return}
+ if(k==='reopen'){p.cur.done=null;toast(p.name+' volvió a frascos');renderCosechas()}});
+
+/* tareas de "Para hoy" y avisos: lo que toca con lo cosechado */
+function curPend(){
+ const L=S.archive.map(p=>({p:p,s:curState(p)})).filter(x=>x.s);
+ return{abrir:L.filter(x=>x.s.fase==='frascos'&&x.s.due).map(x=>x.p),
+  probar:L.filter(x=>x.s.fase==='secando'&&x.s.dias>=7).map(x=>x.p),
+  listas:L.filter(x=>x.s.fase==='frascos'&&x.s.lista).map(x=>x.p)}}
+const curNombres=A=>A.length<=2?A.map(p=>p.name).join(' y '):A.slice(0,2).map(p=>p.name).join(', ')+' y '+(A.length-2)+' más';
+function curVer(p){cosSel=p.grow;cosEdit=null;go('cosechas')}
+function curTareas(out){
+ const c=curPend();
+ if(c.abrir.length)out.push({t:c.abrir.length===1?'Abrir el frasco de '+c.abrir[0].name:'Abrir los frascos ('+c.abrir.length+')',sub:'Unos 10 a 15 minutos para que salga la humedad',btn:'Ya los abrí',tone:'',run:()=>curBurp(c.abrir.map(p=>p.id))});
+ if(c.probar.length)out.push({t:'Probar el tallo de '+curNombres(c.probar),sub:'Si se quiebra en vez de doblarse, pasala a frascos',btn:'Ver',tone:'',run:()=>curVer(c.probar[0])});
+ if(c.listas.length)out.push({t:curNombres(c.listas)+(c.listas.length===1?' cumplió':' cumplieron')+' 4 semanas de curado',sub:'Ya podés darla por curada',btn:'Ver',tone:'',run:()=>curVer(c.listas[0])})}
+
+/* ---------- avisos: riego, frascos y cosecha ----------
+   El celu calcula qué toca en los próximos días ("plan") y lo deja listo para que salga a la hora elegida:
+   - iPhone / Android instalado como app: el plan se guarda en Supabase y una función del servidor manda el push (aunque la app esté cerrada).
+   - APK: se programan notificaciones locales en el propio celu.
+   - Windows: la notificación de siempre, mientras la app está abierta. */
+const VAPID_PUB='BOlXRQ_xl3jv8VyvNTysCyjSvq-5tcdmnLWICXa8hZo408TSpX0xYeYDFevNfJEbyusaa4cIJwYrWOhY24v_yAc';
+const AV={mode:'',on:false,perm:'',endpoint:'',lastSig:'',syncing:false,again:false,msg:''};
+const isNative=()=>{try{return !!(window.Capacitor&&Capacitor.isNativePlatform&&Capacitor.isNativePlatform())}catch(e){return false}};
+/* en una app sin empaquetador el plugin hay que pedirlo con registerPlugin; isPluginAvailable dice si el APK lo trae */
+const LN=()=>{try{const C=window.Capacitor;if(!isNative()||!C.isPluginAvailable||!C.isPluginAvailable('LocalNotifications'))return null;return AV.ln||(AV.ln=C.registerPlugin('LocalNotifications'))}catch(e){return null}};
+const isStandalone=()=>{try{return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}catch(e){return false}};
+const isIOS=()=>/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+const pushOk=()=>!!(cloud.cfg&&cloud.on&&'serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window&&(location.protocol==='https:'||location.hostname==='localhost'));
+function avisosModo(){
+ if(store.isDesktop)return'desktop';
+ if(LN())return'native';
+ if(isIOS()&&!isStandalone())return'instalar';
+ if(pushOk())return'push';
+ return'nada'}
+const b64uBytes=s=>{const p='='.repeat((4-s.length%4)%4),b=atob((s+p).replace(/-/g,'+').replace(/_/g,'/')),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u};
+const sameBytes=(a,b)=>{if(!a||!b||a.byteLength!==b.byteLength)return false;const x=new Uint8Array(a),y=new Uint8Array(b);for(let i=0;i<x.length;i++)if(x[i]!==y[i])return false;return true};
+
+/* texto de un aviso a partir de lo que toca */
+function avisosTextos(c){
+ const L=[],lst=A=>A.length<=2?A.join(' y '):A.slice(0,2).join(', ')+' y '+(A.length-2)+' más';
+ if(c.agua&&c.agua.length)L.push(c.agua.length===1?{t:c.agua[0]+' necesita agua',b:'Está en punto de riego. Registrá el riego cuando la riegues.'}:{t:c.agua.length+' plantas necesitan agua',b:lst(c.agua)});
+ if(c.agua2&&c.agua2.length)L.push({t:'Sigue pidiendo agua: '+lst(c.agua2),b:'Pasó un día y no registraste el riego.'});
+ if(c.abrir&&c.abrir.length)L.push({t:c.abrir.length===1?'Abrir el frasco de '+c.abrir[0]:'Abrir los frascos ('+c.abrir.length+')',b:'Unos 10 a 15 minutos para que salga la humedad.'});
+ if(c.tallo&&c.tallo.length)L.push({t:'Probar el tallo de '+lst(c.tallo),b:'Si se quiebra en vez de doblarse, pasala a frascos.'});
+ if(c.curada&&c.curada.length)L.push({t:lst(c.curada)+(c.curada.length===1?' cumplió':' cumplieron')+' 4 semanas de curado',b:'Ya podés darla por curada.'});
+ if(c.lista&&c.lista.length)L.push({t:lst(c.lista)+(c.lista.length===1?' está lista':' están listas')+' para cosechar',b:'Según la genética ya cumplió la floración. Revisá los tricomas antes de cortar.'});
+ if(!L.length)return null;
+ if(L.length===1)return{title:L[0].t,body:L[0].b};
+ return{title:'Hoy en Mi Cultivo',body:L.map(x=>x.t).join(' · ')}}
+
+/* qué toca en los próximos días, un aviso por día a la hora elegida */
+function avisosPlan(){
+ const now=Date.now(),hm=String(S.set.avisoHora||'09:00').split(':').map(Number),B=new Map();
+ const at=k=>{const d=new Date(now);d.setDate(d.getDate()+k);d.setHours(hm[0]||0,hm[1]||0,0,0);return d.getTime()};
+ const prox=k=>at(k)>now+90e3?k:k+1;                 /* si la hora de hoy ya pasó, sale mañana */
+ const put=(k,tipo,name)=>{if(k<0||k>8)return;const b=B.get(k)||{};(b[tipo]=b[tipo]||[]).push(name);B.set(k,b)};
+ S.plants.forEach(p=>{
+  const d=at0(()=>waterDays(p));
+  if(d<=0){const k=prox(0);put(k,'agua',p.name);put(k+1,'agua2',p.name)}
+  else put(prox(d),'agua',p.name);
+  const fs=flowerStart(p),sd=seedOf(p);
+  if(fs!=null){const tc=p.sownAt+(fs+sd.fw*7)*DAY;if(tc>now)put(prox(dayDiff(now,tc)),'lista',p.name)}});
+ S.archive.forEach(p=>{const s=curState(p);if(!s)return;
+  if(s.fase==='secando'){put(prox(s.dias>=7?0:7-s.dias),'tallo',p.name)}
+  else if(s.fase==='frascos'){
+   if(s.lista)put(prox(0),'curada',p.name);
+   else{put(prox(s.due?0:curProxAbrir(p,s)),'abrir',p.name);if(s.due)put(prox(0)+1,'abrir',p.name)}
+   if(!s.lista&&s.dias<CUR_DONE&&CUR_DONE-s.dias<=8)put(prox(CUR_DONE-s.dias),'curada',p.name)}});
+ const out=[];
+ [...B.keys()].sort((a,b)=>a-b).forEach(k=>{const t=avisosTextos(B.get(k));if(t)out.push({at:at(k),title:t.title.slice(0,80),body:t.body.slice(0,200)})});
+ return out}
+/* días hasta el próximo "abrir el frasco" de una planta que hoy no lo necesita */
+function curProxAbrir(p,s){
+ const B=((p.cur&&p.cur.burps)||[]).map(b=>b.t).filter(t=>t>=p.cur.jar),last=B.length?Math.max.apply(null,B):p.cur.jar;
+ return Math.max(1,s.iv-dayDiff(last,Date.now()))}
+
+/* estado real de este celu */
+async function avisosEstado(){
+ const m=avisosModo();AV.mode=m;AV.perm='';AV.endpoint='';AV.on=false;
+ try{
+  if(m==='native'){const r=await LN().checkPermissions();AV.perm=r.display||'';AV.on=!!S.set.avisos&&AV.perm==='granted'}
+  else if(m==='push'){AV.perm=Notification.permission;const reg=await navigator.serviceWorker.ready,sub=await reg.pushManager.getSubscription();
+   if(sub){AV.endpoint=sub.endpoint;AV.on=!!S.set.avisos&&AV.perm==='granted'}}
+  else if(m==='desktop')AV.on=!!S.set.avisos;
+ }catch(e){}
+ avisosPintar()}
+function avisosPintar(){
+ const sw=$('#sAvisos');if(!sw)return;
+ const m=AV.mode||avisosModo(),T={
+  desktop:'Te aviso con una notificación de Windows cuando alguna planta llega al punto de riego o toca revisar lo cosechado',
+  native:'Te llega una notificación a la hora que elijas, aunque la app esté cerrada: riego, frascos y cosecha lista',
+  push:'Te llega una notificación a la hora que elijas, aunque la app esté cerrada: riego, frascos y cosecha lista',
+  instalar:'En iPhone primero hay que instalar la app: tocá Compartir, después "Agregar a inicio", y abrila desde el ícono',
+  nada:'Este navegador no permite avisos. Probá instalando la app en el celu'}[m];
+ $('#sAvisosT').textContent=T;
+ sw.checked=!!AV.on;sw.disabled=m==='instalar'||m==='nada';
+ $('#sAvisoGrid').hidden=m==='instalar'||m==='nada';
+ $('#sAvisoHora').value=S.set.avisoHora||'09:00';
+ const est=$('#sAvisoEst');let x='';
+ if((m==='push'||m==='native')&&AV.perm==='denied')x='Las notificaciones están bloqueadas para esta app. Habilitalas en los ajustes del celu y volvé a activar el aviso.';
+ else if(AV.msg)x=AV.msg;
+ else if(AV.on&&(m==='push'||m==='native'))x='Activado en este celu. El aviso sale una vez por día, a la hora elegida, solo si hay algo para hacer.';
+ est.textContent=x;est.hidden=!x}
+async function avisosActivar(){
+ const m=avisosModo();AV.mode=m;AV.msg='';
+ try{
+  if(m==='desktop'){S.set.avisos=true;AV.on=true;toast('Listo: te aviso cuando alguna planta pida agua');return}
+  if(m==='native'){const r=await LN().requestPermissions();if(r.display!=='granted'){AV.perm=r.display||'denied';toast('Sin el permiso no puedo avisarte. Habilitalo en los ajustes del celu');return}
+   S.set.avisos=true;AV.on=true;AV.perm='granted';await avisosSync(true);toast('Listo: te aviso a las '+(S.set.avisoHora||'09:00'));return}
+  if(m==='push'){
+   const perm=await Notification.requestPermission();AV.perm=perm;
+   if(perm!=='granted'){toast(perm==='denied'?'Las notificaciones están bloqueadas: habilitalas en los ajustes del celu':'No diste el permiso para avisarte');return}
+   const reg=await navigator.serviceWorker.ready;let sub=await reg.pushManager.getSubscription();
+   const key=b64uBytes(VAPID_PUB);
+   if(sub&&!sameBytes(sub.options&&sub.options.applicationServerKey,key)){try{await sub.unsubscribe()}catch(e){}sub=null}
+   if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:key});
+   const j=sub.toJSON();
+   await rpc('push_subscribe',{p_endpoint:j.endpoint,p_p256dh:j.keys.p256dh,p_auth:j.keys.auth});
+   AV.endpoint=j.endpoint;S.set.avisos=true;AV.on=true;await avisosSync(true);toast('Listo: te aviso a las '+(S.set.avisoHora||'09:00'));return}
+  toast('Este celu no permite avisos')
+ }catch(e){AV.on=false;AV.msg='No pude activar los avisos: '+((e&&e.message)||'error')+'. Si recién actualizaste el servidor, revisá que hayas corrido el SQL de avisos.';toast('No pude activar los avisos')}
+ finally{avisosPintar()}}
+async function avisosApagar(){
+ S.set.avisos=false;AV.on=false;AV.msg='';AV.lastSig='';
+ try{
+  if(AV.mode==='native'){const ln=LN(),p=await ln.getPending();if(p.notifications&&p.notifications.length)await ln.cancel({notifications:p.notifications})}
+  else if(AV.mode==='push'){const reg=await navigator.serviceWorker.ready,sub=await reg.pushManager.getSubscription();
+   if(sub){try{await rpc('push_unsubscribe',{p_endpoint:sub.endpoint})}catch(e){}try{await sub.unsubscribe()}catch(e){}}AV.endpoint=''}
+ }catch(e){}
+ avisosPintar();toast('Avisos apagados')}
+/* sube / programa lo que viene; solo si cambió */
+async function avisosSync(force){
+ const m=avisosModo();if(m!=='push'&&m!=='native')return;
+ if(!S.set.avisos||!AV.on)return;
+ if(AV.syncing){AV.again=true;return}
+ const plan=avisosPlan(),sig=JSON.stringify(plan);
+ if(!force&&sig===AV.lastSig)return;
+ AV.syncing=true;
+ try{
+  if(m==='native'){const ln=LN(),p=await ln.getPending();
+   if(p.notifications&&p.notifications.length)await ln.cancel({notifications:p.notifications});
+   if(plan.length)await ln.schedule({notifications:plan.map((x,i)=>({id:101+i,title:x.title,body:x.body,smallIcon:'ic_stat_icon',iconColor:'#1E5B3A',schedule:{at:new Date(x.at),allowWhileIdle:true}}))})}
+  else{if(!AV.endpoint)return;await rpc('push_plan_set',{p_endpoint:AV.endpoint,p_items:plan})}
+  AV.lastSig=sig;if(AV.msg){AV.msg='';avisosPintar()}
+ }catch(e){AV.lastSig='';if(force){AV.msg='No pude guardar los avisos: '+((e&&e.message)||'error');avisosPintar()}}
+ finally{AV.syncing=false;if(AV.again){AV.again=false;setTimeout(()=>avisosSync(false),800)}}}
+async function avisosProbar(){
+ const m=avisosModo();
+ if(m==='desktop'){chequearAvisos(true);return}
+ if(!AV.on){toast('Primero activá los avisos');return}
+ try{
+  if(m==='native'){await LN().schedule({notifications:[{id:999,title:'Prueba de avisos',body:'Si ves esto, los avisos de Mi Cultivo funcionan en este celu.',smallIcon:'ic_stat_icon',iconColor:'#1E5B3A',schedule:{at:new Date(Date.now()+5000),allowWhileIdle:true}}]});toast('Te llega en unos segundos');return}
+  if(m==='push'){if(!AV.endpoint){toast('Primero activá los avisos');return}await rpc('push_test',{p_endpoint:AV.endpoint});toast('Listo: en unos minutos te llega el aviso de prueba')}
+ }catch(e){toast('No pude pedir el aviso de prueba')}}
+/* al salir de la cuenta: este celu deja de recibir avisos de ese grupo */
+async function avisosAlSalir(){
+ try{if(avisosModo()==='push'){const reg=await navigator.serviceWorker.ready,sub=await reg.pushManager.getSubscription();
+   if(sub){await rpc('push_unsubscribe',{p_endpoint:sub.endpoint});await sub.unsubscribe()}}
+  else if(avisosModo()==='native'){const ln=LN(),p=await ln.getPending();if(p.notifications&&p.notifications.length)await ln.cancel({notifications:p.notifications})}}catch(e){}}
+function avisosInit(){
+ avisosEstado().then(()=>avisosSync(false));
+ setInterval(()=>{if(!document.hidden)avisosSync(false)},30000);
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)avisosEstado().then(()=>avisosSync(false))})}
+
 /* ---------- ajustes ---------- */
 function pressed(group,attr,val){$$(group+' button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset[attr]===val)))}
 $('#sQ').addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(!b)return;S.set.q=b.dataset.q;pressed('#sQ','q',S.set.q);G.setQuality(S.set.q);toast('Calidad gráfica: '+S.set.q)});
@@ -4520,9 +4792,9 @@ $('#sRot').addEventListener('change',e=>{S.set.rot=e.target.checked;walkSync()})
 $('#sPaisaje').addEventListener('change',e=>{S.set.paisaje=e.target.checked;if(sceneOk)G.setPaisaje(e.target.checked);toast(e.target.checked?'Paisaje encendido':'Invernadero en modo limpio')});
 $('#sMot').addEventListener('change',e=>{S.set.mot=e.target.checked;document.body.dataset.motion=e.target.checked?'on':'off'});
 $('#sFondo').addEventListener('change',e=>{S.set.fondo=e.target.checked;document.body.dataset.fondo=e.target.checked?'on':'off'});
-$('#sAvisos').addEventListener('change',e=>{S.set.avisos=e.target.checked;toast(e.target.checked?'Listo: te aviso cuando alguna planta pida agua':'Avisos de riego apagados')});
-$('#sAvisoHora').addEventListener('change',e=>{S.set.avisoHora=e.target.value||'09:00'});
-$('#sAvisoTest').addEventListener('click',()=>chequearAvisos(true));
+$('#sAvisos').addEventListener('change',e=>{if(e.target.checked)avisosActivar();else{if(AV.mode==='desktop'){S.set.avisos=false;AV.on=false;toast('Avisos apagados')}else avisosApagar()}});
+$('#sAvisoHora').addEventListener('change',e=>{S.set.avisoHora=/^\d{2}:\d{2}$/.test(e.target.value)?e.target.value:'09:00';avisosSync(true)});
+$('#sAvisoTest').addEventListener('click',()=>avisosProbar());
 $('#sFotoDia').addEventListener('change',e=>{S.set.fotoDia=e.target.checked;renderToday()});
 $('#sLuzOn').addEventListener('change',e=>{if(/^\d{2}:\d{2}$/.test(e.target.value)){S.set.luzOn=e.target.value;toast('La lámpara se enciende a las '+e.target.value)}else e.target.value=S.set.luzOn||'06:00'});
 $('#sPh').addEventListener('change',e=>{S.set.ph=e.target.checked;renderToday()});
@@ -4571,8 +4843,7 @@ renderers.ajustes=()=>{refreshAI();refreshPriv();renderCloudCard();$('#dataWhere
  if(cloud.on)await cloud.initialSync();
  const sceneOk=initScene();
  if(!sceneOk&&!NOD){const sp=$('.spacer');sp.setAttribute('aria-hidden','false');sp.innerHTML='<p class="muted glass card">No pude iniciar el 3D en este equipo. El resto de la app funciona igual.</p>'}
- $('#sMot').checked=S.set.mot;$('#sFondo').checked=S.set.fondo!==false;document.body.dataset.fondo=S.set.fondo===false?'off':'on';$('#sAvisos').checked=!!S.set.avisos;$('#sAvisoHora').value=S.set.avisoHora||'09:00';
- $('#sAvisos').closest('.sw').hidden=!store.isDesktop;$('#sAvisoHora').closest('.grid2').hidden=!store.isDesktop;$('#sTags').checked=S.set.tags;$('#sRot').checked=S.set.rot;$('#sFotoDia').checked=S.set.fotoDia;$('#sLuzOn').value=S.set.luzOn||'06:00';$('#sPh').checked=S.set.ph;
+ $('#sMot').checked=S.set.mot;$('#sFondo').checked=S.set.fondo!==false;document.body.dataset.fondo=S.set.fondo===false?'off':'on';avisosPintar();setTimeout(avisosInit,1500);$('#sTags').checked=S.set.tags;$('#sRot').checked=S.set.rot;$('#sFotoDia').checked=S.set.fotoDia;$('#sLuzOn').value=S.set.luzOn||'06:00';$('#sPh').checked=S.set.ph;
  document.body.dataset.motion=S.set.mot?'on':'off';document.body.dataset.tags=S.set.tags?'on':'off';
  pressed('#sQ','q',S.set.q);pressed('#sDet','det',S.set.det);if(sceneOk)G.setQuality(S.set.q);
  $('#sPaisaje').checked=!!S.set.paisaje;if(sceneOk)G.setPaisaje(!!S.set.paisaje);

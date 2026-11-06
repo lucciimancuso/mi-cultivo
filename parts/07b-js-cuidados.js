@@ -31,8 +31,8 @@ function renderCosechas(){
  if(!H.length){$('#cosBody').innerHTML='<div class="glass card empty-card"><h2>Todavía no hay cosechas en este ciclo</h2><p class="muted">Cuando una planta esté lista, abrí su ficha en el invernadero y apretá "Cosechar". Se guarda acá con su peso, los días de cultivo y sus fotos.</p></div>';return}
  const st=harvestStats(H);
  const K=[[st.n,'Plantas cosechadas'],[st.nd?gramos(st.td):'—','Peso seco total'],[st.avg!=null?gramos(st.avg):'—','Seco por planta'],[st.gl!=null?fmtN(st.gl)+' g/L':'—','Seco por litro de maceta'],[Math.round(st.days)+' días','Promedio de cultivo']];
- $('#cosBody').innerHTML='<div class="glass card kpis">'+K.map(k=>'<div class="kpi"><b style="font-size:30px">'+k[0]+'</b><span>'+k[1]+'</span></div>').join('')+'</div>'+compararCiclos()+
- '<div class="glass card"><h2>Plantas cosechadas</h2><div class="tblwrap"><table class="tbl"><thead><tr><th>Planta</th><th>Cultivo</th><th>Húmedo</th><th>Seco</th><th>Notas</th><th></th></tr></thead><tbody>'+
+ $('#cosBody').innerHTML='<div class="glass card kpis">'+K.map(k=>'<div class="kpi"><b style="font-size:30px">'+k[0]+'</b><span>'+k[1]+'</span></div>').join('')+'</div>'+compararCiclos()+curadoHtml(H)+
+ '<div class="glass card" style="margin-top:16px"><h2>Plantas cosechadas</h2><div class="tblwrap"><table class="tbl"><thead><tr><th>Planta</th><th>Cultivo</th><th>Húmedo</th><th>Seco</th><th>Notas</th><th></th></tr></thead><tbody>'+
  H.map(p=>{const s=seedOf(p);return'<tr><td><b>'+esc(p.name)+'</b><br><span class="hint">'+esc(s.name)+' · '+p.pot+' L</span></td><td>'+Math.round(p.age)+' días<br><span class="hint">'+esc(fmtD(p.harvest.t,{day:'numeric',month:'short',year:'numeric'}))+'</span></td><td>'+gramos(p.harvest.wet)+'</td><td>'+gramos(p.harvest.dry)+'</td><td>'+esc(p.harvest.note||'')+'</td>'+
   '<td><div class="row tight">'+(p.photos.length?'<button class="btn sm" data-vw="'+p.id+'">Fotos ('+p.photos.length+')</button>':'')+'<button class="btn sm" data-hedit="'+p.id+'">Editar</button><button class="btn sm" data-hback="'+p.id+'">Volver al invernadero</button><button class="btn sm danger" data-hdel="'+p.id+'">'+(cosDel===p.id?'Sí, eliminar':'Eliminar')+'</button></div></td></tr>'}).join('')+'</tbody></table></div></div>'+
  (cosEdit&&H.some(p=>p.id===cosEdit)?(()=>{const p=plantAny(cosEdit);return'<form class="glass card actform" id="hForm" style="margin-top:16px"><h2 style="flex:1 1 100%">Datos de la cosecha de '+esc(p.name)+'</h2><div class="field" style="flex:1 1 140px"><label for="eWet">Peso húmedo (g)</label><input id="eWet" type="text" inputmode="decimal" value="'+(p.harvest.wet!=null?fmtN(p.harvest.wet):'')+'"></div><div class="field" style="flex:1 1 140px"><label for="eDry">Peso seco (g)</label><input id="eDry" type="text" inputmode="decimal" value="'+(p.harvest.dry!=null?fmtN(p.harvest.dry):'')+'"></div><div class="field" style="flex:2 1 260px"><label for="eNote">Cómo salió</label><input id="eNote" type="text" maxlength="200" value="'+esc(p.harvest.note||'')+'"></div><button class="btn primary" type="submit">Guardar</button><button class="btn" type="button" data-hcancel="1">Cancelar</button></form>'})():'')}
@@ -85,22 +85,28 @@ function tabNutri(){
   '<div class="glass card"><h2>Próximas semanas</h2><div class="tblwrap"><table class="tbl"><thead><tr><th>Semana</th><th>Etapa</th><th>Qué darle</th><th>Dosis</th></tr></thead><tbody>'+
   W.map(x=>'<tr'+(x.i===0?' style="font-weight:700"':'')+'><td>'+(x.wk+1)+'<br><span class="hint">'+esc(fmtD(p.sownAt+x.wk*7*DAY))+'</span></td><td>'+esc(x.r.stage)+'</td><td>'+esc(x.r.what)+'</td><td>'+x.r.dose+'</td></tr>').join('')+'</tbody></table></div><p class="hint">Plan orientativo según la etapa, el sustrato y la genética. Si el banco de tu semilla o el fertilizante indican otra cosa, mandan ellos.</p></div></div>'}
 /* ambiente */
-const ENVM={ph:{n:'pH',u:'',r:[5.8,6.5],d:1},ec:{n:'EC',u:' mS/cm',r:[.6,2.2],d:2},temp:{n:'Temperatura',u:' °C',r:[20,28],d:1},hum:{n:'Humedad',u:' %',r:[40,70],d:0}};
-const envVal=(e,m)=>e[m]==null?null:e[m];
+const ETAPAS=['Germinación','Plántula','Vegetativo','Pre-floración','Floración','Lista para cosechar'];
+/* etapa de la carpa: la que tienen más plantas (si empatan, la más avanzada) */
+function envStage(){const L=S.plants;if(!L.length)return'Vegetativo';const c={};L.forEach(p=>{const t=stageOf(p);c[t]=(c[t]||0)+1});let best=null;ETAPAS.forEach(t=>{if(c[t]&&(best==null||c[t]>=c[best]))best=t});return best||'Vegetativo'}
+function envRange(m){const r=(RANGOS[envStage()]||RANGOS['Vegetativo'])[m];return r||[0,1]}
+const ENVM={ph:{n:'pH',u:'',d:1,get r(){return envRange('ph')}},ec:{n:'EC',u:' mS/cm',d:2,get r(){return envRange('ec')}},temp:{n:'Temperatura',u:' °C',d:1,get r(){return envRange('temp')}},hum:{n:'Humedad',u:' %',d:0,get r(){return envRange('hum')}},vpd:{n:'VPD',u:' kPa',d:2,get r(){return envRange('vpd')}}};
+/* el VPD no se carga: sale de la temperatura y la humedad de la misma medición */
+const envFmt=(m,v)=>m==='vpd'?v.toFixed(2).replace('.',','):fmtN(+v.toFixed(ENVM[m].d));
+const envVal=(e,m)=>m==='vpd'?((typeof e.temp==='number'&&typeof e.hum==='number')?vpd(e.temp,e.hum):null):(e[m]==null?null:e[m]);
 function envChart(m){
  const M=ENVM[m],L=S.env.filter(e=>envVal(e,m)!=null).sort((a,b)=>a.t-b.t).slice(-30);
  if(L.length<2)return'<p class="hint">'+(L.length?'Con una medición más ya se puede dibujar el gráfico.':'Todavía no cargaste mediciones de '+M.n.toLowerCase()+'.')+'</p>';
- const W=760,H=260,mg={l:46,r:16,t:16,b:34},pw=W-mg.l-mg.r,ph=H-mg.t-mg.b,vs=L.map(e=>e[m]);
+ const W=760,H=260,mg={l:46,r:16,t:16,b:34},pw=W-mg.l-mg.r,ph=H-mg.t-mg.b,vs=L.map(e=>envVal(e,m));
  let lo=Math.min(M.r[0],Math.min.apply(null,vs)),hi=Math.max(M.r[1],Math.max.apply(null,vs));const pad_=(hi-lo)*.12||1;lo-=pad_;hi+=pad_;
  const t0=L[0].t,t1=L[L.length-1].t,X=t=>mg.l+(t-t0)/Math.max(1,t1-t0)*pw,Y=v=>mg.t+ph-(v-lo)/(hi-lo)*ph;
  let s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+M.n+' en el tiempo, con la zona ideal sombreada">';
  s+='<rect x="'+mg.l+'" y="'+Y(M.r[1])+'" width="'+pw+'" height="'+(Y(M.r[0])-Y(M.r[1]))+'" fill="var(--leaf-soft)"/>';
- for(let i=0;i<=4;i++){const v=lo+(hi-lo)*i/4;s+='<line x1="'+mg.l+'" x2="'+(W-mg.r)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="currentColor" stroke-opacity=".12"/><text x="'+(mg.l-8)+'" y="'+(Y(v)+4)+'" text-anchor="end">'+fmtN(+v.toFixed(M.d))+'</text>'}
+ for(let i=0;i<=4;i++){const v=lo+(hi-lo)*i/4;s+='<line x1="'+mg.l+'" x2="'+(W-mg.r)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="currentColor" stroke-opacity=".12"/><text x="'+(mg.l-8)+'" y="'+(Y(v)+4)+'" text-anchor="end">'+envFmt(m,v)+'</text>'}
  s+='<text x="'+mg.l+'" y="'+(H-8)+'">'+esc(fmtD(t0))+'</text><text x="'+(W-mg.r)+'" y="'+(H-8)+'" text-anchor="end">'+esc(fmtD(t1))+'</text>';
- s+='<path d="'+L.map((e,i)=>(i?'L':'M')+X(e.t).toFixed(1)+' '+Y(e[m]).toFixed(1)).join(' ')+'" fill="none" stroke="var(--leaf)" stroke-width="3" stroke-linejoin="round"/>';
- L.forEach(e=>{const out=e[m]<M.r[0]||e[m]>M.r[1];s+='<circle cx="'+X(e.t).toFixed(1)+'" cy="'+Y(e[m]).toFixed(1)+'" r="5" style="fill:'+(out?'var(--warn)':'var(--leaf)')+'" stroke="#fff" stroke-width="2"/>'});
+ s+='<path d="'+L.map((e,i)=>(i?'L':'M')+X(e.t).toFixed(1)+' '+Y(envVal(e,m)).toFixed(1)).join(' ')+'" fill="none" stroke="var(--leaf)" stroke-width="3" stroke-linejoin="round"/>';
+ L.forEach(e=>{const v=envVal(e,m),out=v<M.r[0]||v>M.r[1];s+='<circle cx="'+X(e.t).toFixed(1)+'" cy="'+Y(envVal(e,m)).toFixed(1)+'" r="5" style="fill:'+(out?'var(--warn)':'var(--leaf)')+'" stroke="#fff" stroke-width="2"/>'});
  return s+'</svg>'}
-function envChips(e){return Object.keys(ENVM).filter(m=>e[m]!=null).map(m=>{const M=ENVM[m],out=e[m]<M.r[0]||e[m]>M.r[1];return'<span class="chip'+(out?' warn':'')+'">'+M.n+' '+fmtN(e[m])+M.u+'</span>'}).join(' ')}
+function envChips(e){return Object.keys(ENVM).filter(m=>envVal(e,m)!=null).map(m=>{const M=ENVM[m],v=envVal(e,m),out=v<M.r[0]||v>M.r[1];return'<span class="chip'+(out?' warn':'')+'">'+M.n+' '+envFmt(m,v)+M.u+'</span>'}).join(' ')}
 function tabAmb(){
  const rec=S.env.slice().sort((a,b)=>b.t-a.t),last=rec[0];
  return'<div class="two"><div class="stack"><form class="glass card" id="envForm" autocomplete="off"><h2>Anotar una medición</h2><p class="hint">Cargá solo lo que mediste hoy. Usá coma o punto para los decimales.</p>'+
@@ -109,7 +115,7 @@ function tabAmb(){
   '<div class="row"><button class="btn primary" type="submit">Guardar medición</button></div></form>'+
   '<div class="glass card"><h2>Últimas mediciones</h2>'+(rec.length?'<ul class="log">'+rec.slice(0,8).map(e=>'<li><span>'+esc(fmtDT(e.t))+'</span><span>'+envChips(e)+' <button class="btn sm" data-edel="'+e.id+'" aria-label="Borrar medición">Borrar</button></span></li>').join('')+'</ul>':'<p class="hint">Todavía no hay mediciones.</p>')+'</div></div>'+
   '<div class="glass card"><div class="hd"><div class="seg" id="envTabs" role="tablist" aria-label="Qué medir">'+Object.keys(ENVM).map(m=>'<button role="tab" data-em="'+m+'" aria-selected="'+(cc.metric===m)+'">'+ENVM[m].n+'</button>').join('')+'</div></div>'+
-  '<div class="chartbox sm" id="envChart">'+envChart(cc.metric)+'</div><p class="hint">La franja verde es el rango recomendado ('+fmtN(ENVM[cc.metric].r[0])+' a '+fmtN(ENVM[cc.metric].r[1])+ENVM[cc.metric].u+'). Los puntos rojos están afuera. Las mediciones también aparecen en el informe semanal.</p>'+(last?'<div class="sumrow">'+envChips(last)+'</div>':'')+'</div></div>'}
+  '<div class="chartbox sm" id="envChart">'+envChart(cc.metric)+'</div><p class="hint">La franja verde es el rango recomendado para la etapa de tu carpa ('+esc(envStage())+'): '+envFmt(cc.metric,ENVM[cc.metric].r[0])+' a '+envFmt(cc.metric,ENVM[cc.metric].r[1])+ENVM[cc.metric].u+'. Los puntos rojos están afuera. El VPD sale solo de la temperatura y la humedad que cargues juntas. Las mediciones también aparecen en el informe semanal.</p>'+(last?'<div class="sumrow">'+envChips(last)+'</div>':'')+'</div></div>'}
 /* podas */
 function trainAdvice(p){const a=p.age,s=seedOf(p),fs=flowerStart(p),wf=fs!=null&&a>=fs?(a-fs)/7:-1;
  if(a<14)return'Todavía es muy chica: no hace falta tocarla.';
@@ -149,6 +155,6 @@ $('#cBody').addEventListener('submit',e=>{e.preventDefault();
 renderers.cuidados=renderCuidados;
 /* ambiente de la semana para el informe */
 function envWeek(w){const L=S.env.filter(e=>e.t>=w.t0&&e.t<w.t1);if(!L.length)return null;
- return Object.keys(ENVM).map(m=>{const v=L.filter(e=>e[m]!=null).map(e=>e[m]);if(!v.length)return null;return{m:m,n:v.length,avg:v.reduce((a,b)=>a+b,0)/v.length,min:Math.min.apply(null,v),max:Math.max.apply(null,v)}}).filter(Boolean)}
+ return Object.keys(ENVM).map(m=>{const v=L.map(e=>envVal(e,m)).filter(x=>x!=null);if(!v.length)return null;return{m:m,n:v.length,avg:v.reduce((a,b)=>a+b,0)/v.length,min:Math.min.apply(null,v),max:Math.max.apply(null,v)}}).filter(Boolean)}
 function envHtml(w){const R=envWeek(w);if(!R||!R.length)return'<p class="hint">No cargaste mediciones de ambiente esta semana.</p>';
- return'<div class="tblwrap"><table class="tbl"><thead><tr><th>Medida</th><th>Promedio</th><th>Mínimo</th><th>Máximo</th><th>Mediciones</th></tr></thead><tbody>'+R.map(r=>{const M=ENVM[r.m],bad=r.avg<M.r[0]||r.avg>M.r[1];return'<tr><td><b>'+M.n+'</b></td><td><span class="chip'+(bad?' warn':'')+'">'+fmtN(r.avg)+M.u+'</span></td><td>'+fmtN(r.min)+M.u+'</td><td>'+fmtN(r.max)+M.u+'</td><td>'+r.n+'</td></tr>'}).join('')+'</tbody></table></div>'}
+ return'<div class="tblwrap"><table class="tbl"><thead><tr><th>Medida</th><th>Promedio</th><th>Mínimo</th><th>Máximo</th><th>Mediciones</th></tr></thead><tbody>'+R.map(r=>{const M=ENVM[r.m],bad=r.avg<M.r[0]||r.avg>M.r[1];return'<tr><td><b>'+M.n+'</b></td><td><span class="chip'+(bad?' warn':'')+'">'+envFmt(r.m,r.avg)+M.u+'</span></td><td>'+envFmt(r.m,r.min)+M.u+'</td><td>'+envFmt(r.m,r.max)+M.u+'</td><td>'+r.n+'</td></tr>'}).join('')+'</tbody></table></div>'}
