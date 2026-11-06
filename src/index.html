@@ -900,13 +900,14 @@ body[data-motion="off"] .pop,body[data-motion="off"] .modal>div{animation:none}
 .aglogo{width:44px;height:44px;color:var(--hoja)}
 .agbox h1{margin:0;font-size:30px;letter-spacing:-.02em}
 .aghint{margin:0;color:var(--tinta3);font-size:14.5px;line-height:1.45;min-height:2.9em}
-.agbox .seg{display:flex;gap:4px;padding:4px;border-radius:12px;background:var(--campo);margin-bottom:6px}
-.agbox .seg button{flex:1;min-height:42px;border:0;border-radius:9px;background:transparent;font-weight:600;color:var(--tinta2)}
+.agbox .seg{display:flex;width:100%;box-sizing:border-box;gap:4px;padding:4px;border-radius:12px;background:var(--campo);margin-bottom:6px}
+.agbox .seg button{flex:1;white-space:nowrap;min-height:42px;border:0;border-radius:9px;background:transparent;font-weight:600;color:var(--tinta2)}
 .agbox .seg button[aria-pressed="true"]{background:var(--papel);color:var(--tinta);box-shadow:0 1px 3px rgba(0,0,0,.1)}
 .agbox form{display:flex;flex-direction:column;gap:12px}
 .agbox input{font-size:16px;min-height:46px}
 .pwrow{display:flex;gap:8px}.pwrow input{flex:1;min-width:0}
 .agbtn{min-height:48px;font-size:16px;width:100%}
+.agver{margin:0;text-align:center;font-size:11.5px;color:var(--tinta3);opacity:.7}
 .agmsg{margin:0;min-height:1.4em;font-size:14px;color:var(--tierra);font-weight:600}
 .agmsg[data-ok="1"]{color:var(--hoja)}
 .agsoft{border:0;background:transparent;color:var(--tinta3);text-decoration:underline;font:inherit;font-size:13.5px;padding:8px;cursor:pointer;align-self:center}
@@ -1340,6 +1341,7 @@ html[data-nod] .sw:has(#sLuz),html[data-nod] .sw:has(#sTags),html[data-nod] .sw:
 </form>
 <button class="agsoft" id="agOut" type="button">Usar otra cuenta</button></div>
 <p class="agmsg" id="agMsg" role="status" aria-live="polite"></p>
+<p class="agver" id="agVer"></p>
 <button class="agsoft" id="agSkip" type="button" hidden>Seguir sin cuenta (solo en esta compu)</button>
 </div></div>
 <div class="lock" id="lock" hidden><form class="glass card" id="lockForm"><h1>Mi Cultivo</h1><p class="muted">Ingresá tu PIN para abrir la app.</p><label class="sr" for="lockPin">PIN</label><input type="password" id="lockPin" inputmode="numeric" autocomplete="off" maxlength="12" placeholder="PIN"><button class="btn primary" type="submit">Entrar</button><p class="hint" id="lockMsg" role="alert"></p></form></div>
@@ -1935,7 +1937,7 @@ function authGate(){return new Promise(resolve=>{
  const box=document.getElementById('authGate'),q=s=>box.querySelector(s);
  let mode='in',gmode='new';
  const msg=(t,ok)=>{const m=q('#agMsg');m.textContent=t||'';m.dataset.ok=ok?'1':''};
- const step=n=>{q('#agS1').hidden=n!==1;q('#agS2').hidden=n!==2;msg('');tfocus(n===1?q('#agMail'):q('#agName'))};
+ const step=n=>{q('#agS1').hidden=n!==1;q('#agS2').hidden=n!==2;msg('');if(n===1)setMode(mode);else setG(gmode);tfocus(n===1?q('#agMail'):q('#agName'))};
  const setMode=m=>{mode=m;q('#agTabs').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.m===m)));
   q('#agGo').textContent=m==='in'?'Entrar':'Crear cuenta';q('#agPw').autocomplete=m==='in'?'current-password':'new-password';
   q('#agSub').textContent=m==='in'?'Entrá con tu cuenta para ver tu cultivo compartido.':'Creá tu cuenta (te pide solo email y contraseña).'};
@@ -1943,6 +1945,7 @@ function authGate(){return new Promise(resolve=>{
   q('#agGroupF').hidden=m!=='new';q('#agCodeF').hidden=m!=='join';q('#agGo2').textContent=m==='new'?'Crear grupo':'Unirme';
   q('#agSub').textContent=m==='new'?'Vos creás el grupo y después compartís el código con tus amigos.':'Pedile el código de 10 letras a quien creó el grupo.'};
  q('#agSkip').hidden=!store.isDesktop;
+ q('#agVer').textContent=window.__BUILD__?'Versión '+String(window.__BUILD__).slice(0,6):'';
  const finish=()=>{box.hidden=true;delete document.body.dataset.gate;resolve('ready')};
  q('#agTabs').onclick=e=>{const b=e.target.closest('button[data-m]');if(b){setMode(b.dataset.m);msg('')}};
  q('#agGTabs').onclick=e=>{const b=e.target.closest('button[data-g]');if(b){setG(b.dataset.g);msg('')}};

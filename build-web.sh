@@ -37,5 +37,5 @@ echo '<script src="config.js"></script><script src="vendor/supabase.js"></script
 echo '</body></html>'
 } > web/index.html
 # el JS va en un archivo aparte (la CSP no permite scripts dentro del HTML)
-{ cat $PARTS | sed -e '/^<script src=/d' -e '/^<script>$/d' -e '/^<\/script>$/d'; echo "if('serviceWorker' in navigator&&location.protocol==='https:'){addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}"; } > web/app.js
+{ echo "window.__BUILD__='$BUILD';"; cat $PARTS | sed -e '/^<script src=/d' -e '/^<script>$/d' -e '/^<\/script>$/d'; echo "if('serviceWorker' in navigator&&location.protocol==='https:'){addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}"; } > web/app.js
 node --check web/app.js && echo "web OK build=$BUILD" && ls -la web | awk '{print $5, $9}'

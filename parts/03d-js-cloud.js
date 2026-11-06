@@ -153,7 +153,7 @@ function authGate(){return new Promise(resolve=>{
  const box=document.getElementById('authGate'),q=s=>box.querySelector(s);
  let mode='in',gmode='new';
  const msg=(t,ok)=>{const m=q('#agMsg');m.textContent=t||'';m.dataset.ok=ok?'1':''};
- const step=n=>{q('#agS1').hidden=n!==1;q('#agS2').hidden=n!==2;msg('');tfocus(n===1?q('#agMail'):q('#agName'))};
+ const step=n=>{q('#agS1').hidden=n!==1;q('#agS2').hidden=n!==2;msg('');if(n===1)setMode(mode);else setG(gmode);tfocus(n===1?q('#agMail'):q('#agName'))};
  const setMode=m=>{mode=m;q('#agTabs').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.m===m)));
   q('#agGo').textContent=m==='in'?'Entrar':'Crear cuenta';q('#agPw').autocomplete=m==='in'?'current-password':'new-password';
   q('#agSub').textContent=m==='in'?'Entrá con tu cuenta para ver tu cultivo compartido.':'Creá tu cuenta (te pide solo email y contraseña).'};
@@ -161,6 +161,7 @@ function authGate(){return new Promise(resolve=>{
   q('#agGroupF').hidden=m!=='new';q('#agCodeF').hidden=m!=='join';q('#agGo2').textContent=m==='new'?'Crear grupo':'Unirme';
   q('#agSub').textContent=m==='new'?'Vos creás el grupo y después compartís el código con tus amigos.':'Pedile el código de 10 letras a quien creó el grupo.'};
  q('#agSkip').hidden=!store.isDesktop;
+ q('#agVer').textContent=window.__BUILD__?'Versión '+String(window.__BUILD__).slice(0,6):'';
  const finish=()=>{box.hidden=true;delete document.body.dataset.gate;resolve('ready')};
  q('#agTabs').onclick=e=>{const b=e.target.closest('button[data-m]');if(b){setMode(b.dataset.m);msg('')}};
  q('#agGTabs').onclick=e=>{const b=e.target.closest('button[data-g]');if(b){setG(b.dataset.g);msg('')}};
