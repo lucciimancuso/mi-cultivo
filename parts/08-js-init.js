@@ -47,9 +47,9 @@ $('#pinSet').addEventListener('click',async()=>{const n=$('#pinNew').value.trim(
 $('#pinClear').addEventListener('click',async()=>{const r=await store.pinClear($('#pinCur').value.trim());$('#pinCur').value='';toast(r&&r.ok?'PIN quitado':(r&&r.msg)||'No pude quitar el PIN');refreshPriv()});
 $('#pinLock').addEventListener('click',async()=>{saveNow(true);await store.lockNow();location.reload()});
 async function gate(){const c=await store.cfgGet();if(!c.locked)return;
- document.body.dataset.locked='1';const box=$('#lock');box.hidden=false;$('#lockPin').focus();
+ document.body.dataset.locked='1';const box=$('#lock');box.hidden=false;tfocus($('#lockPin'));
  await new Promise(res=>{$('#lockForm').addEventListener('submit',async ev=>{ev.preventDefault();const r=await store.unlock($('#lockPin').value.trim());
-  if(r&&r.ok){box.hidden=true;delete document.body.dataset.locked;res()}else{$('#lockMsg').textContent=(r&&r.msg)||'PIN incorrecto';$('#lockPin').value='';$('#lockPin').focus()}})})}
+  if(r&&r.ok){box.hidden=true;delete document.body.dataset.locked;res()}else{$('#lockMsg').textContent=(r&&r.msg)||'PIN incorrecto';$('#lockPin').value='';tfocus($('#lockPin'))}})})}
 renderers.ajustes=()=>{refreshAI();refreshPriv();renderCloudCard();$('#dataWhere').textContent=cloud.on?'Tus plantas se guardan en el servidor de tu grupo y en este dispositivo. Las fotos van a un almacenamiento privado que solo ve tu grupo.':store.isDesktop?'Todo se guarda en esta compu, en la carpeta de datos de la app. No se sube a ningún lado.':'Los datos se guardan solo en este navegador.'};
 
 /* ---------- arranque ---------- */

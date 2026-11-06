@@ -2,6 +2,8 @@
 /* ---------- nube: cuentas, grupo compartido, sincronización, fotos e IA ---------- */
 const CFG=window.CLOUD_CFG||{};
 document.documentElement.dataset.platform=store.isDesktop?'desktop':'web';if(!window.THREE)document.documentElement.dataset.nod='1';
+/* en el celu no se enfoca solo un campo: iOS deja el campo "enfocado" sin teclado y despues no abre al tocarlo */
+const tfocus=el=>{try{if(el&&matchMedia('(pointer:fine)').matches)el.focus()}catch(e){}};
 const lsGet=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
 const lsSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
 const lsDel=k=>{try{localStorage.removeItem(k)}catch(e){}};
@@ -151,7 +153,7 @@ function authGate(){return new Promise(resolve=>{
  const box=document.getElementById('authGate'),q=s=>box.querySelector(s);
  let mode='in',gmode='new';
  const msg=(t,ok)=>{const m=q('#agMsg');m.textContent=t||'';m.dataset.ok=ok?'1':''};
- const step=n=>{q('#agS1').hidden=n!==1;q('#agS2').hidden=n!==2;msg('');if(n===1)q('#agMail').focus();else q('#agName').focus()};
+ const step=n=>{q('#agS1').hidden=n!==1;q('#agS2').hidden=n!==2;msg('');tfocus(n===1?q('#agMail'):q('#agName'))};
  const setMode=m=>{mode=m;q('#agTabs').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.m===m)));
   q('#agGo').textContent=m==='in'?'Entrar':'Crear cuenta';q('#agPw').autocomplete=m==='in'?'current-password':'new-password';
   q('#agSub').textContent=m==='in'?'Entrá con tu cuenta para ver tu cultivo compartido.':'Creá tu cuenta (te pide solo email y contraseña).'};
