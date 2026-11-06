@@ -289,30 +289,65 @@
 </div>
 </div>
 <div class="authgate" id="authGate" hidden role="dialog" aria-modal="true" aria-labelledby="agT">
-<div class="agbox glass">
-<svg class="aglogo" viewBox="0 0 32 32" aria-hidden="true"><g transform="translate(16 29)" fill="currentColor"><ellipse cx="0" cy="-12" rx="2.3" ry="10"/><ellipse cx="0" cy="-11" rx="2" ry="8.5" transform="rotate(-38)"/><ellipse cx="0" cy="-11" rx="2" ry="8.5" transform="rotate(38)"/><ellipse cx="0" cy="-9" rx="1.7" ry="6.5" transform="rotate(-68)"/><ellipse cx="0" cy="-9" rx="1.7" ry="6.5" transform="rotate(68)"/></g></svg>
-<h1 id="agT">Mi Cultivo</h1>
+<div class="agbg" aria-hidden="true">
+<div class="agglow g1"></div><div class="agglow g2"></div>
+<div class="aglamp"><i class="beam"></i><i class="bar"></i></div>
+<div class="agspores"><i style="--x:63%;--s:4px;--d:19s;--t:-14s;--sw:31px;--o:0.45"></i><i style="--x:29%;--s:4px;--d:19s;--t:-20s;--sw:-11px;--o:0.3"></i><i style="--x:63%;--s:3px;--d:14s;--t:-2s;--sw:34px;--o:0.3"></i><i style="--x:82%;--s:3px;--d:19s;--t:-20s;--sw:-14px;--o:0.3"></i><i style="--x:73%;--s:2px;--d:12s;--t:-1s;--sw:-10px;--o:0.45"></i><i style="--x:82%;--s:2px;--d:19s;--t:-10s;--sw:22px;--o:0.45"></i><i style="--x:72%;--s:2px;--d:22s;--t:-9s;--sw:29px;--o:0.3"></i><i style="--x:90%;--s:2px;--d:19s;--t:-20s;--sw:1px;--o:0.8"></i><i style="--x:76%;--s:2px;--d:16s;--t:-10s;--sw:-5px;--o:0.6"></i><i style="--x:9%;--s:2px;--d:21s;--t:-3s;--sw:17px;--o:0.3"></i><i style="--x:43%;--s:3px;--d:13s;--t:-0s;--sw:-34px;--o:0.45"></i><i style="--x:32%;--s:2px;--d:19s;--t:-12s;--sw:16px;--o:0.8"></i><i style="--x:15%;--s:4px;--d:22s;--t:-6s;--sw:0px;--o:0.6"></i><i style="--x:17%;--s:3px;--d:17s;--t:-0s;--sw:18px;--o:0.3"></i></div>
+<svg class="agfol l" viewBox="0 0 250 262" aria-hidden="true" focusable="false"><g transform="translate(34 264)"><g class="fsway"><path d="M0 0C27.5 -56.4 30.6 -159.8 0 -235C-30.6 -159.8 -27.5 -56.4 0 0Z" fill="#0E2C1C" transform="rotate(-8)"/><path d="M0 0C29.5 -60.5 32.8 -171.4 0 -252C-32.8 -171.4 -29.5 -60.5 0 0Z" fill="#143A25" transform="rotate(14)"/><path d="M0 0C25.0 -51.4 27.8 -145.5 0 -214C-27.8 -145.5 -25.0 -51.4 0 0Z" fill="#10301F" transform="rotate(36)"/><path d="M0 0C21.5 -44.2 23.9 -125.1 0 -184C-23.9 -125.1 -21.5 -44.2 0 0Z" fill="#153C27" transform="rotate(60)"/><path d="M0 0C17.6 -36.0 19.5 -102.0 0 -150C-19.5 -102.0 -17.6 -36.0 0 0Z" fill="#0E2C1C" transform="rotate(84)"/></g></g></svg><svg class="agfol r" viewBox="0 0 250 262" aria-hidden="true" focusable="false"><g transform="translate(34 264)"><g class="fsway"><path d="M0 0C27.5 -56.4 30.6 -159.8 0 -235C-30.6 -159.8 -27.5 -56.4 0 0Z" fill="#0E2C1C" transform="rotate(-8)"/><path d="M0 0C29.5 -60.5 32.8 -171.4 0 -252C-32.8 -171.4 -29.5 -60.5 0 0Z" fill="#143A25" transform="rotate(14)"/><path d="M0 0C25.0 -51.4 27.8 -145.5 0 -214C-27.8 -145.5 -25.0 -51.4 0 0Z" fill="#10301F" transform="rotate(36)"/><path d="M0 0C21.5 -44.2 23.9 -125.1 0 -184C-23.9 -125.1 -21.5 -44.2 0 0Z" fill="#153C27" transform="rotate(60)"/><path d="M0 0C17.6 -36.0 19.5 -102.0 0 -150C-19.5 -102.0 -17.6 -36.0 0 0Z" fill="#0E2C1C" transform="rotate(84)"/></g></g></svg>
+</div>
+<div class="agwrap">
+<div class="aghero">
+<div class="agstage"><svg class="agplant" viewBox="0 0 220 214" aria-hidden="true" focusable="false">
+<defs>
+<linearGradient id="agLeaf" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#1B6B42"/><stop offset=".55" stop-color="#3FA66B"/><stop offset="1" stop-color="#9BE3AE"/></linearGradient>
+<linearGradient id="agPot" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#15241B"/><stop offset=".45" stop-color="#22362A"/><stop offset="1" stop-color="#101C15"/></linearGradient>
+<radialGradient id="agPool" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#EAF7C9" stop-opacity=".34"/><stop offset="1" stop-color="#EAF7C9" stop-opacity="0"/></radialGradient>
+</defs>
+<ellipse class="pool" cx="110" cy="205" rx="92" ry="10" fill="url(#agPool)"/>
+<g class="pot">
+<path d="M64 152H156L150 198Q149.5 206 141 206H79Q70.5 206 70 198Z" fill="url(#agPot)"/>
+<path d="M73 172H147" stroke="rgba(234,242,227,.10)" stroke-width="1.2" stroke-dasharray="3 4" fill="none"/>
+<rect x="60" y="145" width="100" height="11" rx="5.5" fill="#1B2D22" stroke="rgba(234,242,227,.12)" stroke-width=".8"/>
+<ellipse cx="110" cy="146.5" rx="45" ry="5" fill="#33241A"/>
+</g>
+<g fill="none" stroke="#3A9A62" stroke-linecap="round">
+<path class="grow" style="--t:.5s;--l:1s" pathLength="1" stroke-width="5" d="M110 148C107 126 113 106 110 84"/>
+<path class="grow" style="--t:1.05s;--l:.5s" pathLength="1" stroke-width="3" d="M110 126Q97 120 83 111"/>
+<path class="grow" style="--t:1.2s;--l:.5s" pathLength="1" stroke-width="3" d="M110 112Q123 107 136 99"/>
+</g>
+<g fill="url(#agLeaf)" stroke="rgba(234,247,201,.38)" stroke-width=".7" stroke-linejoin="round">
+<g transform="translate(110 84)"><g class="sway" style="--p:0s"><g class="bl" style="--a:-78deg;--k:0.5;--t:1.60s"><path d="M0 0C9-14 9-40 0-58C-9-40-9-14 0 0Z"/><path class="vn" d="M0-4V-50"/></g><g class="bl" style="--a:-52deg;--k:0.72;--t:1.46s"><path d="M0 0C9-14 9-40 0-58C-9-40-9-14 0 0Z"/><path class="vn" d="M0-4V-50"/></g><g class="bl" style="--a:-26deg;--k:0.9;--t:1.32s"><path d="M0 0C9-14 9-40 0-58C-9-40-9-14 0 0Z"/><path class="vn" d="M0-4V-50"/></g><g class="bl" style="--a:0deg;--k:1;--t:1.25s"><path d="M0 0C9-14 9-40 0-58C-9-40-9-14 0 0Z"/><path class="vn" d="M0-4V-50"/></g><g class="bl" style="--a:26deg;--k:0.9;--t:1.39s"><path d="M0 0C9-14 9-40 0-58C-9-40-9-14 0 0Z"/><path class="vn" d="M0-4V-50"/></g><g class="bl" style="--a:52deg;--k:0.72;--t:1.53s"><path d="M0 0C9-14 9-40 0-58C-9-40-9-14 0 0Z"/><path class="vn" d="M0-4V-50"/></g><g class="bl" style="--a:78deg;--k:0.5;--t:1.67s"><path d="M0 0C9-14 9-40 0-58C-9-40-9-14 0 0Z"/><path class="vn" d="M0-4V-50"/></g></g></g>
+<g transform="translate(83 111) rotate(-64) scale(.82)"><g class="sway" style="--p:-1.4s"><g class="bl" style="--a:-56deg;--k:0.62;--t:1.81s"><path d="M0 0C9-14 9-40 0-58C-9-40-9-14 0 0Z"/><path class="vn" d="M0-4V-50"/></g><g class="bl" style="--a:-28deg;--k:0.88;--t:1.67s"><path d="M0 0C9-14 9-40 0-58C-9-40-9-14 0 0Z"/><path class="vn" d="M0-4V-50"/></g><g class="bl" style="--a:0deg;--k:1;--t:1.60s"><path d="M0 0C9-14 9-40 0-58C-9-40-9-14 0 0Z"/><path class="vn" d="M0-4V-50"/></g><g class="bl" style="--a:28deg;--k:0.88;--t:1.74s"><path d="M0 0C9-14 9-40 0-58C-9-40-9-14 0 0Z"/><path class="vn" d="M0-4V-50"/></g><g class="bl" style="--a:56deg;--k:0.62;--t:1.88s"><path d="M0 0C9-14 9-40 0-58C-9-40-9-14 0 0Z"/><path class="vn" d="M0-4V-50"/></g></g></g>
+<g transform="translate(136 99) rotate(60) scale(.7)"><g class="sway" style="--p:-2.6s"><g class="bl" style="--a:-56deg;--k:0.62;--t:2.01s"><path d="M0 0C9-14 9-40 0-58C-9-40-9-14 0 0Z"/><path class="vn" d="M0-4V-50"/></g><g class="bl" style="--a:-28deg;--k:0.88;--t:1.87s"><path d="M0 0C9-14 9-40 0-58C-9-40-9-14 0 0Z"/><path class="vn" d="M0-4V-50"/></g><g class="bl" style="--a:0deg;--k:1;--t:1.80s"><path d="M0 0C9-14 9-40 0-58C-9-40-9-14 0 0Z"/><path class="vn" d="M0-4V-50"/></g><g class="bl" style="--a:28deg;--k:0.88;--t:1.94s"><path d="M0 0C9-14 9-40 0-58C-9-40-9-14 0 0Z"/><path class="vn" d="M0-4V-50"/></g><g class="bl" style="--a:56deg;--k:0.62;--t:2.08s"><path d="M0 0C9-14 9-40 0-58C-9-40-9-14 0 0Z"/><path class="vn" d="M0-4V-50"/></g></g></g>
+</g>
+</svg><div class="agpill p1" style="--t:2.25s"><span class="in"><span class="ic t-lima"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg></span>Foto analizada</span></div><div class="agpill p2" style="--t:2.45s"><span class="in"><span class="ic t-agua"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3.5 4.2 6 7.2 6 10.2A6 6 0 0 1 6 13.2C6 10.2 8.5 7.2 12 3z"/></svg></span>Regada hoy</span></div><div class="agpill p3" style="--t:2.65s"><span class="in"><span class="ic t-luz"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="9" r="3"/><path d="M3.5 19c.6-3 2.8-4.6 5.5-4.6s4.9 1.6 5.5 4.6"/><circle cx="17" cy="10" r="2.3"/><path d="M16.5 14.6c2.3.1 3.9 1.4 4.5 4"/></svg></span>4 en el grupo</span></div></div>
+<h1 id="agT" aria-label="Mi Cultivo"><span class="wd" aria-hidden="true"><span class="ltr" style="--i:0">M</span><span class="ltr" style="--i:1">i</span></span> <span class="wd" aria-hidden="true"><span class="ltr" style="--i:2">C</span><span class="ltr" style="--i:3">u</span><span class="ltr" style="--i:4">l</span><span class="ltr" style="--i:5">t</span><span class="ltr" style="--i:6">i</span><span class="ltr" style="--i:7">v</span><span class="ltr" style="--i:8">o</span></span></h1>
+<p class="agtag">Tu cultivo, entre amigos.</p>
+</div>
+<div class="agbox">
 <p class="aghint" id="agSub"></p>
 <div id="agS1">
-<div class="seg" id="agTabs" role="group" aria-label="Entrar o crear cuenta"><button type="button" data-m="in" aria-pressed="true">Entrar</button><button type="button" data-m="up" aria-pressed="false">Crear cuenta</button></div>
+<div class="seg" id="agTabs" role="group" aria-label="Entrar o crear cuenta" style="--n:0"><button type="button" data-m="in" aria-pressed="true">Entrar</button><button type="button" data-m="up" aria-pressed="false">Crear cuenta</button></div>
 <form id="agAuth" autocomplete="on" novalidate>
-<div class="field"><label for="agMail">Email</label><input id="agMail" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="120"></div>
-<div class="field"><label for="agPw">Contraseña</label><div class="pwrow"><input id="agPw" type="password" autocomplete="current-password" maxlength="72" minlength="8"><button type="button" class="btn sm" id="agPwEye">Ver</button></div></div>
-<button class="btn primary agbtn" id="agGo" type="submit">Entrar</button>
+<div class="field" style="--n:1"><label for="agMail">Email</label><input id="agMail" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="120"></div>
+<div class="field" style="--n:2"><label for="agPw">Contraseña</label><div class="pwrow"><input id="agPw" type="password" autocomplete="current-password" maxlength="72" minlength="8"><button type="button" class="btn sm" id="agPwEye">Ver</button></div></div>
+<button class="btn primary agbtn" id="agGo" type="submit" style="--n:3">Entrar</button>
 </form></div>
 <div id="agS2" hidden>
-<div class="seg" id="agGTabs" role="group" aria-label="Crear o unirse a un grupo"><button type="button" data-g="new" aria-pressed="true">Crear grupo</button><button type="button" data-g="join" aria-pressed="false">Unirme con código</button></div>
+<div class="seg" id="agGTabs" role="group" aria-label="Crear o unirse a un grupo" style="--n:0"><button type="button" data-g="new" aria-pressed="true">Crear grupo</button><button type="button" data-g="join" aria-pressed="false">Unirme con código</button></div>
 <form id="agGrowF" autocomplete="off" novalidate>
-<div class="field"><label for="agName">Tu nombre</label><input id="agName" type="text" maxlength="30" autocomplete="nickname" placeholder="Cómo te ven tus amigos"></div>
-<div class="field" id="agGroupF"><label for="agGroup">Nombre del grupo</label><input id="agGroup" type="text" maxlength="40" placeholder="Por ejemplo: La carpa de los pibes"></div>
-<div class="field" id="agCodeF" hidden><label for="agCode">Código del grupo</label><input id="agCode" type="text" maxlength="14" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="XXXXX-XXXXX"></div>
-<button class="btn primary agbtn" id="agGo2" type="submit">Crear grupo</button>
+<div class="field" style="--n:1"><label for="agName">Tu nombre</label><input id="agName" type="text" maxlength="30" autocomplete="nickname" placeholder="Cómo te ven tus amigos"></div>
+<div class="field" id="agGroupF" style="--n:2"><label for="agGroup">Nombre del grupo</label><input id="agGroup" type="text" maxlength="40" placeholder="Por ejemplo: La carpa de los pibes"></div>
+<div class="field" id="agCodeF" style="--n:2" hidden><label for="agCode">Código del grupo</label><input id="agCode" type="text" maxlength="14" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="XXXXX-XXXXX"></div>
+<button class="btn primary agbtn" id="agGo2" type="submit" style="--n:3">Crear grupo</button>
 </form>
 <button class="agsoft" id="agOut" type="button">Usar otra cuenta</button></div>
 <p class="agmsg" id="agMsg" role="status" aria-live="polite"></p>
-<p class="agver" id="agVer"></p>
 <button class="agsoft" id="agSkip" type="button" hidden>Seguir sin cuenta (solo en esta compu)</button>
-</div></div>
+<p class="agver" id="agVer"></p>
+</div>
+</div>
+</div>
 <div class="lock" id="lock" hidden><form class="glass card" id="lockForm"><h1>Mi Cultivo</h1><p class="muted">Ingresá tu PIN para abrir la app.</p><label class="sr" for="lockPin">PIN</label><input type="password" id="lockPin" inputmode="numeric" autocomplete="off" maxlength="12" placeholder="PIN"><button class="btn primary" type="submit">Entrar</button><p class="hint" id="lockMsg" role="alert"></p></form></div>
 <div class="cmdk" id="cmdk" role="dialog" aria-modal="true" aria-label="Buscar o ir a…" hidden><div class="cmdk-box"><input type="text" id="cmdkIn" placeholder="Ir a una sección o buscar una planta" autocomplete="off" role="combobox" aria-expanded="true" aria-controls="cmdkList" aria-autocomplete="list"><ul class="cmdk-list" id="cmdkList" role="listbox"></ul><div class="cmdk-foot">↑ ↓ moverse · Enter elegir · Esc cerrar</div></div></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
