@@ -2,7 +2,10 @@
 // La llama el reloj de la base de datos (pg_cron) cada 5 minutos con una clave secreta propia.
 // Busca los avisos que ya les toca salir (tabla push_plan), los manda por Web Push y los marca como enviados.
 // Secretos del servidor: VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, VAPID_SUBJECT (opcional), CRON_SECRET.
-// Esta función se despliega con "Verify JWT" APAGADO: la protege CRON_SECRET, no un login.
+// Esta función se despliega con "Verify JWT" APAGADO: la protege CRON_SECRET (el reloj) o el login de la persona (la prueba).
+// Dos usos:
+//  1) el reloj (x-cron-secret): manda los avisos que ya les toca salir.
+//  2) el botón "Probar el aviso" (Authorization: Bearer <login>, body {test:true,endpoint}): manda un aviso YA al celu de quien toca el botón.
 import { createClient } from "npm:@supabase/supabase-js@2";
 import webpush from "npm:web-push@3.6.7";
 
@@ -13,7 +16,12 @@ const SECRET = Deno.env.get("CRON_SECRET") || "";
 const VENTANA_H = 6;   // un aviso atrasado más de 6 horas ya no sirve: se descarta
 const POR_CELU = 3;    // máximo de avisos por celu en una pasada (si estuvo todo caído, no lo spameamos)
 
-const json = (o: unknown, status = 200) => new Response(JSON.stringify(o), { status, headers: { "Content-Type": "application/json" } });
+const CORS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-cron-secret",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+};
+const json = (o: unknown, status = 200) => new Response(JSON.stringify(o), { status, headers: { ...CORS, "Content-Type": "application/json" } });
 const same = (a: string, b: string) => {
   if (a.length !== b.length) return false;
   let d = 0;
@@ -21,13 +29,43 @@ const same = (a: string, b: string) => {
   return d === 0;
 };
 
+// prueba inmediata: solo al celu de quien la pide (se valida el login)
+async function prueba(req: Request, admin: any) {
+  const tok = (req.headers.get("authorization") || "").replace(/^Bearer\s+/i, "");
+  if (!tok) return json({ ok: false, msg: "No autorizado" }, 401);
+  const anon = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_ANON_KEY") || Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, { auth: { persistSession: false } });
+  const { data: u, error: eu } = await anon.auth.getUser(tok);
+  if (eu || !u || !u.user) return json({ ok: false, msg: "Tu sesión venció, volvé a entrar" }, 401);
+  let body: any = {};
+  try { body = await req.json(); } catch (_e) { /* sin cuerpo */ }
+  const endpoint = String(body.endpoint || "");
+  const { data: sub } = await admin.from("push_subs").select("endpoint,p256dh,auth").eq("endpoint", endpoint).eq("user_id", u.user.id).maybeSingle();
+  if (!sub) return json({ ok: false, msg: "Este celu no está dado de alta: apagá y volvé a activar los avisos" }, 404);
+  try {
+    await webpush.sendNotification(
+      { endpoint: sub.endpoint, keys: { p256dh: sub.p256dh, auth: sub.auth } },
+      JSON.stringify({ title: "Prueba de avisos", body: "Si ves esto, los avisos de Mi Cultivo funcionan en este celu.", tag: "mc-prueba", url: "./" }),
+      { TTL: 600, urgency: "high", timeout: 15000 },
+    );
+    return json({ ok: true, sent: 1 });
+  } catch (e: any) {
+    const st = e && e.statusCode;
+    if (st === 404 || st === 410) { await admin.from("push_subs").delete().eq("endpoint", sub.endpoint); return json({ ok: false, msg: "El celu rechazó el aviso (se desuscribió): apagá y volvé a activar los avisos" }, 410); }
+    return json({ ok: false, msg: "El servicio de push contestó " + (st || "un error") + (e && e.body ? ": " + String(e.body).slice(0, 120) : "") }, 502);
+  }
+}
+
 Deno.serve(async (req: Request) => {
+  if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
   if (req.method !== "POST") return json({ ok: false, msg: "Método no permitido" }, 405);
-  if (!SECRET || !same(req.headers.get("x-cron-secret") || "", SECRET)) return json({ ok: false, msg: "No autorizado" }, 401);
-  if (!PUB || !PRIV) return json({ ok: false, msg: "Faltan las claves VAPID en los secretos" }, 500);
+  const cron = req.headers.get("x-cron-secret") || "";
+  const esReloj = !!cron;
+  if (esReloj && (!SECRET || !same(cron, SECRET))) return json({ ok: false, msg: "No autorizado" }, 401);
+  if (!PUB || !PRIV) return json({ ok: false, msg: "Faltan las claves VAPID en los secretos de la función" }, 500);
   webpush.setVapidDetails(SUBJECT, PUB, PRIV);
 
   const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, { auth: { persistSession: false } });
+  if (!esReloj) return await prueba(req, admin);
   const ahora = Date.now();
   const desde = new Date(ahora - VENTANA_H * 3600e3).toISOString();
 

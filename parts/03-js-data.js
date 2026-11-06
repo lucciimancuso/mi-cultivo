@@ -132,7 +132,7 @@ const SLOTS=[[-7,3],[-7,-3.5],[-7,-10],[0,-10],[0,-3.5],[0,3],[7,3],[7,-3.5],[7,
 
 /* ---------- estado ---------- */
 const S={inRoom:false,rooms:[{id:'r1'}],room:'r1',subs:[],off:0,day:true,simOn:false,sel:null,view:'inicio',playing:false,plants:[],archive:[],grows:[],grow:null,env:[],stock:[],seedEdits:{},have:new Set(),hist:{},
- set:{rot:false,mot:!matchMedia('(prefers-reduced-motion: reduce)').matches,tags:true,q:'alta',det:'normal',tema:'auto',ph:false,fotoDia:true,luzOn:'06:00',avisos:true,avisoHora:'09:00',avisoDia:'',fondo:true,paisaje:false},
+ set:{rot:false,mot:!matchMedia('(prefers-reduced-motion: reduce)').matches,tags:true,q:'alta',det:'normal',tema:'auto',ph:false,fotoDia:true,luzOn:'06:00',avisos:true,avisoHora:'09:00',avisoHasta:'21:00',avisoDia:'',fondo:true,paisaje:false},
  shot:null,reOf:null,result:null,conf:0,analyzed:false};
 const seedOf=p=>SEEDS.find(s=>s.id===p.seed)||SEEDS.find(x=>x.id==='ww')||SEEDS[0];
 const plantOf=id=>S.plants.find(p=>p.id===id);

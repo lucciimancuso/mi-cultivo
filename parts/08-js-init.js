@@ -10,7 +10,8 @@ $('#sPaisaje').addEventListener('change',e=>{S.set.paisaje=e.target.checked;if(s
 $('#sMot').addEventListener('change',e=>{S.set.mot=e.target.checked;document.body.dataset.motion=e.target.checked?'on':'off'});
 $('#sFondo').addEventListener('change',e=>{S.set.fondo=e.target.checked;document.body.dataset.fondo=e.target.checked?'on':'off'});
 $('#sAvisos').addEventListener('change',e=>{if(e.target.checked)avisosActivar();else{if(AV.mode==='desktop'){S.set.avisos=false;AV.on=false;toast('Avisos apagados')}else avisosApagar()}});
-$('#sAvisoHora').addEventListener('change',e=>{S.set.avisoHora=/^\d{2}:\d{2}$/.test(e.target.value)?e.target.value:'09:00';avisosSync(true)});
+$('#sAvisoHora').addEventListener('change',e=>{const v=/^\d{2}:\d{2}$/.test(e.target.value)?e.target.value:'09:00';if(!store.isDesktop&&v>=(S.set.avisoHasta||'21:00')){toast('El horario de inicio tiene que ser antes del de fin');e.target.value=S.set.avisoHora||'09:00';return}S.set.avisoHora=v;avisosSync(true)});
+$('#sAvisoHasta').addEventListener('change',e=>{const v=/^\d{2}:\d{2}$/.test(e.target.value)?e.target.value:'21:00';if(v<=(S.set.avisoHora||'09:00')){toast('El horario de fin tiene que ser después del de inicio');e.target.value=S.set.avisoHasta||'21:00';return}S.set.avisoHasta=v;avisosSync(true)});
 $('#sAvisoTest').addEventListener('click',()=>avisosProbar());
 $('#sFotoDia').addEventListener('change',e=>{S.set.fotoDia=e.target.checked;renderToday()});
 $('#sLuzOn').addEventListener('change',e=>{if(/^\d{2}:\d{2}$/.test(e.target.value)){S.set.luzOn=e.target.value;toast('La lámpara se enciende a las '+e.target.value)}else e.target.value=S.set.luzOn||'06:00'});

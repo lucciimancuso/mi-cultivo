@@ -237,8 +237,9 @@
 </div>
 <div class="glass card" id="avisosCard"><h2>Avisos</h2>
 <label class="sw"><input type="checkbox" id="sAvisos"><span class="knob"></span><span class="t">Avisarme del riego y el curado<small id="sAvisosT"></small></span></label>
-<div class="grid2" id="sAvisoGrid"><div class="field"><label for="sAvisoHora">Hora del aviso</label><input type="time" id="sAvisoHora" value="09:00"></div>
-<div class="field"><label>&nbsp;</label><button class="btn" id="sAvisoTest" type="button">Probar el aviso</button></div></div>
+<div class="grid2" id="sAvisoGrid"><div class="field"><label for="sAvisoHora" id="sAvisoHoraL">Avisarme desde</label><input type="time" id="sAvisoHora" value="09:00"></div>
+<div class="field"><label for="sAvisoHasta">hasta</label><input type="time" id="sAvisoHasta" value="21:00"></div></div>
+<div class="field" id="sAvisoBtn"><button class="btn" id="sAvisoTest" type="button">Probar el aviso</button></div>
 <p class="hint" id="sAvisoEst" role="status"></p>
 </div>
 <div class="glass card"><h2>Lámpara y fotoperíodo</h2>
