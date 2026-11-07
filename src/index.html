@@ -1010,6 +1010,44 @@ body[data-sync="sync"] .syncdot{background:var(--agua);animation:syncPulse 1s ea
 body[data-sync="offline"] .syncdot,body[data-sync="err"] .syncdot{background:var(--luz)}
 @keyframes syncPulse{50%{transform:scale(1.5);opacity:.6}}
 .rail-brand{position:relative}
+/* solapa Miembros */
+.mem-card{max-width:720px}
+.mem-head{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.mem-ico{flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:14px;background:var(--hoja-suave);color:var(--hoja)}
+.mem-ico svg{width:24px;height:24px}
+.mem-title{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.mem-title h2{margin:0;font-size:22px;line-height:1.2;overflow-wrap:anywhere}
+.mem-k{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta3)}
+.mem-sub{font-size:14px;color:var(--tinta2)}
+.mem-live{flex:none;display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--hoja);padding:5px 10px;border-radius:999px;background:var(--hoja-suave)}
+.mem-live::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.mem-live[data-k="on"]::before{animation:syncPulse 1.6s ease-in-out infinite}
+.mem-live[data-k="wait"],.mem-live[data-k="off"]{color:var(--luz);background:var(--luz-suave)}
+.mem-note{margin:0 0 6px;font-size:14px;color:var(--luz)}
+.mem-list{list-style:none;margin:6px 0 12px;padding:0;display:flex;flex-direction:column}
+.mem-row{display:flex;align-items:center;gap:13px;padding:12px 0;border-bottom:1px solid var(--trazo2)}
+.mem-row:last-child{border-bottom:0}
+.mem-av{position:relative;flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--campo);color:var(--tinta2);font-size:17px}
+.mem-av b{font-weight:700}
+.mem-dot{position:absolute;right:-1px;bottom:-1px;width:13px;height:13px;border-radius:50%;box-sizing:border-box;border:2px solid var(--papel);background:var(--tinta3)}
+.mem-row[data-k="on"] .mem-av{background:var(--hoja-suave);color:var(--hoja)}
+.mem-row[data-k="on"] .mem-dot{background:var(--hoja)}
+.mem-row[data-k="wait"] .mem-dot{background:var(--luz)}
+.mem-row[data-k="off"] .mem-dot,.mem-row[data-k="unk"] .mem-dot{background:var(--papel);border-color:var(--tinta3)}
+.mem-who{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.mem-who b{font-size:16px;font-weight:650;overflow-wrap:anywhere}
+.mem-who b small{font-weight:500;font-size:13px;color:var(--tinta3)}
+.mem-who>span{font-size:13px;color:var(--tinta3)}
+.mem-st{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:1px;text-align:right;max-width:44%}
+.mem-st b{font-size:14px;font-weight:650;color:var(--tinta2)}
+.mem-row[data-k="on"] .mem-st b{color:var(--hoja)}
+.mem-row[data-k="wait"] .mem-st b{color:var(--luz)}
+.mem-st small{font-size:12.5px;color:var(--tinta3)}
+.mem-empty{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.mem-empty h2{margin:6px 0 0}
+.mem-pip{position:absolute;top:8px;left:22px;width:9px;height:9px;border-radius:50%;background:var(--hoja);border:2px solid var(--lienzo);box-sizing:content-box;pointer-events:none}
+@media(max-width:1100px){.mem-pip{top:7px;left:calc(50% + 4px)}}
+@media(max-width:480px){.mem-ico{width:40px;height:40px}.mem-title h2{font-size:20px}.mem-st{max-width:40%}}
 .cd-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
 .cd-mem{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-direction:column}
 .cd-mem li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--trazo2)}
@@ -1063,7 +1101,7 @@ textarea{font:inherit;width:100%;padding:10px 12px;border-radius:var(--r1);borde
   .rail.open .tab{display:flex}
   .rail.open::before{content:"";order:2;flex:0 0 100%;height:1px;margin:4px 8px;background:var(--trazo2)}
   .rail.open #cmdkBtn{display:none!important}
-  .rail.open .tab[data-go="calendario"],.rail.open .tab[data-go="foto"],.rail.open .tab[data-go="informes"],.rail.open .tab[data-go="cosechas"],.rail.open .tab[data-go="costos"],.rail.open .tab[data-go="biblio"],.rail.open .tab[data-go="ajustes"],.rail.open #tema{order:1}
+  .rail.open .tab[data-go="calendario"],.rail.open .tab[data-go="foto"],.rail.open .tab[data-go="informes"],.rail.open .tab[data-go="cosechas"],.rail.open .tab[data-go="costos"],.rail.open .tab[data-go="biblio"],.rail.open .tab[data-go="miembros"],.rail.open .tab[data-go="ajustes"],.rail.open #tema{order:1}
   .rail.open #moreBtn{background:var(--campo)}
   .toast{bottom:calc(var(--bar) + 12px)}
   .vhead{margin-bottom:18px}
@@ -1136,6 +1174,7 @@ html[data-nod] .sw:has(#sLuz),html[data-nod] .sw:has(#sTags),html[data-nod] .sw:
 <div class="rail-grp"><span class="rail-h">Saber</span><button class="tab" data-go="biblio" title="Biblioteca"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h10a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h10"/></svg><span>Biblioteca</span></button></div>
 </nav>
 <div class="rail-foot">
+<button class="tab" data-go="miembros" title="Miembros"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17" cy="9" r="2.4"/><path d="M17.5 14.6c2.3.3 3.8 2 3.8 4.4"/></svg><span>Miembros</span><i class="mem-pip" id="memPip" hidden></i></button>
 <button class="tab" data-go="ajustes" title="Ajustes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg><span>Ajustes</span></button>
 <button class="tab" id="tema" aria-pressed="false" aria-label="Cambiar a modo oscuro" title="Cambiar tema"><svg id="temaIco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg><span id="temaTxt">Modo oscuro</span></button>
 <button class="tab" id="cmdkBtn" type="button" title="Buscar (Ctrl K)" aria-label="Buscar o ir a…"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4-4"/></svg><span>Buscar</span><small>Ctrl K</small></button>
@@ -1347,6 +1386,11 @@ html[data-nod] .sw:has(#sLuz),html[data-nod] .sw:has(#sTags),html[data-nod] .sw:
 <div class="glass card" style="margin-bottom:16px"><div class="grid2"><div class="field"><label for="costSel">Ciclo</label><select id="costSel"></select></div>
 <div class="field"><label for="costMod">Mostrar</label><select id="costMod"><option value="hoy">Gastado hasta hoy</option><option value="fin">Proyectado al final del ciclo</option></select></div></div></div>
 <div id="costBody"></div>
+</section>
+
+<section class="view" id="v-miembros" data-view="miembros" hidden>
+<div class="vhead"><h1>Miembros</h1><p class="lead">Quiénes están en tu grupo y quién tiene la app abierta en este momento.</p></div>
+<div class="glass card mem-card" id="memBody"></div>
 </section>
 
 <section class="view" id="v-ajustes" data-view="ajustes" hidden>
@@ -1990,6 +2034,7 @@ function startSync(){
  cloud.poll=setInterval(()=>{if(!document.hidden)pull()},30000);
  document.addEventListener('visibilitychange',()=>{if(document.hidden){clearTimeout(cloud.timer);push()}else pull()});
  addEventListener('online',()=>{pull();push()});
+ try{startPresence()}catch(e){}
 }
 cloud.initialSync=async()=>{
  const gid=cloud.grow.id,last=lsGet('micultivo-growid');
@@ -2069,7 +2114,7 @@ cloud.rotate=async()=>{await rpc('rotate_code',{p_grow:cloud.grow.id});cloud.gro
 cloud.kick=async uid=>{await rpc('remove_member',{p_grow:cloud.grow.id,p_user:uid});cloud.grow=await myGrow()};
 cloud.leave=async()=>{await rpc('leave_grow')};
 cloud.deleteGrow=async()=>{await rpc('delete_grow',{p_grow:cloud.grow.id})};
-cloud.signOut=async()=>{try{await avisosAlSalir()}catch(e){}try{await cloud.sb.auth.signOut()}catch(e){}
+cloud.signOut=async()=>{try{stopPresence()}catch(e){}try{await avisosAlSalir()}catch(e){}try{await cloud.sb.auth.signOut()}catch(e){}
  if(!store.isDesktop){try{Object.keys(localStorage).filter(k=>/^micultivo/.test(k)).forEach(k=>localStorage.removeItem(k))}catch(e){}}
  else{lsDel('micultivo-growid')}
  location.reload()};
@@ -3072,7 +3117,7 @@ void main(){vec3 d=normalize(vP);float h=d.y;
 }
 
 /* ---------- navegación ---------- */
-const HASH={inicio:'inicio',stage:'invernadero',nueva:'nueva-planta',foto:'fotos',cuidados:'cuidados',calendario:'calendario',informes:'informes',cosechas:'cosechas',costos:'costos',biblio:'biblioteca',ajustes:'ajustes'};
+const HASH={inicio:'inicio',stage:'invernadero',nueva:'nueva-planta',foto:'fotos',cuidados:'cuidados',calendario:'calendario',informes:'informes',cosechas:'cosechas',costos:'costos',biblio:'biblioteca',miembros:'miembros',ajustes:'ajustes'};
 const renderers={};
 function go(v,silent){
  if(v==='stage'&&S.view!=='stage'&&S.inRoom)leaveRoom({instant:true});
@@ -3606,7 +3651,7 @@ addEventListener('resize',segLater);
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(segLater);
 
 /* ---------- paleta de comandos (Ctrl o Cmd + K) ---------- */
-const NAVS=[['inicio','Inicio'],['stage','Invernadero'],['nueva','Nueva planta'],['foto','Fotos'],['cuidados','Cuidados'],['calendario','Calendario'],['informes','Informes'],['cosechas','Cosechas'],['costos','Costos'],['biblio','Biblioteca'],['ajustes','Ajustes']];
+const NAVS=[['inicio','Inicio'],['stage','Invernadero'],['nueva','Nueva planta'],['foto','Fotos'],['cuidados','Cuidados'],['calendario','Calendario'],['informes','Informes'],['cosechas','Cosechas'],['costos','Costos'],['biblio','Biblioteca'],['miembros','Miembros'],['ajustes','Ajustes']];
 const fold=s=>String(s).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
 let cmdItems=[],cmdSel=0,cmdBack=null;
 function cmdBuild(q){
@@ -4833,6 +4878,114 @@ function avisosInit(){
  avisosEstado().then(()=>avisosSync(false));
  setInterval(()=>{if(!document.hidden)avisosSync(false)},30000);
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)avisosEstado().then(()=>avisosSync(false))})}
+/* ---------- miembros: quién está en el grupo y quién tiene la app abierta ahora ----------
+   "Conectado" sale de Supabase Realtime Presence: cada equipo con la app abierta se anota en un canal del grupo y se borra solo
+   al cerrar la app o perder internet. No se guarda nada en la base de datos: solo viaja el id del usuario, si la app está a la vista
+   y la hora. La lista de nombres sale de my_grow() (la misma de Ajustes). Sirve igual en Windows, web/PWA y APK. */
+const PRES={ch:null,state:'off',on:{},seen:{},hb:0,tick:0,n:0,refreshing:false,lastGrow:0,retry:0,bound:false};
+const presMe=()=>(cloud.grow&&cloud.grow.me)||(cloud.user&&cloud.user.id)||'';
+const presKey=()=>'micultivo-seen-'+(cloud.grow&&cloud.grow.id);
+function presPayload(){return{name:(cloud.grow&&cloud.grow.display_name)||'',vis:!document.hidden,t:Date.now()}}
+function presTrack(){if(PRES.ch&&PRES.state==='on'){try{const r=PRES.ch.track(presPayload());if(r&&r.catch)r.catch(()=>{})}catch(e){}}}
+function presLive(){return PRES.state==='on'&&navigator.onLine!==false}
+
+function startPresence(){
+ if(PRES.ch||!cloud.sb||!cloud.grow||!cloud.user)return;
+ try{PRES.seen=JSON.parse(lsGet(presKey())||'{}')||{}}catch(e){PRES.seen={}}
+ PRES.state='connecting';PRES.on={};
+ try{
+  const ch=cloud.sb.channel('presence-'+cloud.grow.id,{config:{presence:{key:presMe()}}});
+  PRES.ch=ch;
+  ch.on('presence',{event:'sync'},()=>{if(PRES.ch===ch)presSync()});
+  ch.subscribe(st=>{
+   if(PRES.ch!==ch)return;
+   if(st==='SUBSCRIBED'){PRES.state='on';presTrack();presSync()}
+   else if(st==='CHANNEL_ERROR'||st==='TIMED_OUT'||st==='CLOSED'){PRES.state='err';presDraw()}});
+ }catch(e){PRES.state='err'}
+ clearInterval(PRES.hb);clearInterval(PRES.tick);
+ PRES.hb=setInterval(presTrack,45000);
+ PRES.tick=setInterval(()=>{if(document.hidden||S.view!=='miembros')return;PRES.n++;presDraw();if(PRES.n%2===0)presRefreshMembers()},30000);
+ if(!PRES.bound){PRES.bound=true;
+  document.addEventListener('visibilitychange',()=>{
+   if(!PRES.ch&&cloud.on&&cloud.grow&&!document.hidden){startPresence();return}
+   if(PRES.state==='on')presTrack();else if(!document.hidden&&PRES.ch&&PRES.state==='err')presRestart()});
+  addEventListener('online',()=>{if(PRES.state!=='on')presRestart();else presDraw()});
+  addEventListener('offline',presDraw);
+  addEventListener('pagehide',()=>{try{if(PRES.ch)PRES.ch.untrack()}catch(e){}})}
+ presDraw()}
+function stopPresence(){
+ clearInterval(PRES.hb);clearInterval(PRES.tick);
+ const ch=PRES.ch;PRES.ch=null;PRES.state='off';PRES.on={};
+ if(ch){try{ch.untrack()}catch(e){}try{cloud.sb.removeChannel(ch)}catch(e){}}}
+function presRestart(){stopPresence();startPresence()}
+
+function presSync(){
+ if(!PRES.ch)return;
+ let st={};try{st=PRES.ch.presenceState()||{}}catch(e){}
+ const now=Date.now(),on={};
+ Object.keys(st).forEach(k=>{const metas=st[k]||[];if(!metas.length)return;
+  on[k]={name:(metas[metas.length-1]||{}).name||'',vis:metas.some(m=>m&&m.vis!==false)}});
+ Object.keys(on).forEach(k=>{PRES.seen[k]=now});
+ Object.keys(PRES.on).forEach(k=>{if(!on[k])PRES.seen[k]=now});
+ PRES.on=on;lsSet(presKey(),JSON.stringify(PRES.seen));
+ const known=new Set(((cloud.grow&&cloud.grow.members)||[]).map(m=>m.user_id));
+ if(Object.keys(on).some(k=>!known.has(k)))presRefreshMembers();
+ presDraw()}
+async function presRefreshMembers(){
+ if(PRES.refreshing||!cloud.on||!cloud.sb)return;
+ const n=Date.now(),wait=10000-(n-PRES.lastGrow);
+ if(wait>0){if(!PRES.retry)PRES.retry=setTimeout(()=>{PRES.retry=0;presRefreshMembers()},wait+50);return}
+ PRES.refreshing=true;PRES.lastGrow=n;
+ try{const g=await myGrow();if(g&&cloud.grow&&g.id===cloud.grow.id)cloud.grow=g}catch(e){}
+ PRES.refreshing=false;presDraw()}
+
+function presAgo(ts){
+ const s=Math.max(0,(Date.now()-ts)/1000);if(s<90)return'hace un momento';
+ const m=Math.round(s/60);if(m<60)return'hace '+m+' min';
+ const h=Math.round(m/60);if(h<24)return'hace '+h+(h===1?' hora':' horas');
+ const d=Math.round(h/24);return d<30?'hace '+d+(d===1?' día':' días'):'hace más de un mes'}
+/* estado de cada miembro: on (conectado), off (desconectado), wait (conectando), unk (no se puede saber sin conexión) */
+function presOf(m){
+ const me=m.user_id===presMe(),live=presLive();
+ if(me){if(live)return{k:'on',t:'Conectado',s:''};return PRES.state==='connecting'&&navigator.onLine!==false?{k:'wait',t:'Conectando…',s:''}:{k:'off',t:'Sin conexión',s:''}}
+ if(!live)return{k:'unk',t:'Sin datos',s:'sin conexión no se sabe'};
+ const o=PRES.on[m.user_id];
+ if(o)return{k:'on',t:'Conectado',s:o.vis?'':'app en segundo plano'};
+ const sn=PRES.seen[m.user_id];
+ return{k:'off',t:'Desconectado',s:sn?'visto '+presAgo(sn):''}}
+function presList(){
+ const g=cloud.grow,mem=(Array.isArray(g&&g.members)?g.members:[]).map(m=>Object.assign({},m,{st:presOf(m)}));
+ const rank=m=>(m.user_id===presMe()?0:m.st.k==='on'?1:m.st.k==='unk'?2:3);
+ return mem.sort((a,b)=>rank(a)-rank(b)||String(a.display_name).localeCompare(String(b.display_name),'es'))}
+
+const MEM_ICO='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17" cy="9" r="2.4"/><path d="M17.5 14.6c2.3.3 3.8 2 3.8 4.4"/></svg>';
+function renderMiembros(){
+ const b=$('#memBody');if(!b)return;
+ if(!cloud.cfg||!cloud.on||!cloud.grow){
+  b.innerHTML='<div class="mem-empty"><span class="mem-ico">'+MEM_ICO+'</span><h2>Todavía no estás en un grupo</h2><p class="hint">Entrá con tu cuenta para compartir el cultivo con tus amigos y ver quién está conectado.</p>'+
+   (cloud.cfg?'<div class="row"><button class="btn primary" data-mem="entrar" type="button">Entrar o crear cuenta</button></div>':'')+'</div>';return}
+ const g=cloud.grow,list=presList(),n=list.length,k=list.filter(m=>m.st.k==='on').length,live=presLive();
+ const liveT=live?'En vivo':PRES.state==='connecting'&&navigator.onLine!==false?'Conectando…':'Sin conexión',liveK=live?'on':liveT==='Conectando…'?'wait':'off';
+ b.innerHTML='<div class="mem-head"><span class="mem-ico">'+MEM_ICO+'</span><div class="mem-title"><span class="mem-k">Tu grupo</span><h2>'+esc(g.name)+'</h2>'+
+  '<span class="mem-sub">'+n+(n===1?' miembro':' miembros')+(live?' · '+k+(k===1?' conectado':' conectados'):'')+'</span></div>'+
+  '<span class="mem-live" data-k="'+liveK+'">'+liveT+'</span></div>'+
+  (live?'':'<p class="mem-note" role="status">'+(liveK==='wait'?'Conectando con el grupo…':'Sin conexión no puedo ver quién está conectado. Se actualiza solo cuando vuelve internet.')+'</p>')+
+  '<ul class="mem-list" aria-label="Miembros del grupo">'+list.map(m=>{
+   const me=m.user_id===presMe(),nm=String(m.display_name||'?').trim()||'?',ini=Array.from(nm)[0].toUpperCase();
+   return'<li class="mem-row" data-k="'+m.st.k+'"><span class="mem-av" aria-hidden="true"><b>'+esc(ini)+'</b><i class="mem-dot"></i></span>'+
+    '<span class="mem-who"><b>'+esc(nm)+(me?' <small>(vos)</small>':'')+'</b><span>'+(m.role==='owner'?'Creó el grupo':'Miembro')+'</span></span>'+
+    '<span class="mem-st"><b>'+m.st.t+'</b>'+(m.st.s?'<small>'+esc(m.st.s)+'</small>':'')+'</span></li>'}).join('')+'</ul>'+
+  '<p class="hint">Conectado quiere decir que tiene la app abierta en este momento, en la compu o en el celu.</p>'+
+  '<div class="row"><button class="btn" data-mem="ajustes" type="button">Invitar o administrar el grupo</button></div>'}
+function presDraw(){
+ const pip=$('#memPip');
+ if(pip){const others=presLive()&&Object.keys(PRES.on).some(k=>k!==presMe());pip.hidden=!others;
+  const t=$('.tab[data-go="miembros"]');if(t)t.setAttribute('aria-label',others?'Miembros, hay gente conectada':'Miembros')}
+ if(S.view==='miembros')renderMiembros()}
+renderers.miembros=()=>{renderMiembros();presRefreshMembers()};
+$('#memBody').addEventListener('click',e=>{const t=e.target.closest('button[data-mem]');if(!t)return;
+ if(t.dataset.mem==='ajustes')go('ajustes');
+ else if(t.dataset.mem==='entrar'){lsDel('micultivo-nocloud');location.reload()}});
 
 /* ---------- ajustes ---------- */
 function pressed(group,attr,val){$$(group+' button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset[attr]===val)))}

@@ -1,6 +1,6 @@
 
 /* ---------- navegación ---------- */
-const HASH={inicio:'inicio',stage:'invernadero',nueva:'nueva-planta',foto:'fotos',cuidados:'cuidados',calendario:'calendario',informes:'informes',cosechas:'cosechas',costos:'costos',biblio:'biblioteca',ajustes:'ajustes'};
+const HASH={inicio:'inicio',stage:'invernadero',nueva:'nueva-planta',foto:'fotos',cuidados:'cuidados',calendario:'calendario',informes:'informes',cosechas:'cosechas',costos:'costos',biblio:'biblioteca',miembros:'miembros',ajustes:'ajustes'};
 const renderers={};
 function go(v,silent){
  if(v==='stage'&&S.view!=='stage'&&S.inRoom)leaveRoom({instant:true});

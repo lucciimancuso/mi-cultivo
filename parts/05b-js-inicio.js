@@ -190,7 +190,7 @@ addEventListener('resize',segLater);
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(segLater);
 
 /* ---------- paleta de comandos (Ctrl o Cmd + K) ---------- */
-const NAVS=[['inicio','Inicio'],['stage','Invernadero'],['nueva','Nueva planta'],['foto','Fotos'],['cuidados','Cuidados'],['calendario','Calendario'],['informes','Informes'],['cosechas','Cosechas'],['costos','Costos'],['biblio','Biblioteca'],['ajustes','Ajustes']];
+const NAVS=[['inicio','Inicio'],['stage','Invernadero'],['nueva','Nueva planta'],['foto','Fotos'],['cuidados','Cuidados'],['calendario','Calendario'],['informes','Informes'],['cosechas','Cosechas'],['costos','Costos'],['biblio','Biblioteca'],['miembros','Miembros'],['ajustes','Ajustes']];
 const fold=s=>String(s).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
 let cmdItems=[],cmdSel=0,cmdBack=null;
 function cmdBuild(q){

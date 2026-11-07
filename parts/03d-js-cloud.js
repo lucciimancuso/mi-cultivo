@@ -64,6 +64,7 @@ function startSync(){
  cloud.poll=setInterval(()=>{if(!document.hidden)pull()},30000);
  document.addEventListener('visibilitychange',()=>{if(document.hidden){clearTimeout(cloud.timer);push()}else pull()});
  addEventListener('online',()=>{pull();push()});
+ try{startPresence()}catch(e){}
 }
 cloud.initialSync=async()=>{
  const gid=cloud.grow.id,last=lsGet('micultivo-growid');
@@ -143,7 +144,7 @@ cloud.rotate=async()=>{await rpc('rotate_code',{p_grow:cloud.grow.id});cloud.gro
 cloud.kick=async uid=>{await rpc('remove_member',{p_grow:cloud.grow.id,p_user:uid});cloud.grow=await myGrow()};
 cloud.leave=async()=>{await rpc('leave_grow')};
 cloud.deleteGrow=async()=>{await rpc('delete_grow',{p_grow:cloud.grow.id})};
-cloud.signOut=async()=>{try{await avisosAlSalir()}catch(e){}try{await cloud.sb.auth.signOut()}catch(e){}
+cloud.signOut=async()=>{try{stopPresence()}catch(e){}try{await avisosAlSalir()}catch(e){}try{await cloud.sb.auth.signOut()}catch(e){}
  if(!store.isDesktop){try{Object.keys(localStorage).filter(k=>/^micultivo/.test(k)).forEach(k=>localStorage.removeItem(k))}catch(e){}}
  else{lsDel('micultivo-growid')}
  location.reload()};

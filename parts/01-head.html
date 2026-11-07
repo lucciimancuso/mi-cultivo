@@ -1004,6 +1004,44 @@ body[data-sync="sync"] .syncdot{background:var(--agua);animation:syncPulse 1s ea
 body[data-sync="offline"] .syncdot,body[data-sync="err"] .syncdot{background:var(--luz)}
 @keyframes syncPulse{50%{transform:scale(1.5);opacity:.6}}
 .rail-brand{position:relative}
+/* solapa Miembros */
+.mem-card{max-width:720px}
+.mem-head{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.mem-ico{flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:14px;background:var(--hoja-suave);color:var(--hoja)}
+.mem-ico svg{width:24px;height:24px}
+.mem-title{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.mem-title h2{margin:0;font-size:22px;line-height:1.2;overflow-wrap:anywhere}
+.mem-k{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta3)}
+.mem-sub{font-size:14px;color:var(--tinta2)}
+.mem-live{flex:none;display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--hoja);padding:5px 10px;border-radius:999px;background:var(--hoja-suave)}
+.mem-live::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.mem-live[data-k="on"]::before{animation:syncPulse 1.6s ease-in-out infinite}
+.mem-live[data-k="wait"],.mem-live[data-k="off"]{color:var(--luz);background:var(--luz-suave)}
+.mem-note{margin:0 0 6px;font-size:14px;color:var(--luz)}
+.mem-list{list-style:none;margin:6px 0 12px;padding:0;display:flex;flex-direction:column}
+.mem-row{display:flex;align-items:center;gap:13px;padding:12px 0;border-bottom:1px solid var(--trazo2)}
+.mem-row:last-child{border-bottom:0}
+.mem-av{position:relative;flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--campo);color:var(--tinta2);font-size:17px}
+.mem-av b{font-weight:700}
+.mem-dot{position:absolute;right:-1px;bottom:-1px;width:13px;height:13px;border-radius:50%;box-sizing:border-box;border:2px solid var(--papel);background:var(--tinta3)}
+.mem-row[data-k="on"] .mem-av{background:var(--hoja-suave);color:var(--hoja)}
+.mem-row[data-k="on"] .mem-dot{background:var(--hoja)}
+.mem-row[data-k="wait"] .mem-dot{background:var(--luz)}
+.mem-row[data-k="off"] .mem-dot,.mem-row[data-k="unk"] .mem-dot{background:var(--papel);border-color:var(--tinta3)}
+.mem-who{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.mem-who b{font-size:16px;font-weight:650;overflow-wrap:anywhere}
+.mem-who b small{font-weight:500;font-size:13px;color:var(--tinta3)}
+.mem-who>span{font-size:13px;color:var(--tinta3)}
+.mem-st{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:1px;text-align:right;max-width:44%}
+.mem-st b{font-size:14px;font-weight:650;color:var(--tinta2)}
+.mem-row[data-k="on"] .mem-st b{color:var(--hoja)}
+.mem-row[data-k="wait"] .mem-st b{color:var(--luz)}
+.mem-st small{font-size:12.5px;color:var(--tinta3)}
+.mem-empty{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.mem-empty h2{margin:6px 0 0}
+.mem-pip{position:absolute;top:8px;left:22px;width:9px;height:9px;border-radius:50%;background:var(--hoja);border:2px solid var(--lienzo);box-sizing:content-box;pointer-events:none}
+@media(max-width:1100px){.mem-pip{top:7px;left:calc(50% + 4px)}}
+@media(max-width:480px){.mem-ico{width:40px;height:40px}.mem-title h2{font-size:20px}.mem-st{max-width:40%}}
 .cd-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
 .cd-mem{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-direction:column}
 .cd-mem li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--trazo2)}
@@ -1057,7 +1095,7 @@ textarea{font:inherit;width:100%;padding:10px 12px;border-radius:var(--r1);borde
   .rail.open .tab{display:flex}
   .rail.open::before{content:"";order:2;flex:0 0 100%;height:1px;margin:4px 8px;background:var(--trazo2)}
   .rail.open #cmdkBtn{display:none!important}
-  .rail.open .tab[data-go="calendario"],.rail.open .tab[data-go="foto"],.rail.open .tab[data-go="informes"],.rail.open .tab[data-go="cosechas"],.rail.open .tab[data-go="costos"],.rail.open .tab[data-go="biblio"],.rail.open .tab[data-go="ajustes"],.rail.open #tema{order:1}
+  .rail.open .tab[data-go="calendario"],.rail.open .tab[data-go="foto"],.rail.open .tab[data-go="informes"],.rail.open .tab[data-go="cosechas"],.rail.open .tab[data-go="costos"],.rail.open .tab[data-go="biblio"],.rail.open .tab[data-go="miembros"],.rail.open .tab[data-go="ajustes"],.rail.open #tema{order:1}
   .rail.open #moreBtn{background:var(--campo)}
   .toast{bottom:calc(var(--bar) + 12px)}
   .vhead{margin-bottom:18px}
