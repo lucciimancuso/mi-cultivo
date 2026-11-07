@@ -115,8 +115,9 @@ function archHtml(){
 
 function welcomeHtml(){
  return'<div class="welcome" data-rise style="--i:0"><h1>Mi Cultivo</h1><p class="verdict">Tu cuaderno de campo. Cargá la primera planta y desde acá vas a ver qué hacer cada día.</p>'+
- '<ol class="steps"><li><span class="n">1</span><b>Plantá</b><span>Elegí la genética, la maceta y la fecha. La planta aparece en tu invernadero.</span></li><li><span class="n">2</span><b>Registrá</b><span>Regá, anotá y sacá fotos. La app estima la humedad y la altura por vos.</span></li><li><span class="n">3</span><b>Mirá</b><span>Cada día, qué hace falta. Cada semana, un informe con gráficos.</span></li></ol>'+
- '<div class="row"><button class="btn primary" type="button" data-goto="nueva" data-k="wn">Plantar la primera</button><button class="btn" type="button" data-demo="1" data-k="wd">Cargar plantas de ejemplo</button></div></div>'}
+ '<ol class="steps"><li><span class="n">1</span><b>Plantá</b><span>Poné un nombre, elegí la genética y la fecha. La planta aparece en tu invernadero.</span></li><li><span class="n">2</span><b>Registrá</b><span>Regá, anotá y sacá fotos. La app estima la humedad y la altura por vos.</span></li><li><span class="n">3</span><b>Mirá</b><span>Cada día, qué hace falta. Cada semana, un informe con gráficos.</span></li></ol>'+
+ '<p class="hint" style="margin:4px 0 14px">Para empezar alcanza con una planta. Lo demás lo ajustás después.</p>'+
+ '<div class="row"><button class="btn primary" type="button" data-goto="nueva" data-k="wn">Plantar la primera</button><button class="btn" type="button" data-demo="1" data-k="wd">Probar con plantas de ejemplo</button><button class="btn" type="button" data-gloss="1" data-k="wg">¿Qué es pH, EC o 18/6?</button></div></div>'}
 
 function homeHtml(){
  const P=S.plants;

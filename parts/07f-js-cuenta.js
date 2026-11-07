@@ -5,13 +5,15 @@ function renderCloudCard(){
  const b=$('#cloudBody');if(!b)return;
  if(!cloud.cfg){b.innerHTML='<p class="hint">La cuenta compartida todavía no está configurada en esta versión de la app.</p>';return}
  if(!cloud.on){b.innerHTML='<p class="hint">Estás usando la app solo en esta compu. Entrá con tu cuenta para compartir el cultivo con tu grupo y usar la IA.</p><div class="row"><button class="btn primary" id="cdIn" type="button">Entrar o crear cuenta</button></div>';return}
- const g=cloud.grow,owner=g.role==='owner',mem=Array.isArray(g.members)?g.members:[];
+ const g=cloud.grow,owner=g.role==='owner',mem=Array.isArray(g.members)?g.members:[],solo=owner&&mem.length<=1;
+ const accHint=(owner&&!solo?'Sos quien creó el grupo y hay más gente: primero sacá a los demás o borrá el grupo.':solo?'Como sos la única persona del grupo, se borra tu cuenta y el grupo con todas sus plantas y fotos.':'Se borra tu cuenta y salís del grupo. Lo que cargaste queda en el grupo, porque es del cultivo compartido.')+(store.isDesktop?' Lo que está guardado en esta compu no se borra.':'');
  b.innerHTML='<div class="cd-top"><div><b>'+esc(g.name)+'</b><span class="hint"> · '+(owner?'creaste este grupo':'sos parte del grupo')+'</span></div><span class="chip plain" id="cdSync"></span></div>'+
   '<ul class="cd-mem">'+mem.map(m=>'<li><span>'+esc(m.display_name)+(m.user_id===g.me?' (vos)':'')+(m.role==='owner'?' · creó el grupo':'')+'</span>'+(owner&&m.user_id!==g.me?'<button class="btn sm" data-kick="'+esc(m.user_id)+'" type="button">Sacar</button>':'')+'</li>').join('')+'</ul>'+
   '<div class="field"><label>Código para invitar ('+mem.length+' de 6)</label><div class="cd-code"><code id="cdCode">'+esc(fmtCode(g.invite_code))+'</code><button class="btn sm" id="cdCopy" type="button">Copiar</button><button class="btn sm" id="cdShare" type="button">Compartir</button>'+(owner?'<button class="btn sm" id="cdRot" type="button">Cambiar código</button>':'')+'</div>'+
   '<p class="hint">Cualquiera con este código puede entrar al grupo y ver todo el cultivo. Si se lo pasaste a alguien que no querés, cambialo.</p></div>'+
   '<div class="row"><button class="btn" id="cdOut" type="button">Cerrar sesión</button>'+(owner?'<button class="btn danger" id="cdDel" type="button">Borrar el grupo</button>':'<button class="btn" id="cdLeave" type="button">Salir del grupo</button>')+'</div>'+
-  '<p class="hint">'+(store.isDesktop?'Los datos están en esta compu y también en el servidor del grupo.':'Los datos están en el servidor del grupo y hay una copia en este celu para verlos sin internet.')+'</p>';
+  '<p class="hint">'+(store.isDesktop?'Los datos están en esta compu y también en el servidor del grupo.':'Los datos están en el servidor del grupo y hay una copia en este celu para verlos sin internet.')+'</p>'+
+  '<div class="cd-acc"><div class="row"><button class="btn sm danger" id="cdAcc" type="button">Borrar mi cuenta</button></div><p class="hint">'+esc(accHint)+'</p></div>';
  const t=$('#cdSync');if(t)t.textContent=({ok:'Sincronizado',sync:'Guardando…',offline:'Sin conexión',err:'Error al sincronizar'})[cloud.status]||'Sincronizado'}
 function armBtn(btn,label,fn){if(btn.dataset.armed){clearTimeout(+btn.dataset.armed);delete btn.dataset.armed;fn();return}
  const old=btn.textContent;btn.textContent=label;btn.dataset.armed=setTimeout(()=>{btn.textContent=old;delete btn.dataset.armed},5000)}
@@ -28,7 +30,8 @@ $('#cloudBody').addEventListener('click',async e=>{
   if(t.dataset.kick){armBtn(t,'¿Seguro?',async()=>{await cloud.kick(t.dataset.kick);renderCloudCard();toast('Lo sacaste del grupo')});return}
   if(t.id==='cdOut'){armBtn(t,'Tocá de nuevo para salir',()=>cloud.signOut());return}
   if(t.id==='cdLeave'){armBtn(t,'¿Seguro? Tocá de nuevo',async()=>{await cloud.leave();cloud.signOut()});return}
-  if(t.id==='cdDel'){armBtn(t,'Se borra para todos. Tocá de nuevo',async()=>{await cloud.deleteGrow();cloud.signOut()})}
+  if(t.id==='cdDel'){armBtn(t,'Se borra para todos. Tocá de nuevo',async()=>{await cloud.deleteGrow();cloud.signOut()});return}
+  if(t.id==='cdAcc'){armBtn(t,'Se borra tu cuenta para siempre. Tocá de nuevo',async()=>{try{t.disabled=true;await cloud.deleteAccount();toast('Cuenta borrada');cloud.signOut()}catch(er){t.disabled=false;t.textContent='Borrar mi cuenta';toast(cerr(er))}})}
  }catch(err){toast(cerr(err))}});
 
 /* ---------- guía de cultivo (PDF) y preguntas a la IA ---------- */
@@ -73,3 +76,5 @@ $('#cBody').addEventListener('change',async e=>{
   if(r&&r.ok&&r.data&&r.data.text){S.guide={name:f.name.replace(/\.pdf$/i,'').slice(0,80),text:r.data.text,t:Date.now(),by:cloud.grow&&cloud.grow.display_name||''};saveNow(false);renderCuidados();toast('Listo: la IA ya sigue tu guía')}
   else{m.textContent=(r&&r.msg)||'No pude leer la guía';$('#gPick').disabled=false}
  }catch(err){m.textContent=cerr(err);$('#gPick').disabled=false}});
+
+(function(){const el=$('#instBody');if(el)el.innerHTML=installGuide()})();

@@ -7,6 +7,36 @@ const tfocus=el=>{try{if(el&&matchMedia('(pointer:fine)').matches)el.focus()}cat
 const lsGet=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
 const lsSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
 const lsDel=k=>{try{localStorage.removeItem(k)}catch(e){}};
+
+/* ----- instalar en el celu (guía paso a paso) ----- */
+const APP_URL='https://lucciimancuso.github.io/mi-cultivo/',APK_URL='https://github.com/lucciimancuso/mi-cultivo/releases/latest/download/MiCultivo.apk';
+const appStandalone=()=>{try{return !!(store.isDesktop||window.Capacitor||(matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true)}catch(e){return false}};
+const GI={
+ share:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="M8 7l4-4 4 4"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg>',
+ plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/></svg>',
+ dots:'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="12" cy="19" r="1.9"/></svg>'};
+function installGuide(){
+ const ua=(navigator.userAgent||''),ios=/iPhone|iPad|iPod/i.test(ua),and=/Android/i.test(ua),g=k=>'<i class="gi">'+GI[k]+'</i>';
+ return'<div class="inst">'+
+  '<details class="inst-d"'+(ios?' open':'')+'><summary><b>iPhone</b>&nbsp;· desde Safari</summary><ol class="inst-s">'+
+   '<li><span>Abrí el <b>link de la app</b> en <b>Safari</b> (no en Chrome ni desde adentro de WhatsApp).</span></li>'+
+   '<li><span>Tocá <b>Compartir</b> '+g('share')+', el cuadrado con la flecha hacia arriba, abajo en el medio.</span></li>'+
+   '<li><span>Elegí <b>Agregar a pantalla de inicio</b> '+g('plus')+'.</span></li>'+
+   '<li><span>Tocá <b>Agregar</b>. Queda como una app más, sin barra del navegador. Abrila siempre desde ese ícono.</span></li></ol>'+
+   '<p class="hint">Para los avisos de riego en iPhone hace falta iOS 16.4 o más, y abrir la app desde el ícono.</p></details>'+
+  '<details class="inst-d"'+(and?' open':'')+'><summary><b>Android</b>&nbsp;· APK o desde Chrome</summary>'+
+   '<p class="inst-h">Opción 1 · instalar el APK</p><ol class="inst-s">'+
+   '<li><span>Descargá el archivo <b>MiCultivo.apk</b>: <a class="btn sm" href="'+APK_URL+'" target="_blank" rel="noopener">Descargar APK</a></span></li>'+
+   '<li><span>Abrilo. Si Android avisa que bloqueó la instalación, tocá <b>Ajustes</b>, activá <b>Permitir desde esta fuente</b> y volvé atrás.</span></li>'+
+   '<li><span>Tocá <b>Instalar</b>. Después abrila desde el ícono.</span></li></ol>'+
+   '<p class="hint">No está en Play Store porque es una app hecha para un grupo chico. Descargala solo desde este link o de la persona que te pasó la app.</p>'+
+   '<p class="inst-h">Opción 2 · sin APK</p><ol class="inst-s">'+
+   '<li><span>Abrí el link de la app en <b>Chrome</b>.</span></li>'+
+   '<li><span>Tocá el menú '+g('dots')+' y elegí <b>Instalar app</b> (o <b>Agregar a la pantalla principal</b>).</span></li></ol></details>'+
+  '<div class="row"><button class="btn sm" type="button" data-inst="copy">Copiar el link de la app</button></div></div>'}
+document.addEventListener('click',async e=>{const t=e.target.closest('[data-inst="copy"]');if(!t)return;
+ let ok=false;try{await navigator.clipboard.writeText(APP_URL);ok=true}catch(er){try{const i=document.createElement('textarea');i.value=APP_URL;i.style.cssText='position:fixed;opacity:0';document.body.appendChild(i);i.select();ok=document.execCommand('copy');i.remove()}catch(_){}}
+ toast(ok?'Link copiado, pegalo en WhatsApp':APP_URL)});
 const cloud={
  cfg:!!(CFG.url&&CFG.anonKey&&window.supabase&&/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(CFG.url)),
  sb:null,user:null,grow:null,on:false,rev:0,base:null,lastJSON:'',status:'off',pushing:false,again:false,timer:0,chan:null,poll:0,
@@ -15,7 +45,8 @@ const origStore=Object.assign({},store);
 const AUTH_ES=[[/Invalid login credentials/i,'Email o contraseña incorrectos'],[/already registered|already been registered/i,'Ese email ya tiene cuenta: entrá con tu contraseña'],
  [/Email not confirmed/i,'Falta confirmar el email: revisá tu casilla'],[/at least \d+ char/i,'La contraseña es muy corta (mínimo 8 caracteres)'],
  [/rate limit|too many|security purposes/i,'Demasiados intentos, esperá un rato y probá de nuevo'],[/valid email|invalid format/i,'Ese email no parece válido'],
- [/weak|easy to guess|pwned/i,'Esa contraseña es muy fácil de adivinar, probá otra']];
+ [/weak|easy to guess|pwned/i,'Esa contraseña es muy fácil de adivinar, probá otra'],
+ [/Could not find the function|schema cache|PGRST202/i,'El borrado de cuenta todavía no está instalado en el servidor. Corré cloud/delete-account.sql en Supabase y probá de nuevo']];
 function cerr(e){const m=String((e&&e.message)||e||'');
  for(const [re,t] of AUTH_ES)if(re.test(m))return t;
  if(/fetch|network|Failed to|Load failed|NetworkError/i.test(m))return'Sin conexión: revisá internet';
@@ -143,7 +174,17 @@ cloud.joinGrow=async(code,dn)=>{const r=await rpc('join_grow',{p_code:code,p_dis
 cloud.rotate=async()=>{await rpc('rotate_code',{p_grow:cloud.grow.id});cloud.grow=await myGrow()};
 cloud.kick=async uid=>{await rpc('remove_member',{p_grow:cloud.grow.id,p_user:uid});cloud.grow=await myGrow()};
 cloud.leave=async()=>{await rpc('leave_grow')};
-cloud.deleteGrow=async()=>{await rpc('delete_grow',{p_grow:cloud.grow.id})};
+/* borra las fotos del grupo en Storage: borrar filas de la base no toca los archivos */
+cloud.purgePhotos=async()=>{const gid=cloud.grow.id,bk=cloud.sb.storage.from('grow-photos');
+ try{const top=await bk.list(gid,{limit:1000}),files=[];
+  for(const o of (top.data||[])){if(o.id)files.push(gid+'/'+o.name);else{const sub=await bk.list(gid+'/'+o.name,{limit:1000});(sub.data||[]).forEach(x=>{if(x.id)files.push(gid+'/'+o.name+'/'+x.name)})}}
+  for(let i=0;i<files.length;i+=100)await bk.remove(files.slice(i,i+100))}catch(e){}};
+cloud.deleteGrow=async()=>{if(cloud.grow.role==='owner')await cloud.purgePhotos();await rpc('delete_grow',{p_grow:cloud.grow.id})};
+/* borrar la cuenta: primero se revisa que se pueda (sin borrar nada), después se borran las fotos si sos el único y por último la cuenta */
+cloud.deleteAccount=async()=>{const g=cloud.grow,solo=!!g&&g.role==='owner'&&(g.members||[]).length<=1;
+ await rpc('delete_my_account',{p_dry:true});
+ if(solo)await cloud.purgePhotos();
+ await rpc('delete_my_account',{p_dry:false})};
 cloud.signOut=async()=>{try{stopPresence()}catch(e){}try{await avisosAlSalir()}catch(e){}try{await cloud.sb.auth.signOut()}catch(e){}
  if(!store.isDesktop){try{Object.keys(localStorage).filter(k=>/^micultivo/.test(k)).forEach(k=>localStorage.removeItem(k))}catch(e){}}
  else{lsDel('micultivo-growid')}
@@ -163,6 +204,7 @@ function authGate(){return new Promise(resolve=>{
   q('#agGroupF').hidden=m!=='new';q('#agCodeF').hidden=m!=='join';q('#agGo2').textContent=m==='new'?'Crear grupo':'Unirme';
   q('#agSub').textContent=m==='new'?'Vos creás el grupo y después compartís el código con tus amigos.':'Pedile el código de 10 letras a quien creó el grupo.'};
  q('#agSkip').hidden=!store.isDesktop;
+ const gi=q('#agInst');if(gi&&!appStandalone()){gi.innerHTML='<details class="aginst"><summary>¿Cómo la instalo en el celu?</summary>'+installGuide()+'</details>';gi.hidden=false}
  q('#agVer').textContent=window.__BUILD__?'Versión '+String(window.__BUILD__).slice(0,6):'';
  const finish=()=>{box.classList.add('out');delete document.body.dataset.gate;resolve('ready');setTimeout(()=>{box.hidden=true;box.classList.remove('out')},560)};
  q('#agTabs').onclick=e=>{const b=e.target.closest('button[data-m]');if(b){setMode(b.dataset.m);msg('')}};

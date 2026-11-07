@@ -1165,6 +1165,37 @@ html[data-nod] .sw:has(#sLuz),html[data-nod] .sw:has(#sTags),html[data-nod] .sw:
 .hero{background:var(--tinte);border-radius:22px;padding:26px 28px}
 .todo.warn .tick{border-color:var(--tierra);border-width:2px}
 @media(max-width:760px){.hero{border-radius:0 0 28px 28px;margin:-22px -20px 0;padding:28px 20px 24px}}
+
+/* ---------- v13: privacidad, instalación, glosario, modo invisible, "más opciones" ---------- */
+.priv-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.priv-list li{font-size:15px;line-height:1.5;color:var(--tinta2)}
+.priv-list b{color:var(--tinta);font-weight:650}
+.linklike{background:none;border:0;padding:0;margin:0;font:inherit;color:var(--hoja);text-decoration:underline;text-underline-offset:2px;cursor:pointer;min-height:0;display:inline}
+.inst{display:flex;flex-direction:column;gap:10px}
+.inst-d{border:1px solid var(--trazo);border-radius:14px;padding:0 14px}
+.inst-d summary,.npmore summary{cursor:pointer;min-height:48px;display:flex;align-items:center;font-size:15px;list-style:none}
+.inst-d summary::-webkit-details-marker,.npmore summary::-webkit-details-marker,.aginst>summary::-webkit-details-marker{display:none}
+.inst-d[open] summary{border-bottom:1px solid var(--trazo2);margin-bottom:12px}
+.inst-s{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-direction:column;gap:11px;counter-reset:s}
+.inst-s li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.45}
+.inst-s li::before{counter-increment:s;content:counter(s);flex:none;width:24px;height:24px;border-radius:50%;background:var(--hoja-suave);color:var(--hoja);font-weight:700;font-size:13px;display:grid;place-items:center}
+.inst-s li>span{min-width:0;flex:1}
+.gi{display:inline-flex;vertical-align:-5px;width:22px;height:22px;color:var(--hoja)}
+.gi svg{width:100%;height:100%}
+.inst-h{margin:4px 0 8px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta3)}
+.inst .hint{margin:0 0 12px}
+.npmore{border:1px dashed var(--trazo);border-radius:14px;padding:0 14px}
+.npmore summary{color:var(--tinta2)}
+.npmore[open] summary{margin-bottom:6px}
+.npmore-in{display:flex;flex-direction:column;gap:14px;padding-bottom:14px}
+.mem-row[data-k="hid"] .mem-dot{background:var(--papel);border-color:var(--tinta3);border-style:dashed}
+.mem-row[data-k="hid"] .mem-st b{color:var(--tinta3)}
+.mem-inv{margin-top:2px}
+#agInst{margin-top:4px}
+.aginst>summary{cursor:pointer;min-height:44px;display:flex;align-items:center;justify-content:center;font-size:13.5px;color:var(--tinta2);text-decoration:underline;text-underline-offset:3px;list-style:none}
+.aginst .inst{margin-top:6px;text-align:left}
+.cd-acc{margin-top:6px;padding-top:12px;border-top:1px solid var(--trazo2)}
+.gl-chip{align-self:flex-start}
 </style>
 </head><body>
 <div id="fondo" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i></div>
@@ -1244,7 +1275,7 @@ html[data-nod] .sw:has(#sLuz),html[data-nod] .sw:has(#sTags),html[data-nod] .sw:
 </section>
 
 <section class="view" id="v-nueva" data-view="nueva" hidden>
-<div class="vhead"><h1>Nueva planta</h1><p class="lead">Contale al asistente todo lo que sepas. Al guardar, la planta ocupa una estación libre del invernadero y empieza a crecer. Si tu semilla, fertilizante o sustrato no está en la lista, escribí el nombre y buscalo en internet.</p></div>
+<div class="vhead"><h1>Nueva planta</h1><p class="lead">Con un nombre y la fecha alcanza: la planta ya empieza a contar los días. Maceta, sustrato, luz y fertilizante los podés ajustar en «Más opciones». Si tu semilla no está en la lista, escribí el nombre y buscalo en internet.</p></div>
 <div class="two">
 <form class="glass card" id="np" autocomplete="off">
 <div class="field"><label for="npName">Nombre o etiqueta</label><input type="text" id="npName" placeholder="Planta 5"></div>
@@ -1265,9 +1296,10 @@ html[data-nod] .sw:has(#sLuz),html[data-nod] .sw:has(#sTags),html[data-nod] .sw:
 </div>
 <div class="grid2">
 <div class="field"><label for="npDate">Fecha de siembra</label><input type="date" id="npDate"></div>
-<div class="field"><label for="npTime">Hora</label><input type="time" id="npTime"></div>
-</div>
 <div class="field"><label for="npWater">Último riego</label><select id="npWater"><option value="0">Hoy</option><option value="1">Ayer</option><option value="2">Hace 2 días</option><option value="3">Hace 3 días</option><option value="4">Hace 4 días</option><option value="-1">No me acuerdo</option></select></div>
+</div>
+<details class="npmore" id="npMore"><summary>Más opciones: hora, maceta, sustrato, luz y fertilizante</summary>
+<div class="npmore-in"><div class="field"><label for="npTime">Hora</label><input type="time" id="npTime"></div>
 <div class="field"><span class="lbl" id="npPotL">Tamaño de la maceta</span><div class="pots" id="npPots" role="group" aria-labelledby="npPotL"></div></div>
 <div class="grid2">
 <div class="field"><label for="npRoom">Invernadero</label><select id="npRoom"></select></div>
@@ -1281,6 +1313,7 @@ html[data-nod] .sw:has(#sLuz),html[data-nod] .sw:has(#sTags),html[data-nod] .sw:
 <div class="webfind" id="npFertWeb" aria-live="polite"></div>
 </div>
 <div class="field"><label for="npNotes">Notas</label><textarea id="npNotes" placeholder="Por ejemplo: germinada en papel húmedo dos días"></textarea></div>
+</div></details>
 <div class="row"><button class="btn primary" type="submit">Plantar en el invernadero</button><button class="btn" type="reset" id="npReset">Limpiar</button></div>
 </form>
 <div class="stack">
@@ -1368,7 +1401,7 @@ html[data-nod] .sw:has(#sLuz),html[data-nod] .sw:has(#sTags),html[data-nod] .sw:
 <section class="view" id="v-biblio" data-view="biblio" hidden>
 <div class="vhead"><h1>Biblioteca</h1><p class="lead">Fichas de semillas y fertilizantes. Los datos son orientativos: si el banco de tu semilla indica otra cosa, mandan sus indicaciones.</p></div>
 <div class="row" style="margin-bottom:14px">
-<div class="seg" id="bTabs" role="tablist" aria-label="Biblioteca"><button role="tab" data-b="semillas" aria-selected="true">Semillas</button><button role="tab" data-b="stock" aria-selected="false">Mis semillas</button><button role="tab" data-b="ferts" aria-selected="false">Fertilizantes</button></div>
+<div class="seg" id="bTabs" role="tablist" aria-label="Biblioteca"><button role="tab" data-b="semillas" aria-selected="true">Semillas</button><button role="tab" data-b="stock" aria-selected="false">Mis semillas</button><button role="tab" data-b="ferts" aria-selected="false">Fertilizantes</button><button role="tab" data-b="glos" aria-selected="false">Glosario</button></div>
 <div class="field" style="flex:1 1 220px;min-width:180px"><label class="sr" for="bQ">Buscar</label><input type="text" id="bQ" placeholder="Buscar por nombre"></div>
 <div class="field" id="bSortBox" style="flex:0 1 200px;min-width:170px"><label class="sr" for="bSort">Ordenar</label><select id="bSort"><option value="facil">Más fáciles primero</option><option value="az">Orden A a Z</option><option value="alta">Más altas primero</option><option value="corta">Floración más corta</option></select></div>
 </div>
@@ -1418,9 +1451,22 @@ html[data-nod] .sw:has(#sLuz),html[data-nod] .sw:has(#sTags),html[data-nod] .sw:
 <p class="hint" id="sAvisoEst" role="status"></p>
 </div>
 <div class="glass card"><h2>Lámpara y fotoperíodo</h2>
-<div class="field"><label for="sLuzOn">Hora en que se enciende la lámpara</label><input type="time" id="sLuzOn" value="06:00"><p class="hint">Con esto se dibuja el Reloj de luz en Inicio. La duración sale del ciclo de cada planta: 18/6 en crecimiento, 12/12 en floración.</p></div>
+<div class="field"><label for="sLuzOn">Hora en que se enciende la lámpara</label><input type="time" id="sLuzOn" value="06:00"><p class="hint">Con esto se dibuja el Reloj de luz en Inicio. La duración sale del ciclo de cada planta: 18/6 en crecimiento, 12/12 en floración. <button class="linklike" type="button" data-gloss="1">¿Qué es 18/6?</button></p></div>
 </div>
 <div class="glass card" id="cloudCard"><h2>Cuenta y grupo</h2><div id="cloudBody"></div></div>
+<div class="glass card" id="privInfo"><h2>Privacidad: qué pasa con tus datos</h2>
+<ul class="priv-list">
+<li><b>Qué se guarda.</b> Tu email, tu contraseña (cifrada: nadie la puede leer), tu nombre en el grupo y lo que cargás: plantas, riegos, notas, informes, costos y fotos.</li>
+<li><b>Dónde.</b> En un servidor propio de la app (Supabase, plan gratis). Las fotos van a un almacenamiento privado, sin links públicos.</li>
+<li><b>Quién lo ve.</b> Solo las personas de tu grupo (hasta 6). Nadie de afuera. Como en cualquier app, quien administra el servidor, el creador de Mi Cultivo, técnicamente puede abrir la base de datos.</li>
+<li><b>La IA.</b> La foto, la pregunta o el PDF se mandan a Gemini (Google) solo cuando vos tocás Analizar, Buscar o Preguntar. Nunca solos. Google los procesa con sus propias condiciones, así que no subas fotos que no querrías que procese.</li>
+<li><b>Publicidad y rastreo.</b> No hay publicidad ni estadísticas de uso.</li>
+<li><b>Conectado en vivo.</b> Quién tiene la app abierta no se guarda en ningún lado y solo se ve mientras la app está abierta. Podés ocultarte en la pestaña Miembros.</li>
+<li><b>Tus datos son tuyos.</b> Exportá todo cuando quieras (bitácora CSV o copia de seguridad, más abajo en «Tus datos»), salí del grupo o borrá tu cuenta desde «Cuenta y grupo». Conviene guardar una copia de vez en cuando por si algún día la app deja de funcionar. Si se borra el grupo, se borran también sus fotos.</li>
+<li><b>Reglas y edad.</b> Mi Cultivo es para mayores de 18 años y es una herramienta para llevar tus plantas, no asesoramiento legal. Cada lugar tiene sus propias leyes sobre el cultivo: informate de las de tu zona.</li>
+</ul></div>
+<div class="glass card" id="instCard"><h2>Instalar la app en el celu</h2><p class="hint">Pasale estos pasos a tus amigos, o copiá el link y mandáselo.</p><div id="instBody"></div></div>
+
 <div class="glass card"><h2>IA gratis: fotos, búsquedas y tu guía</h2>
 <p class="hint" id="keyState"></p>
 <p class="hint">Usa Gemini de Google (plan gratis) desde el servidor del grupo, así tu celu nunca guarda ninguna clave. La foto solo se envía cuando apretás Analizar, el nombre cuando apretás Buscar en internet, y tu guía en PDF cuando la subís. Hay un tope diario por persona para no pasarse del plan gratis. Sin sesión, el análisis es básico (tus datos y reglas simples) y la búsqueda te abre Google.</p>
@@ -1521,6 +1567,7 @@ html[data-nod] .sw:has(#sLuz),html[data-nod] .sw:has(#sTags),html[data-nod] .sw:
 </form>
 <button class="agsoft" id="agOut" type="button">Usar otra cuenta</button></div>
 <p class="agmsg" id="agMsg" role="status" aria-live="polite"></p>
+<div id="agInst" hidden></div>
 <button class="agsoft" id="agSkip" type="button" hidden>Seguir sin cuenta (solo en esta compu)</button>
 <p class="agver" id="agVer"></p>
 </div>
@@ -1985,6 +2032,36 @@ const tfocus=el=>{try{if(el&&matchMedia('(pointer:fine)').matches)el.focus()}cat
 const lsGet=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
 const lsSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
 const lsDel=k=>{try{localStorage.removeItem(k)}catch(e){}};
+
+/* ----- instalar en el celu (guía paso a paso) ----- */
+const APP_URL='https://lucciimancuso.github.io/mi-cultivo/',APK_URL='https://github.com/lucciimancuso/mi-cultivo/releases/latest/download/MiCultivo.apk';
+const appStandalone=()=>{try{return !!(store.isDesktop||window.Capacitor||(matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true)}catch(e){return false}};
+const GI={
+ share:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="M8 7l4-4 4 4"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg>',
+ plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/></svg>',
+ dots:'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="12" cy="19" r="1.9"/></svg>'};
+function installGuide(){
+ const ua=(navigator.userAgent||''),ios=/iPhone|iPad|iPod/i.test(ua),and=/Android/i.test(ua),g=k=>'<i class="gi">'+GI[k]+'</i>';
+ return'<div class="inst">'+
+  '<details class="inst-d"'+(ios?' open':'')+'><summary><b>iPhone</b>&nbsp;· desde Safari</summary><ol class="inst-s">'+
+   '<li><span>Abrí el <b>link de la app</b> en <b>Safari</b> (no en Chrome ni desde adentro de WhatsApp).</span></li>'+
+   '<li><span>Tocá <b>Compartir</b> '+g('share')+', el cuadrado con la flecha hacia arriba, abajo en el medio.</span></li>'+
+   '<li><span>Elegí <b>Agregar a pantalla de inicio</b> '+g('plus')+'.</span></li>'+
+   '<li><span>Tocá <b>Agregar</b>. Queda como una app más, sin barra del navegador. Abrila siempre desde ese ícono.</span></li></ol>'+
+   '<p class="hint">Para los avisos de riego en iPhone hace falta iOS 16.4 o más, y abrir la app desde el ícono.</p></details>'+
+  '<details class="inst-d"'+(and?' open':'')+'><summary><b>Android</b>&nbsp;· APK o desde Chrome</summary>'+
+   '<p class="inst-h">Opción 1 · instalar el APK</p><ol class="inst-s">'+
+   '<li><span>Descargá el archivo <b>MiCultivo.apk</b>: <a class="btn sm" href="'+APK_URL+'" target="_blank" rel="noopener">Descargar APK</a></span></li>'+
+   '<li><span>Abrilo. Si Android avisa que bloqueó la instalación, tocá <b>Ajustes</b>, activá <b>Permitir desde esta fuente</b> y volvé atrás.</span></li>'+
+   '<li><span>Tocá <b>Instalar</b>. Después abrila desde el ícono.</span></li></ol>'+
+   '<p class="hint">No está en Play Store porque es una app hecha para un grupo chico. Descargala solo desde este link o de la persona que te pasó la app.</p>'+
+   '<p class="inst-h">Opción 2 · sin APK</p><ol class="inst-s">'+
+   '<li><span>Abrí el link de la app en <b>Chrome</b>.</span></li>'+
+   '<li><span>Tocá el menú '+g('dots')+' y elegí <b>Instalar app</b> (o <b>Agregar a la pantalla principal</b>).</span></li></ol></details>'+
+  '<div class="row"><button class="btn sm" type="button" data-inst="copy">Copiar el link de la app</button></div></div>'}
+document.addEventListener('click',async e=>{const t=e.target.closest('[data-inst="copy"]');if(!t)return;
+ let ok=false;try{await navigator.clipboard.writeText(APP_URL);ok=true}catch(er){try{const i=document.createElement('textarea');i.value=APP_URL;i.style.cssText='position:fixed;opacity:0';document.body.appendChild(i);i.select();ok=document.execCommand('copy');i.remove()}catch(_){}}
+ toast(ok?'Link copiado, pegalo en WhatsApp':APP_URL)});
 const cloud={
  cfg:!!(CFG.url&&CFG.anonKey&&window.supabase&&/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(CFG.url)),
  sb:null,user:null,grow:null,on:false,rev:0,base:null,lastJSON:'',status:'off',pushing:false,again:false,timer:0,chan:null,poll:0,
@@ -1993,7 +2070,8 @@ const origStore=Object.assign({},store);
 const AUTH_ES=[[/Invalid login credentials/i,'Email o contraseña incorrectos'],[/already registered|already been registered/i,'Ese email ya tiene cuenta: entrá con tu contraseña'],
  [/Email not confirmed/i,'Falta confirmar el email: revisá tu casilla'],[/at least \d+ char/i,'La contraseña es muy corta (mínimo 8 caracteres)'],
  [/rate limit|too many|security purposes/i,'Demasiados intentos, esperá un rato y probá de nuevo'],[/valid email|invalid format/i,'Ese email no parece válido'],
- [/weak|easy to guess|pwned/i,'Esa contraseña es muy fácil de adivinar, probá otra']];
+ [/weak|easy to guess|pwned/i,'Esa contraseña es muy fácil de adivinar, probá otra'],
+ [/Could not find the function|schema cache|PGRST202/i,'El borrado de cuenta todavía no está instalado en el servidor. Corré cloud/delete-account.sql en Supabase y probá de nuevo']];
 function cerr(e){const m=String((e&&e.message)||e||'');
  for(const [re,t] of AUTH_ES)if(re.test(m))return t;
  if(/fetch|network|Failed to|Load failed|NetworkError/i.test(m))return'Sin conexión: revisá internet';
@@ -2121,7 +2199,17 @@ cloud.joinGrow=async(code,dn)=>{const r=await rpc('join_grow',{p_code:code,p_dis
 cloud.rotate=async()=>{await rpc('rotate_code',{p_grow:cloud.grow.id});cloud.grow=await myGrow()};
 cloud.kick=async uid=>{await rpc('remove_member',{p_grow:cloud.grow.id,p_user:uid});cloud.grow=await myGrow()};
 cloud.leave=async()=>{await rpc('leave_grow')};
-cloud.deleteGrow=async()=>{await rpc('delete_grow',{p_grow:cloud.grow.id})};
+/* borra las fotos del grupo en Storage: borrar filas de la base no toca los archivos */
+cloud.purgePhotos=async()=>{const gid=cloud.grow.id,bk=cloud.sb.storage.from('grow-photos');
+ try{const top=await bk.list(gid,{limit:1000}),files=[];
+  for(const o of (top.data||[])){if(o.id)files.push(gid+'/'+o.name);else{const sub=await bk.list(gid+'/'+o.name,{limit:1000});(sub.data||[]).forEach(x=>{if(x.id)files.push(gid+'/'+o.name+'/'+x.name)})}}
+  for(let i=0;i<files.length;i+=100)await bk.remove(files.slice(i,i+100))}catch(e){}};
+cloud.deleteGrow=async()=>{if(cloud.grow.role==='owner')await cloud.purgePhotos();await rpc('delete_grow',{p_grow:cloud.grow.id})};
+/* borrar la cuenta: primero se revisa que se pueda (sin borrar nada), después se borran las fotos si sos el único y por último la cuenta */
+cloud.deleteAccount=async()=>{const g=cloud.grow,solo=!!g&&g.role==='owner'&&(g.members||[]).length<=1;
+ await rpc('delete_my_account',{p_dry:true});
+ if(solo)await cloud.purgePhotos();
+ await rpc('delete_my_account',{p_dry:false})};
 cloud.signOut=async()=>{try{stopPresence()}catch(e){}try{await avisosAlSalir()}catch(e){}try{await cloud.sb.auth.signOut()}catch(e){}
  if(!store.isDesktop){try{Object.keys(localStorage).filter(k=>/^micultivo/.test(k)).forEach(k=>localStorage.removeItem(k))}catch(e){}}
  else{lsDel('micultivo-growid')}
@@ -2141,6 +2229,7 @@ function authGate(){return new Promise(resolve=>{
   q('#agGroupF').hidden=m!=='new';q('#agCodeF').hidden=m!=='join';q('#agGo2').textContent=m==='new'?'Crear grupo':'Unirme';
   q('#agSub').textContent=m==='new'?'Vos creás el grupo y después compartís el código con tus amigos.':'Pedile el código de 10 letras a quien creó el grupo.'};
  q('#agSkip').hidden=!store.isDesktop;
+ const gi=q('#agInst');if(gi&&!appStandalone()){gi.innerHTML='<details class="aginst"><summary>¿Cómo la instalo en el celu?</summary>'+installGuide()+'</details>';gi.hidden=false}
  q('#agVer').textContent=window.__BUILD__?'Versión '+String(window.__BUILD__).slice(0,6):'';
  const finish=()=>{box.classList.add('out');delete document.body.dataset.gate;resolve('ready');setTimeout(()=>{box.hidden=true;box.classList.remove('out')},560)};
  q('#agTabs').onclick=e=>{const b=e.target.closest('button[data-m]');if(b){setMode(b.dataset.m);msg('')}};
@@ -3584,8 +3673,9 @@ function archHtml(){
 
 function welcomeHtml(){
  return'<div class="welcome" data-rise style="--i:0"><h1>Mi Cultivo</h1><p class="verdict">Tu cuaderno de campo. Cargá la primera planta y desde acá vas a ver qué hacer cada día.</p>'+
- '<ol class="steps"><li><span class="n">1</span><b>Plantá</b><span>Elegí la genética, la maceta y la fecha. La planta aparece en tu invernadero.</span></li><li><span class="n">2</span><b>Registrá</b><span>Regá, anotá y sacá fotos. La app estima la humedad y la altura por vos.</span></li><li><span class="n">3</span><b>Mirá</b><span>Cada día, qué hace falta. Cada semana, un informe con gráficos.</span></li></ol>'+
- '<div class="row"><button class="btn primary" type="button" data-goto="nueva" data-k="wn">Plantar la primera</button><button class="btn" type="button" data-demo="1" data-k="wd">Cargar plantas de ejemplo</button></div></div>'}
+ '<ol class="steps"><li><span class="n">1</span><b>Plantá</b><span>Poné un nombre, elegí la genética y la fecha. La planta aparece en tu invernadero.</span></li><li><span class="n">2</span><b>Registrá</b><span>Regá, anotá y sacá fotos. La app estima la humedad y la altura por vos.</span></li><li><span class="n">3</span><b>Mirá</b><span>Cada día, qué hace falta. Cada semana, un informe con gráficos.</span></li></ol>'+
+ '<p class="hint" style="margin:4px 0 14px">Para empezar alcanza con una planta. Lo demás lo ajustás después.</p>'+
+ '<div class="row"><button class="btn primary" type="button" data-goto="nueva" data-k="wn">Plantar la primera</button><button class="btn" type="button" data-demo="1" data-k="wd">Probar con plantas de ejemplo</button><button class="btn" type="button" data-gloss="1" data-k="wg">¿Qué es pH, EC o 18/6?</button></div></div>'}
 
 function homeHtml(){
  const P=S.plants;
@@ -4121,7 +4211,28 @@ renderers.informes=renderInformes;
 
 /* ---------- biblioteca ---------- */
 const B={tab:'semillas',f:'todas',q:'',sort:'facil',edit:null,del:null};
-const BF={semillas:[['todas','Todas'],['indica','Índica'],['sativa','Sativa'],['hibrida','Híbrida'],['auto','Autofloreciente']],stock:[],ferts:[['todas','Todos'],['Plántula','Plántula'],['Vegetativo','Vegetativo'],['Floración','Floración'],['Preventivo','Preventivo']]};
+const BF={semillas:[['todas','Todas'],['indica','Índica'],['sativa','Sativa'],['hibrida','Híbrida'],['auto','Autofloreciente']],stock:[],ferts:[['todas','Todos'],['Plántula','Plántula'],['Vegetativo','Vegetativo'],['Floración','Floración'],['Preventivo','Preventivo']],glos:[]};
+const GLOSS=[
+ {g:'Luz',t:'18/6',d:'Ciclo de luz para crecer: 18 horas de luz y 6 de oscuridad por día. Es el que se usa en la etapa vegetativa.'},
+ {g:'Luz',t:'12/12',d:'Ciclo de luz para florecer: 12 horas de luz y 12 de oscuridad. En las plantas fotoperiódicas este cambio dispara la floración.'},
+ {g:'Luz',t:'Fotoperiódica',d:'Planta que florece cuando le bajás la luz a 12/12. Si la dejás en 18/6 sigue creciendo.'},
+ {g:'Luz',t:'Autofloreciente (auto)',d:'Planta que florece sola por la edad, sin importar las horas de luz. Suele ser más chica y rápida. Por eso en la app ignora el ciclo 12/12.'},
+ {g:'Planta',t:'Genética',d:'La variedad de la semilla (por ejemplo, una índica o una híbrida). Define cuánto crece y cuánto tarda en florecer.'},
+ {g:'Planta',t:'Plántula',d:'Planta recién nacida, con las primeras hojitas. Es la etapa más delicada: poco riego y poca dosis.'},
+ {g:'Planta',t:'Vegetativo',d:'Etapa de crecimiento de tallos y hojas, antes de florecer.'},
+ {g:'Planta',t:'Floración',d:'Etapa en que se forman los cogollos (las flores). Dura varias semanas, según la genética.'},
+ {g:'Planta',t:'Esqueje (clon)',d:'Rama cortada de una planta madre que echa raíces y crece como una planta nueva, igual a la madre.'},
+ {g:'Planta',t:'Poda y atado',d:'Recortar o atar ramas para controlar la altura y que la luz llegue a toda la planta. Atar sin cortar se llama LST.'},
+ {g:'Planta',t:'Carencia y exceso',d:'Falta o sobra de un nutriente. Se nota en el color y la forma de las hojas. La foto con IA ayuda a sospechar cuál es, pero es orientativo.'},
+ {g:'Agua y nutrientes',t:'pH',d:'Qué tan ácida o alcalina es el agua de riego. En la app el rango sugerido cambia según la etapa, alrededor de 5,8 a 6,5. Se mide con un medidor o con tiras.'},
+ {g:'Agua y nutrientes',t:'EC',d:'Conductividad eléctrica: cuántos nutrientes (sales) hay disueltos en el agua. Más EC es una solución más fuerte; si te pasás se queman las puntas de las hojas. Se mide con un medidor de EC.'},
+ {g:'Agua y nutrientes',t:'VPD',d:'Déficit de presión de vapor: combina temperatura y humedad para decir qué tan seco está el aire para la planta. La app lo calcula sola con tus lecturas de ambiente.'},
+ {g:'Agua y nutrientes',t:'Enraizante',d:'Producto que ayuda a que salgan raíces, sobre todo en esquejes y plántulas.'},
+ {g:'Agua y nutrientes',t:'Sustrato',d:'Lo que hay dentro de la maceta: tierra, fibra de coco, perlita, etc.'},
+ {g:'Agua y nutrientes',t:'Perlita',d:'Piedritas blancas muy livianas que se mezclan con la tierra para que drene y respire mejor.'},
+ {g:'Agua y nutrientes',t:'Tierra viva (súper soil)',d:'Tierra preparada con nutrientes y microorganismos. Muchas veces alcanza con regar con agua.'},
+ {g:'En la app',t:'Invernadero y estación',d:'Un invernadero es tu espacio de cultivo (carpa, balcón...). Tiene hasta 9 estaciones: los lugares para una maceta.'},
+ {g:'En la app',t:'Curado',d:'Después de cosechar y secar, se guardan las flores en frascos y se abren cada tanto durante semanas. La app te avisa cuándo.'}];
 const hiCm=s=>{const m=/(\d+)\D+(\d+)/.exec(s.hcm||'');return m?+m[2]:0};
 const SORTS={facil:(a,b)=>a.diff-b.diff||a.name.localeCompare(b.name,'es'),az:(a,b)=>a.name.localeCompare(b.name,'es'),alta:(a,b)=>hiCm(b)-hiCm(a)||a.name.localeCompare(b.name,'es'),corta:(a,b)=>a.fw-b.fw||a.name.localeCompare(b.name,'es')};
 function seedEditForm(s){const m=/(\d+)\D+(\d+)/.exec(s.hcm||'')||[0,80,120];
@@ -4154,6 +4265,8 @@ function renderBiblio(){
  else if(B.tab==='stock'){
   const tot=S.stock.reduce((a,x)=>a+(+x.qty||0),0);
   html='<form class="glass lib" id="stockForm" autocomplete="off" style="grid-column:1/-1"><h3>Sumar semillas que compraste</h3><div class="grid2"><div class="field"><label for="stSeed">Genética</label><select id="stSeed">'+SEEDS.slice().sort(SORTS.az).map(s=>'<option value="'+s.id+'">'+esc(s.name)+'</option>').join('')+'</select></div><div class="field"><label for="stQty">Cantidad</label><input id="stQty" type="text" inputmode="numeric" value="1"></div><div class="field"><label for="stBank">Banco o lugar de compra</label><input id="stBank" type="text" maxlength="60"></div><div class="field"><label for="stNote">Nota</label><input id="stNote" type="text" maxlength="120"></div></div><div class="row"><button class="btn primary" type="submit">Agregar a mi stock</button><span class="chip plain">Total: '+tot+(tot===1?' semilla':' semillas')+'</span></div></form><div id="stockList" style="display:contents">'+stockRows(q)+'</div>'}
+ else if(B.tab==='glos'){
+  html=GLOSS.filter(x=>!q||(x.t+' '+x.d+' '+x.g).toLowerCase().indexOf(q)>-1).map(x=>'<article class="glass lib"><div class="hd"><h3>'+esc(x.t)+'</h3></div><span class="chip plain gl-chip">'+esc(x.g)+'</span><p>'+esc(x.d)+'</p></article>').join('')}
  else{
   const L=FERTS.filter(f=>(B.f==='todas'||f.stage===B.f||f.kind===B.f)&&(!q||f.name.toLowerCase().indexOf(q)>-1));
   html=L.map(f=>'<article class="glass lib"><div class="hd"><h3>'+esc(f.name)+'</h3></div><div class="sumrow"><span class="chip">'+esc(f.stage)+'</span><span class="chip plain">'+esc(f.kind)+'</span></div><p>'+esc(f.note)+'</p><p class="hint">'+esc(f.dose)+'</p><button class="btn" type="button" data-have="'+f.id+'" aria-pressed="'+S.have.has(f.id)+'">'+(S.have.has(f.id)?'Lo tengo':'Marcar que lo tengo')+'</button>'+(f.custom?' <button class="btn sm" type="button" data-fdel="'+f.id+'">Quitar de la lista</button>':'')+'</article>').join('')}
@@ -4188,6 +4301,8 @@ $('#bList').addEventListener('submit',e=>{e.preventDefault();
  S.seedEdits[id]={lo:Math.round(lo),hi:Math.round(hi),fw:Math.round(fw),pot:+$('#sfPot').value,diff:+$('#sfDiff').value,note:$('#sfNote').value.trim().slice(0,240)};
  seedFromEdit(s,S.seedEdits[id]);B.edit=null;renderBiblio();stagePulse();toast('Datos de '+s.name+' guardados')});
 renderers.biblio=renderBiblio;
+/* cualquier botón con data-gloss abre la Biblioteca en la pestaña Glosario */
+document.addEventListener('click',e=>{if(!e.target.closest('[data-gloss]'))return;B.tab='glos';B.f='todas';B.q='';B.edit=null;B.del=null;const qi=$('#bQ');if(qi)qi.value='';go('biblio')});
 
 /* ---------- cosechas y ciclos ---------- */
 const gOf=id=>S.grows.find(g=>g.id===id);
@@ -4273,7 +4388,7 @@ function tabNutri(){
   '<div class="facts"><div><span>Dosis</span><span>'+cur.dose+'</span></div><div><span>pH del agua</span><span>'+cur.ph+'</span></div><div><span>EC (mS/cm)</span><span>'+cur.ec+'</span></div><div><span>Sustrato</span><span>'+esc(p.sub||'Sin dato')+'</span></div></div>'+own+
   '<div class="row"><button class="btn primary" id="nutriDone" type="button">Anotar que lo di</button></div></div>'+
   '<div class="glass card"><h2>Próximas semanas</h2><div class="tblwrap"><table class="tbl"><thead><tr><th>Semana</th><th>Etapa</th><th>Qué darle</th><th>Dosis</th></tr></thead><tbody>'+
-  W.map(x=>'<tr'+(x.i===0?' style="font-weight:700"':'')+'><td>'+(x.wk+1)+'<br><span class="hint">'+esc(fmtD(p.sownAt+x.wk*7*DAY))+'</span></td><td>'+esc(x.r.stage)+'</td><td>'+esc(x.r.what)+'</td><td>'+x.r.dose+'</td></tr>').join('')+'</tbody></table></div><p class="hint">Plan orientativo según la etapa, el sustrato y la genética. Si el banco de tu semilla o el fertilizante indican otra cosa, mandan ellos.</p></div></div>'}
+  W.map(x=>'<tr'+(x.i===0?' style="font-weight:700"':'')+'><td>'+(x.wk+1)+'<br><span class="hint">'+esc(fmtD(p.sownAt+x.wk*7*DAY))+'</span></td><td>'+esc(x.r.stage)+'</td><td>'+esc(x.r.what)+'</td><td>'+x.r.dose+'</td></tr>').join('')+'</tbody></table></div><p class="hint">Plan orientativo según la etapa, el sustrato y la genética. Si el banco de tu semilla o el fertilizante indican otra cosa, mandan ellos. ¿Algún término raro (EC, pH, 18/6)? <button class="linklike" type="button" data-gloss="1">Mirá el glosario</button>.</p></div></div>'}
 /* ambiente */
 const ETAPAS=['Germinación','Plántula','Vegetativo','Pre-floración','Floración','Lista para cosechar'];
 /* etapa de la carpa: la que tienen más plantas (si empatan, la más avanzada) */
@@ -4527,13 +4642,15 @@ function renderCloudCard(){
  const b=$('#cloudBody');if(!b)return;
  if(!cloud.cfg){b.innerHTML='<p class="hint">La cuenta compartida todavía no está configurada en esta versión de la app.</p>';return}
  if(!cloud.on){b.innerHTML='<p class="hint">Estás usando la app solo en esta compu. Entrá con tu cuenta para compartir el cultivo con tu grupo y usar la IA.</p><div class="row"><button class="btn primary" id="cdIn" type="button">Entrar o crear cuenta</button></div>';return}
- const g=cloud.grow,owner=g.role==='owner',mem=Array.isArray(g.members)?g.members:[];
+ const g=cloud.grow,owner=g.role==='owner',mem=Array.isArray(g.members)?g.members:[],solo=owner&&mem.length<=1;
+ const accHint=(owner&&!solo?'Sos quien creó el grupo y hay más gente: primero sacá a los demás o borrá el grupo.':solo?'Como sos la única persona del grupo, se borra tu cuenta y el grupo con todas sus plantas y fotos.':'Se borra tu cuenta y salís del grupo. Lo que cargaste queda en el grupo, porque es del cultivo compartido.')+(store.isDesktop?' Lo que está guardado en esta compu no se borra.':'');
  b.innerHTML='<div class="cd-top"><div><b>'+esc(g.name)+'</b><span class="hint"> · '+(owner?'creaste este grupo':'sos parte del grupo')+'</span></div><span class="chip plain" id="cdSync"></span></div>'+
   '<ul class="cd-mem">'+mem.map(m=>'<li><span>'+esc(m.display_name)+(m.user_id===g.me?' (vos)':'')+(m.role==='owner'?' · creó el grupo':'')+'</span>'+(owner&&m.user_id!==g.me?'<button class="btn sm" data-kick="'+esc(m.user_id)+'" type="button">Sacar</button>':'')+'</li>').join('')+'</ul>'+
   '<div class="field"><label>Código para invitar ('+mem.length+' de 6)</label><div class="cd-code"><code id="cdCode">'+esc(fmtCode(g.invite_code))+'</code><button class="btn sm" id="cdCopy" type="button">Copiar</button><button class="btn sm" id="cdShare" type="button">Compartir</button>'+(owner?'<button class="btn sm" id="cdRot" type="button">Cambiar código</button>':'')+'</div>'+
   '<p class="hint">Cualquiera con este código puede entrar al grupo y ver todo el cultivo. Si se lo pasaste a alguien que no querés, cambialo.</p></div>'+
   '<div class="row"><button class="btn" id="cdOut" type="button">Cerrar sesión</button>'+(owner?'<button class="btn danger" id="cdDel" type="button">Borrar el grupo</button>':'<button class="btn" id="cdLeave" type="button">Salir del grupo</button>')+'</div>'+
-  '<p class="hint">'+(store.isDesktop?'Los datos están en esta compu y también en el servidor del grupo.':'Los datos están en el servidor del grupo y hay una copia en este celu para verlos sin internet.')+'</p>';
+  '<p class="hint">'+(store.isDesktop?'Los datos están en esta compu y también en el servidor del grupo.':'Los datos están en el servidor del grupo y hay una copia en este celu para verlos sin internet.')+'</p>'+
+  '<div class="cd-acc"><div class="row"><button class="btn sm danger" id="cdAcc" type="button">Borrar mi cuenta</button></div><p class="hint">'+esc(accHint)+'</p></div>';
  const t=$('#cdSync');if(t)t.textContent=({ok:'Sincronizado',sync:'Guardando…',offline:'Sin conexión',err:'Error al sincronizar'})[cloud.status]||'Sincronizado'}
 function armBtn(btn,label,fn){if(btn.dataset.armed){clearTimeout(+btn.dataset.armed);delete btn.dataset.armed;fn();return}
  const old=btn.textContent;btn.textContent=label;btn.dataset.armed=setTimeout(()=>{btn.textContent=old;delete btn.dataset.armed},5000)}
@@ -4550,7 +4667,8 @@ $('#cloudBody').addEventListener('click',async e=>{
   if(t.dataset.kick){armBtn(t,'¿Seguro?',async()=>{await cloud.kick(t.dataset.kick);renderCloudCard();toast('Lo sacaste del grupo')});return}
   if(t.id==='cdOut'){armBtn(t,'Tocá de nuevo para salir',()=>cloud.signOut());return}
   if(t.id==='cdLeave'){armBtn(t,'¿Seguro? Tocá de nuevo',async()=>{await cloud.leave();cloud.signOut()});return}
-  if(t.id==='cdDel'){armBtn(t,'Se borra para todos. Tocá de nuevo',async()=>{await cloud.deleteGrow();cloud.signOut()})}
+  if(t.id==='cdDel'){armBtn(t,'Se borra para todos. Tocá de nuevo',async()=>{await cloud.deleteGrow();cloud.signOut()});return}
+  if(t.id==='cdAcc'){armBtn(t,'Se borra tu cuenta para siempre. Tocá de nuevo',async()=>{try{t.disabled=true;await cloud.deleteAccount();toast('Cuenta borrada');cloud.signOut()}catch(er){t.disabled=false;t.textContent='Borrar mi cuenta';toast(cerr(er))}})}
  }catch(err){toast(cerr(err))}});
 
 /* ---------- guía de cultivo (PDF) y preguntas a la IA ---------- */
@@ -4595,6 +4713,8 @@ $('#cBody').addEventListener('change',async e=>{
   if(r&&r.ok&&r.data&&r.data.text){S.guide={name:f.name.replace(/\.pdf$/i,'').slice(0,80),text:r.data.text,t:Date.now(),by:cloud.grow&&cloud.grow.display_name||''};saveNow(false);renderCuidados();toast('Listo: la IA ya sigue tu guía')}
   else{m.textContent=(r&&r.msg)||'No pude leer la guía';$('#gPick').disabled=false}
  }catch(err){m.textContent=cerr(err);$('#gPick').disabled=false}});
+
+(function(){const el=$('#instBody');if(el)el.innerHTML=installGuide()})();
 
 /* ---------- secado y curado de lo cosechado ----------
    Se guarda en la planta archivada: p.cur={jar:t,done:t,burps:[{t}]}.
@@ -4894,7 +5014,9 @@ const PRES={ch:null,state:'off',on:{},seen:{},hb:0,tick:0,n:0,refreshing:false,l
 const presMe=()=>(cloud.grow&&cloud.grow.me)||(cloud.user&&cloud.user.id)||'';
 const presKey=()=>'micultivo-seen-'+(cloud.grow&&cloud.grow.id);
 function presPayload(){return{name:(cloud.grow&&cloud.grow.display_name)||'',vis:!document.hidden,t:Date.now()}}
-function presTrack(){if(PRES.ch&&PRES.state==='on'){try{const r=PRES.ch.track(presPayload());if(r&&r.catch)r.catch(()=>{})}catch(e){}}}
+const presHidden=()=>lsGet('micultivo-invisible')==='1';
+/* modo invisible: no se anota en el canal, así que los demás ven "Desconectado" aunque la app esté abierta */
+function presTrack(){if(PRES.ch&&PRES.state==='on'){try{const r=presHidden()?PRES.ch.untrack():PRES.ch.track(presPayload());if(r&&r.catch)r.catch(()=>{})}catch(e){}}}
 function presLive(){return PRES.state==='on'&&navigator.onLine!==false}
 
 function startPresence(){
@@ -4955,7 +5077,7 @@ function presAgo(ts){
 /* estado de cada miembro: on (conectado), off (desconectado), wait (conectando), unk (no se puede saber sin conexión) */
 function presOf(m){
  const me=m.user_id===presMe(),live=presLive();
- if(me){if(live)return{k:'on',t:'Conectado',s:''};return PRES.state==='connecting'&&navigator.onLine!==false?{k:'wait',t:'Conectando…',s:''}:{k:'off',t:'Sin conexión',s:''}}
+ if(me){if(live)return presHidden()?{k:'hid',t:'Oculto',s:'solo lo ves vos'}:{k:'on',t:'Conectado',s:''};return PRES.state==='connecting'&&navigator.onLine!==false?{k:'wait',t:'Conectando…',s:''}:{k:'off',t:'Sin conexión',s:''}}
  if(!live)return{k:'unk',t:'Sin datos',s:'sin conexión no se sabe'};
  const o=PRES.on[m.user_id];
  if(o)return{k:'on',t:'Conectado',s:o.vis?'':'app en segundo plano'};
@@ -4983,6 +5105,7 @@ function renderMiembros(){
    return'<li class="mem-row" data-k="'+m.st.k+'"><span class="mem-av" aria-hidden="true"><b>'+esc(ini)+'</b><i class="mem-dot"></i></span>'+
     '<span class="mem-who"><b>'+esc(nm)+(me?' <small>(vos)</small>':'')+'</b><span>'+(m.role==='owner'?'Creó el grupo':'Miembro')+'</span></span>'+
     '<span class="mem-st"><b>'+m.st.t+'</b>'+(m.st.s?'<small>'+esc(m.st.s)+'</small>':'')+'</span></li>'}).join('')+'</ul>'+
+  '<label class="sw mem-inv"><input type="checkbox" id="memVis"'+(presHidden()?'':' checked')+'><span class="knob"></span><span class="t">Aparecer conectado<small>Si lo apagás, tus amigos te ven como «Desconectado» aunque tengas la app abierta. Vale para este equipo.</small></span></label>'+
   '<p class="hint">Conectado quiere decir que tiene la app abierta en este momento, en la compu o en el celu.</p>'+
   '<div class="row"><button class="btn" data-mem="ajustes" type="button">Invitar o administrar el grupo</button></div>'}
 function presDraw(){
@@ -4994,6 +5117,9 @@ renderers.miembros=()=>{renderMiembros();presRefreshMembers()};
 $('#memBody').addEventListener('click',e=>{const t=e.target.closest('button[data-mem]');if(!t)return;
  if(t.dataset.mem==='ajustes')go('ajustes');
  else if(t.dataset.mem==='entrar'){lsDel('micultivo-nocloud');location.reload()}});
+$('#memBody').addEventListener('change',e=>{if(e.target.id!=='memVis')return;
+ if(e.target.checked)lsDel('micultivo-invisible');else lsSet('micultivo-invisible','1');
+ presTrack();renderMiembros();toast(e.target.checked?'Tus amigos te ven cuando tenés la app abierta':'Ahora te ven como desconectado')});
 
 /* ---------- ajustes ---------- */
 function pressed(group,attr,val){$$(group+' button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset[attr]===val)))}

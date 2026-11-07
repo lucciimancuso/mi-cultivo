@@ -125,7 +125,28 @@ renderers.informes=renderInformes;
 
 /* ---------- biblioteca ---------- */
 const B={tab:'semillas',f:'todas',q:'',sort:'facil',edit:null,del:null};
-const BF={semillas:[['todas','Todas'],['indica','Índica'],['sativa','Sativa'],['hibrida','Híbrida'],['auto','Autofloreciente']],stock:[],ferts:[['todas','Todos'],['Plántula','Plántula'],['Vegetativo','Vegetativo'],['Floración','Floración'],['Preventivo','Preventivo']]};
+const BF={semillas:[['todas','Todas'],['indica','Índica'],['sativa','Sativa'],['hibrida','Híbrida'],['auto','Autofloreciente']],stock:[],ferts:[['todas','Todos'],['Plántula','Plántula'],['Vegetativo','Vegetativo'],['Floración','Floración'],['Preventivo','Preventivo']],glos:[]};
+const GLOSS=[
+ {g:'Luz',t:'18/6',d:'Ciclo de luz para crecer: 18 horas de luz y 6 de oscuridad por día. Es el que se usa en la etapa vegetativa.'},
+ {g:'Luz',t:'12/12',d:'Ciclo de luz para florecer: 12 horas de luz y 12 de oscuridad. En las plantas fotoperiódicas este cambio dispara la floración.'},
+ {g:'Luz',t:'Fotoperiódica',d:'Planta que florece cuando le bajás la luz a 12/12. Si la dejás en 18/6 sigue creciendo.'},
+ {g:'Luz',t:'Autofloreciente (auto)',d:'Planta que florece sola por la edad, sin importar las horas de luz. Suele ser más chica y rápida. Por eso en la app ignora el ciclo 12/12.'},
+ {g:'Planta',t:'Genética',d:'La variedad de la semilla (por ejemplo, una índica o una híbrida). Define cuánto crece y cuánto tarda en florecer.'},
+ {g:'Planta',t:'Plántula',d:'Planta recién nacida, con las primeras hojitas. Es la etapa más delicada: poco riego y poca dosis.'},
+ {g:'Planta',t:'Vegetativo',d:'Etapa de crecimiento de tallos y hojas, antes de florecer.'},
+ {g:'Planta',t:'Floración',d:'Etapa en que se forman los cogollos (las flores). Dura varias semanas, según la genética.'},
+ {g:'Planta',t:'Esqueje (clon)',d:'Rama cortada de una planta madre que echa raíces y crece como una planta nueva, igual a la madre.'},
+ {g:'Planta',t:'Poda y atado',d:'Recortar o atar ramas para controlar la altura y que la luz llegue a toda la planta. Atar sin cortar se llama LST.'},
+ {g:'Planta',t:'Carencia y exceso',d:'Falta o sobra de un nutriente. Se nota en el color y la forma de las hojas. La foto con IA ayuda a sospechar cuál es, pero es orientativo.'},
+ {g:'Agua y nutrientes',t:'pH',d:'Qué tan ácida o alcalina es el agua de riego. En la app el rango sugerido cambia según la etapa, alrededor de 5,8 a 6,5. Se mide con un medidor o con tiras.'},
+ {g:'Agua y nutrientes',t:'EC',d:'Conductividad eléctrica: cuántos nutrientes (sales) hay disueltos en el agua. Más EC es una solución más fuerte; si te pasás se queman las puntas de las hojas. Se mide con un medidor de EC.'},
+ {g:'Agua y nutrientes',t:'VPD',d:'Déficit de presión de vapor: combina temperatura y humedad para decir qué tan seco está el aire para la planta. La app lo calcula sola con tus lecturas de ambiente.'},
+ {g:'Agua y nutrientes',t:'Enraizante',d:'Producto que ayuda a que salgan raíces, sobre todo en esquejes y plántulas.'},
+ {g:'Agua y nutrientes',t:'Sustrato',d:'Lo que hay dentro de la maceta: tierra, fibra de coco, perlita, etc.'},
+ {g:'Agua y nutrientes',t:'Perlita',d:'Piedritas blancas muy livianas que se mezclan con la tierra para que drene y respire mejor.'},
+ {g:'Agua y nutrientes',t:'Tierra viva (súper soil)',d:'Tierra preparada con nutrientes y microorganismos. Muchas veces alcanza con regar con agua.'},
+ {g:'En la app',t:'Invernadero y estación',d:'Un invernadero es tu espacio de cultivo (carpa, balcón...). Tiene hasta 9 estaciones: los lugares para una maceta.'},
+ {g:'En la app',t:'Curado',d:'Después de cosechar y secar, se guardan las flores en frascos y se abren cada tanto durante semanas. La app te avisa cuándo.'}];
 const hiCm=s=>{const m=/(\d+)\D+(\d+)/.exec(s.hcm||'');return m?+m[2]:0};
 const SORTS={facil:(a,b)=>a.diff-b.diff||a.name.localeCompare(b.name,'es'),az:(a,b)=>a.name.localeCompare(b.name,'es'),alta:(a,b)=>hiCm(b)-hiCm(a)||a.name.localeCompare(b.name,'es'),corta:(a,b)=>a.fw-b.fw||a.name.localeCompare(b.name,'es')};
 function seedEditForm(s){const m=/(\d+)\D+(\d+)/.exec(s.hcm||'')||[0,80,120];
@@ -158,6 +179,8 @@ function renderBiblio(){
  else if(B.tab==='stock'){
   const tot=S.stock.reduce((a,x)=>a+(+x.qty||0),0);
   html='<form class="glass lib" id="stockForm" autocomplete="off" style="grid-column:1/-1"><h3>Sumar semillas que compraste</h3><div class="grid2"><div class="field"><label for="stSeed">Genética</label><select id="stSeed">'+SEEDS.slice().sort(SORTS.az).map(s=>'<option value="'+s.id+'">'+esc(s.name)+'</option>').join('')+'</select></div><div class="field"><label for="stQty">Cantidad</label><input id="stQty" type="text" inputmode="numeric" value="1"></div><div class="field"><label for="stBank">Banco o lugar de compra</label><input id="stBank" type="text" maxlength="60"></div><div class="field"><label for="stNote">Nota</label><input id="stNote" type="text" maxlength="120"></div></div><div class="row"><button class="btn primary" type="submit">Agregar a mi stock</button><span class="chip plain">Total: '+tot+(tot===1?' semilla':' semillas')+'</span></div></form><div id="stockList" style="display:contents">'+stockRows(q)+'</div>'}
+ else if(B.tab==='glos'){
+  html=GLOSS.filter(x=>!q||(x.t+' '+x.d+' '+x.g).toLowerCase().indexOf(q)>-1).map(x=>'<article class="glass lib"><div class="hd"><h3>'+esc(x.t)+'</h3></div><span class="chip plain gl-chip">'+esc(x.g)+'</span><p>'+esc(x.d)+'</p></article>').join('')}
  else{
   const L=FERTS.filter(f=>(B.f==='todas'||f.stage===B.f||f.kind===B.f)&&(!q||f.name.toLowerCase().indexOf(q)>-1));
   html=L.map(f=>'<article class="glass lib"><div class="hd"><h3>'+esc(f.name)+'</h3></div><div class="sumrow"><span class="chip">'+esc(f.stage)+'</span><span class="chip plain">'+esc(f.kind)+'</span></div><p>'+esc(f.note)+'</p><p class="hint">'+esc(f.dose)+'</p><button class="btn" type="button" data-have="'+f.id+'" aria-pressed="'+S.have.has(f.id)+'">'+(S.have.has(f.id)?'Lo tengo':'Marcar que lo tengo')+'</button>'+(f.custom?' <button class="btn sm" type="button" data-fdel="'+f.id+'">Quitar de la lista</button>':'')+'</article>').join('')}
@@ -192,3 +215,5 @@ $('#bList').addEventListener('submit',e=>{e.preventDefault();
  S.seedEdits[id]={lo:Math.round(lo),hi:Math.round(hi),fw:Math.round(fw),pot:+$('#sfPot').value,diff:+$('#sfDiff').value,note:$('#sfNote').value.trim().slice(0,240)};
  seedFromEdit(s,S.seedEdits[id]);B.edit=null;renderBiblio();stagePulse();toast('Datos de '+s.name+' guardados')});
 renderers.biblio=renderBiblio;
+/* cualquier botón con data-gloss abre la Biblioteca en la pestaña Glosario */
+document.addEventListener('click',e=>{if(!e.target.closest('[data-gloss]'))return;B.tab='glos';B.f='todas';B.q='';B.edit=null;B.del=null;const qi=$('#bQ');if(qi)qi.value='';go('biblio')});

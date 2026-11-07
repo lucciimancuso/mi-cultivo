@@ -66,6 +66,10 @@ Está en la carpeta `SECRETOS-GITHUB` (aparte del proyecto, **no la subas a GitH
 
 **Tus amigos**: abren la app → **Crear cuenta** → su nombre → **Unirme con código** → pegan el código. Ya ven todo lo del grupo y lo que carguen aparece en todos los celus en segundos.
 
+**Descarga directa del APK:** cada vez que subís cambios a `main`, GitHub publica el APK en **Releases** y la app (pantalla de entrada y Ajustes) lo ofrece con un botón. El link fijo es `https://github.com/lucciimancuso/mi-cultivo/releases/latest/download/MiCultivo.apk` (existe después de la primera ejecución que termine bien).
+
+**Borrar cuenta (opcional pero recomendado):** en Supabase > SQL Editor corré `cloud/delete-account.sql`. Habilita el botón **Borrar mi cuenta** en Ajustes. Sin esto el botón avisa que falta instalarlo.
+
 Desde **Ajustes → Cuenta y grupo** podés: cambiar el código (si se filtró), sacar a alguien, o borrar el grupo. Máximo 6 personas por grupo, y cada persona pertenece a un solo grupo.
 
 ---

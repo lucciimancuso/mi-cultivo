@@ -6,7 +6,9 @@ const PRES={ch:null,state:'off',on:{},seen:{},hb:0,tick:0,n:0,refreshing:false,l
 const presMe=()=>(cloud.grow&&cloud.grow.me)||(cloud.user&&cloud.user.id)||'';
 const presKey=()=>'micultivo-seen-'+(cloud.grow&&cloud.grow.id);
 function presPayload(){return{name:(cloud.grow&&cloud.grow.display_name)||'',vis:!document.hidden,t:Date.now()}}
-function presTrack(){if(PRES.ch&&PRES.state==='on'){try{const r=PRES.ch.track(presPayload());if(r&&r.catch)r.catch(()=>{})}catch(e){}}}
+const presHidden=()=>lsGet('micultivo-invisible')==='1';
+/* modo invisible: no se anota en el canal, así que los demás ven "Desconectado" aunque la app esté abierta */
+function presTrack(){if(PRES.ch&&PRES.state==='on'){try{const r=presHidden()?PRES.ch.untrack():PRES.ch.track(presPayload());if(r&&r.catch)r.catch(()=>{})}catch(e){}}}
 function presLive(){return PRES.state==='on'&&navigator.onLine!==false}
 
 function startPresence(){
@@ -67,7 +69,7 @@ function presAgo(ts){
 /* estado de cada miembro: on (conectado), off (desconectado), wait (conectando), unk (no se puede saber sin conexión) */
 function presOf(m){
  const me=m.user_id===presMe(),live=presLive();
- if(me){if(live)return{k:'on',t:'Conectado',s:''};return PRES.state==='connecting'&&navigator.onLine!==false?{k:'wait',t:'Conectando…',s:''}:{k:'off',t:'Sin conexión',s:''}}
+ if(me){if(live)return presHidden()?{k:'hid',t:'Oculto',s:'solo lo ves vos'}:{k:'on',t:'Conectado',s:''};return PRES.state==='connecting'&&navigator.onLine!==false?{k:'wait',t:'Conectando…',s:''}:{k:'off',t:'Sin conexión',s:''}}
  if(!live)return{k:'unk',t:'Sin datos',s:'sin conexión no se sabe'};
  const o=PRES.on[m.user_id];
  if(o)return{k:'on',t:'Conectado',s:o.vis?'':'app en segundo plano'};
@@ -95,6 +97,7 @@ function renderMiembros(){
    return'<li class="mem-row" data-k="'+m.st.k+'"><span class="mem-av" aria-hidden="true"><b>'+esc(ini)+'</b><i class="mem-dot"></i></span>'+
     '<span class="mem-who"><b>'+esc(nm)+(me?' <small>(vos)</small>':'')+'</b><span>'+(m.role==='owner'?'Creó el grupo':'Miembro')+'</span></span>'+
     '<span class="mem-st"><b>'+m.st.t+'</b>'+(m.st.s?'<small>'+esc(m.st.s)+'</small>':'')+'</span></li>'}).join('')+'</ul>'+
+  '<label class="sw mem-inv"><input type="checkbox" id="memVis"'+(presHidden()?'':' checked')+'><span class="knob"></span><span class="t">Aparecer conectado<small>Si lo apagás, tus amigos te ven como «Desconectado» aunque tengas la app abierta. Vale para este equipo.</small></span></label>'+
   '<p class="hint">Conectado quiere decir que tiene la app abierta en este momento, en la compu o en el celu.</p>'+
   '<div class="row"><button class="btn" data-mem="ajustes" type="button">Invitar o administrar el grupo</button></div>'}
 function presDraw(){
@@ -106,3 +109,6 @@ renderers.miembros=()=>{renderMiembros();presRefreshMembers()};
 $('#memBody').addEventListener('click',e=>{const t=e.target.closest('button[data-mem]');if(!t)return;
  if(t.dataset.mem==='ajustes')go('ajustes');
  else if(t.dataset.mem==='entrar'){lsDel('micultivo-nocloud');location.reload()}});
+$('#memBody').addEventListener('change',e=>{if(e.target.id!=='memVis')return;
+ if(e.target.checked)lsDel('micultivo-invisible');else lsSet('micultivo-invisible','1');
+ presTrack();renderMiembros();toast(e.target.checked?'Tus amigos te ven cuando tenés la app abierta':'Ahora te ven como desconectado')});
