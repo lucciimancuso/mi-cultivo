@@ -271,7 +271,7 @@ function renderCampus(){
    anyWater?'<span class="gh-chip warn">'+anyWater+' a regar</span>':
    '<span class="gh-chip">Todo en orden</span>';
   /* las plantas se ven adentro, atrás del vidrio */
-  const svgDots=plants.slice(0,SLOTS.length).map((p,k)=>{const t=at0(()=>statusOf(p)).tone;const col=t==='warn'?'#e3a13b':t==='water'?'#4a7fd5':'#2b7a4b';const row=Math.floor(k/3),col3=k%3;const cx=58+col3*42,cy=112+row*14;return'<g transform="translate('+cx+' '+cy+')"><ellipse cx="0" cy="2" rx="5" ry="2" fill="rgba(0,0,0,.18)"/><circle cx="0" cy="0" r="5.5" fill="'+col+'"/><circle cx="-1.5" cy="-1.5" r="1.8" fill="rgba(255,255,255,.5)"/><animateTransform attributeName="transform" type="translate" values="'+cx+' '+cy+';'+cx+' '+(cy-1.5).toFixed(1)+';'+cx+' '+cy+'" dur="'+(2.8+k*.19).toFixed(1)+'s" repeatCount="indefinite"/></g>'}).join('');
+  const svgDots=plants.slice(0,SLOTS.length).map((p,k)=>{const t=at0(()=>statusOf(p)).tone;const col=t==='warn'?'#EE6B1F':t==='water'?'#5E9A7B':'#2b7a4b';const row=Math.floor(k/3),col3=k%3;const cx=58+col3*42,cy=112+row*14;return'<g transform="translate('+cx+' '+cy+')"><ellipse cx="0" cy="2" rx="5" ry="2" fill="rgba(0,0,0,.18)"/><circle cx="0" cy="0" r="5.5" fill="'+col+'"/><circle cx="-1.5" cy="-1.5" r="1.8" fill="rgba(255,255,255,.5)"/><animateTransform attributeName="transform" type="translate" values="'+cx+' '+cy+';'+cx+' '+(cy-1.5).toFixed(1)+';'+cx+' '+cy+'" dur="'+(2.8+k*.19).toFixed(1)+'s" repeatCount="indefinite"/></g>'}).join('');
   const svg='<svg class="gh-house" viewBox="0 0 240 180" preserveAspectRatio="xMidYMax meet" aria-hidden="true">'+
    /* sombra del piso */'<ellipse cx="120" cy="172" rx="96" ry="5" fill="rgba(0,0,0,.14)"/>'+
    /* base de ladrillo */'<rect x="26" y="138" width="188" height="26" rx="2" fill="url(#gh-brick)"/>'+
@@ -316,7 +316,7 @@ function renderCampus(){
    '<defs>'+
     '<linearGradient id="gh-roof" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6f3e5" stop-opacity=".92"/><stop offset=".7" stop-color="#d9e2cf" stop-opacity=".85"/><stop offset="1" stop-color="#b8c7ad" stop-opacity=".8"/></linearGradient>'+
     '<linearGradient id="gh-glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fcfaef" stop-opacity=".95"/><stop offset="1" stop-color="#e4e9d5" stop-opacity=".85"/></linearGradient>'+
-    '<linearGradient id="gh-brick" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bb6a4f"/><stop offset="1" stop-color="#8f4e36"/></linearGradient>'+
+    '<linearGradient id="gh-brick" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--ladrillo)"/><stop offset="1" style="stop-color:var(--ladrillo2)"/></linearGradient>'+
     '<pattern id="gh-brickShade" x="0" y="0" width="22" height="10" patternUnits="userSpaceOnUse"><line x1="0" y1="5" x2="22" y2="5" stroke="rgba(60,30,15,.4)" stroke-width=".7"/><line x1="11" y1="0" x2="11" y2="5" stroke="rgba(60,30,15,.4)" stroke-width=".7"/><line x1="0" y1="5" x2="0" y2="10" stroke="rgba(60,30,15,.4)" stroke-width=".7"/><line x1="22" y1="5" x2="22" y2="10" stroke="rgba(60,30,15,.4)" stroke-width=".7"/></pattern>'+
    '</defs></svg>';
   return'<button class="gh-card" type="button" data-enter="'+esc(r.id)+'" aria-label="Entrar al invernadero '+esc(roomLabel(r.id))+'">'+
