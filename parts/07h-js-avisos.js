@@ -7,8 +7,10 @@
 const VAPID_PUB='BOlXRQ_xl3jv8VyvNTysCyjSvq-5tcdmnLWICXa8hZo408TSpX0xYeYDFevNfJEbyusaa4cIJwYrWOhY24v_yAc';
 const AV={mode:'',on:false,perm:'',endpoint:'',lastSig:'',syncing:false,again:false,msg:''};
 const isNative=()=>{try{return !!(window.Capacitor&&Capacitor.isNativePlatform&&Capacitor.isNativePlatform())}catch(e){return false}};
-/* en una app sin empaquetador el plugin hay que pedirlo con registerPlugin; isPluginAvailable dice si el APK lo trae */
-const LN=()=>{try{const C=window.Capacitor;if(!isNative()||!C.isPluginAvailable||!C.isPluginAvailable('LocalNotifications'))return null;return AV.ln||(AV.ln=C.registerPlugin('LocalNotifications'))}catch(e){return null}};
+/* En el APK no hay empaquetador: el puente nativo de Capacitor no trae registerPlugin, solo deja el plugin ya armado en
+   Capacitor.Plugins.LocalNotifications (y isPluginAvailable dice si el APK lo incluye). Si algún día hay registerPlugin, se usa de segunda opción. */
+const LN=()=>{try{const C=window.Capacitor;if(!isNative()||!C.isPluginAvailable||!C.isPluginAvailable('LocalNotifications'))return null;
+ return AV.ln||(AV.ln=(C.Plugins&&C.Plugins.LocalNotifications)||(C.registerPlugin&&C.registerPlugin('LocalNotifications'))||null)}catch(e){return null}};
 const isStandalone=()=>{try{return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}catch(e){return false}};
 const isIOS=()=>/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 const pushOk=()=>!!(cloud.cfg&&cloud.on&&'serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window&&(location.protocol==='https:'||location.hostname==='localhost'));

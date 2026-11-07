@@ -7,7 +7,7 @@ PARTS="parts/03-js-data.js parts/03b-js-store.js parts/03c-js-merge.js parts/03d
 BUILD=$(cat $PARTS parts/01-head.html parts/02-body.html pwa/sw.js | md5sum | cut -c1-10)
 rm -rf web && mkdir -p web/vendor
 cp src/vendor/supabase.js src/vendor/*.woff2 web/vendor/
-cp pwa/icon-*.png pwa/apple-touch-icon.png pwa/favicon-32.png pwa/manifest.webmanifest web/
+cp pwa/icon-*.png pwa/apple-touch-icon.png pwa/favicon-32.png pwa/badge-96.png pwa/manifest.webmanifest web/
 sed "s/__BUILD__/$BUILD/" pwa/sw.js > web/sw.js
 node -e "const c=require('./cloud.config.json');require('fs').writeFileSync('web/config.js','/* Datos publicos del proyecto Supabase (la anonKey es publica por diseno). */\nwindow.CLOUD_CFG='+JSON.stringify({url:c.url||'',anonKey:c.anonKey||''})+';\n')"
 {
